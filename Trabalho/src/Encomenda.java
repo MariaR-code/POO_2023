@@ -1,6 +1,6 @@
-package Trabalho.src;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe que implementa uma Encomenda
