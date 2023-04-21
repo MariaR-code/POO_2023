@@ -11,6 +11,7 @@ public class Sapatilhas extends Artigo{
     /*
     * Construtores dos objetos da classe Sapatilhas
     * */
+    /*
     public Sapatilhas(int tamanho, boolean atacadores, String cor,
                       LocalDate data_lancamento, boolean premium){
         super(this); //VER ISTO
@@ -27,6 +28,8 @@ public class Sapatilhas extends Artigo{
 
         }
     }
+    */
+
 
     public Sapatilhas(Sapatilhas sapatilhas){
         super(sapatilhas);
