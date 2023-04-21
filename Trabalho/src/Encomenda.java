@@ -141,6 +141,7 @@ public class Encomenda {
         return new Encomenda(this);
     }
 
+
     /**
      * Método equals que compara e verifica
      * se os objetos em questão são iguais.
