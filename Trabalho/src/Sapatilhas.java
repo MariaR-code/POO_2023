@@ -5,31 +5,32 @@ public class Sapatilhas extends Artigo{
     private boolean atacadores;
     private String cor;
     private LocalDate data_lancamento;
-    private double preco;
     private boolean premium;
 
     /*
     * Construtores dos objetos da classe Sapatilhas
     * */
-    /*
-    public Sapatilhas(int tamanho, boolean atacadores, String cor,
+    public Sapatilhas(String cod_alfanr, double preco_base, int tamanho,
+                      boolean atacadores, String cor,
                       LocalDate data_lancamento, boolean premium){
-        super(this); //VER ISTO
+        super(cod_alfanr, preco_base);
         this.tamanho = tamanho;
         this.atacadores = atacadores;
         this.cor = cor;
         this.data_lancamento = data_lancamento;
         this.premium = premium;
-
-        //Ver melhor como isto vai ficar
-        if(this.premium){
-
-        }else if(super.isUsado() || this.getTamanho() > 45){
-
-        }
     }
-    */
 
+    public Sapatilhas(String cod_alfanr, double preco_base, int av_estado, int nr_donos,
+                      int tamanho, boolean atacadores, String cor,
+                      LocalDate data_lancamento, boolean premium){
+        super(cod_alfanr, preco_base, av_estado, nr_donos);
+        this.tamanho = tamanho;
+        this.atacadores = atacadores;
+        this.cor = cor;
+        this.data_lancamento = data_lancamento;
+        this.premium = premium;
+    }
 
     public Sapatilhas(Sapatilhas sapatilhas){
         super(sapatilhas);
@@ -37,7 +38,6 @@ public class Sapatilhas extends Artigo{
         this.atacadores = sapatilhas.hasAtacadores();
         this.cor = sapatilhas.getCor();
         this.data_lancamento = sapatilhas.getData_lancamento();
-        this.preco = sapatilhas.getPreco();
         this.premium = sapatilhas.isPremium();
     }
 
@@ -58,10 +58,6 @@ public class Sapatilhas extends Artigo{
 
     public LocalDate getData_lancamento() {
         return data_lancamento;
-    }
-
-    public double getPreco() {
-        return preco;
     }
 
     public boolean isPremium() {
@@ -86,10 +82,6 @@ public class Sapatilhas extends Artigo{
 
     public void setData_lancamento(LocalDate data_lancamento) {
         this.data_lancamento = data_lancamento;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
     }
 
     public void setPremium(boolean premium) {
@@ -117,8 +109,8 @@ public class Sapatilhas extends Artigo{
 
         Sapatilhas s = (Sapatilhas) o;
         return this.tamanho == s.getTamanho() && this.atacadores == s.hasAtacadores() &&
-                this.cor.equals(s.getCor()) && this.data_lancamento.equals(s.getData_lancamento()) &&
-                this.preco == s.getPreco() && this.premium == s.isPremium();
+                this.cor.equals(s.getCor()) && this.data_lancamento.equals(s.getData_lancamento())
+                && this.premium == s.isPremium();
     }
 
     /*
@@ -131,11 +123,17 @@ public class Sapatilhas extends Artigo{
         sb.append("\nTamanho numérico: ").append(this.tamanho);
         sb.append("\nCor: ").append(this.cor);
         sb.append("\nData de Lançamento da coleção: ").append(this.data_lancamento);
-        sb.append("\nPreço: ").append(this.preco);
         if(this.atacadores)
             sb.append("\nTem atacadores/atilhos");
         if(this.premium)
             sb.append("\nSão sapatilhas Premium");
         return sb.toString();
+    }
+
+    /*
+    * Método para obter o preço
+    * */
+    public double preco(){
+        return 0.0;
     }
 }

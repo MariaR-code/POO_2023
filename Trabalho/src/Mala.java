@@ -1,21 +1,36 @@
-import java.time.LocalDate;
-
 public class Mala extends Artigo{
     private String dimensao;
     private String material;
-    private LocalDate ano_colecao; //ver isto
-    private double preco;
+    private int ano_colecao;
     private boolean premium;
 
     /*
      * Construtores dos objetos da classe Mala
      * */
+    public Mala(String cod_alfanr, double preco_base, String dimensao, String material,
+                int ano_colecao, boolean premium){
+        super(cod_alfanr, preco_base);
+        this.dimensao = dimensao;
+        this.material = material;
+        this.ano_colecao = ano_colecao;
+        this.premium = premium;
+    }
+
+    public Mala(String cod_alfanr, double preco_base, int av_estado, int nr_donos,
+                String dimensao, String material, int ano_colecao,
+                boolean premium){
+        super(cod_alfanr, preco_base, av_estado, nr_donos);
+        this.dimensao = dimensao;
+        this.material = material;
+        this.ano_colecao = ano_colecao;
+        this.premium = premium;
+    }
+
     public Mala(Mala mala){
         super(mala);
         this.dimensao = mala.getDimensao();
         this.material = mala.getMaterial();
         this.ano_colecao = mala.getAno_colecao();
-        this.preco = mala.getPreco();
         this.premium = mala.isPremium();
     }
 
@@ -30,12 +45,8 @@ public class Mala extends Artigo{
         return material;
     }
 
-    public LocalDate getAno_colecao() {
+    public int getAno_colecao() {
         return ano_colecao;
-    }
-
-    public double getPreco() {
-        return preco;
     }
 
     public boolean isPremium() {
@@ -53,12 +64,8 @@ public class Mala extends Artigo{
         this.material = material;
     }
 
-    public void setAno_colecao(LocalDate ano_colecao) {
+    public void setAno_colecao(int ano_colecao) {
         this.ano_colecao = ano_colecao;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
     }
 
     public void setPremium(boolean premium) {
@@ -87,7 +94,7 @@ public class Mala extends Artigo{
 
         Mala mala = (Mala) o;
         return this.dimensao.equals(mala.getDimensao()) && this.material.equals(mala.getMaterial()) &&
-                this.ano_colecao.equals(mala.getAno_colecao()) && this.preco == mala.getPreco() &&
+                this.ano_colecao == mala.getAno_colecao() &&
                 this.premium == mala.isPremium();
     }
 
@@ -100,9 +107,16 @@ public class Mala extends Artigo{
         sb.append("\nDimensão da mala: ").append(this.dimensao);
         sb.append("\nMaterial: ").append(this.material);
         sb.append("\nAno da Coleção: ").append(this.ano_colecao);
-        sb.append("\nPreço: ").append(this.preco);
         if(this.premium)
             sb.append("\nA mala é premium.");
         return sb.toString();
+    }
+
+    /*
+    * Método para obter o preço
+    *
+    * */
+    public double preco(){
+        return 0.0;
     }
 }

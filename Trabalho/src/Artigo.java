@@ -1,4 +1,4 @@
-public class Artigo {
+public abstract class Artigo {
     public static final int MAU = 1;
     public static final int RAZOAVEL = 2;
     public static final int BOM = 3;
@@ -6,7 +6,7 @@ public class Artigo {
     private String marca;
     private String cod_alfanr;
     private double preco_base;
-    private double correcao_preco;
+    private double correcao_preco; //check this
     private boolean usado;
     private int av_estado;
     private int nr_donos;
@@ -47,6 +47,28 @@ public class Artigo {
         this.usado = art.isUsado();
         this.av_estado = art.getAv_estado();
         this.nr_donos = art.getNr_donos();
+    }
+
+    public Artigo(String cod_alfanr, double preco_base){
+        this.descricao = " ";
+        this.marca = " ";
+        this.cod_alfanr = cod_alfanr;
+        this.preco_base = preco_base;
+        this.correcao_preco = 0.0;
+        this.usado = false;
+        this.av_estado = 0;
+        this.nr_donos = 0;
+    }
+
+    public Artigo(String cod_alfanr, double preco_base, int av_estado, int nr_donos){
+        this.descricao = " ";
+        this.marca = " ";
+        this.cod_alfanr = cod_alfanr;
+        this.preco_base = preco_base;
+        this.correcao_preco = 0.0;
+        this.usado = true;
+        this.av_estado = av_estado;
+        this.nr_donos = nr_donos;
     }
 
     /*
@@ -123,7 +145,17 @@ public class Artigo {
     * Método para clonar um objeto da classe Artigo
     * */
     public Artigo clone(){
-        return new Artigo(this);
+        Artigo clone = (Artigo) clone();
+        clone.descricao = this.getDescricao();
+        clone.marca = this.getMarca();
+        clone.cod_alfanr = this.getCod_alfanr();
+        clone.preco_base = this.getPreco_base();
+        clone.correcao_preco = this.getCorrecao_preco();
+        clone.usado = this.isUsado();
+        clone.av_estado = this.getAv_estado();
+        clone.nr_donos = this.getNr_donos();
+
+        return clone;
     }
 
     /*
@@ -164,4 +196,9 @@ public class Artigo {
 
         return sb.toString();
     }
+
+    /*
+    * Método abstrato
+    * */
+    public abstract double preco();
 }
