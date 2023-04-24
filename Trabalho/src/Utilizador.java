@@ -42,9 +42,9 @@ public class Utilizador {
     }
 
     // Métodos de acesso e modificação dos atributos TODO Clones
-public String getEmail() {  // Vi que fiz uma formatação diferente de encomenda.
-    return email;           // Não sei se querem tudo igual. Depois vê-se
-}                           // ficava:: public String getEmail() {return email;} ¯\_(ツ)_/¯
+public String getEmail() {
+    return email;
+}
 
     public void setEmail(String email) {
         this.email = email;
