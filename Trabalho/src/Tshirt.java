@@ -98,6 +98,11 @@ public class Tshirt extends Artigo{
      * Método para obter o preço
      */
     public double preco(){
-        return 0.0;
+        double preco;
+        if(this.padrao != Padrao.Liso && super.isUsado())
+            preco = super.getPreco_base() * 0.5;
+        else
+            preco = super.getPreco_base();
+        return preco;
     }
 }

@@ -1,7 +1,7 @@
 public abstract class Artigo {
-    public static final int MAU = 1;
+    public static final int MAU = 3;
     public static final int RAZOAVEL = 2;
-    public static final int BOM = 3;
+    public static final int BOM = 1;
     private String descricao;
     private String marca;
     private String cod_alfanr;

@@ -134,6 +134,15 @@ public class Sapatilhas extends Artigo{
     * Método para obter o preço
     * */
     public double preco(){
-        return 0.0;
+        double preco;
+        if(super.isUsado() || this.tamanho >= 45)
+            preco = super.getPreco_base() - (super.getPreco_base() / (super.getNr_donos() * super.getAv_estado()));
+        else if(this.premium) {
+            double aumento = super.getPreco_base() * 0.20;
+            preco = super.getPreco_base() +
+                    (aumento * (LocalDate.now().getYear() - this.data_lancamento.getYear()));
+        }else
+            preco = super.getPreco_base();
+        return preco;
     }
 }
