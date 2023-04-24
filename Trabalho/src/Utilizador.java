@@ -20,12 +20,12 @@ public class Utilizador {
     private String nif; //String porque não vamos utilizar NIF para cálculos certo?
     private String senha;
     private int tipoUtilizador; // 0: comprador, 1: vendedor, 2: ambos
+    private double valorTotalVendas;
     /* idk about p5 yet
     private ArrayList<Artigo> artigosParaVenda;
     private ArrayList<Artigo||Encomenda?> artigosAdquiridos;
     private ArrayList<Artigo||Encomenda?> vendasRealizadas;
     */
-    private double valorTotalVendas;
 
     public Utilizador(String email, String nome, String morada, String nif, String senha, int tipoUtilizador) {
         this.email = email;
@@ -34,12 +34,55 @@ public class Utilizador {
         this.nif = nif;
         this.senha = senha;
         this.tipoUtilizador = tipoUtilizador;
+        this.valorTotalVendas = 0.0;
+
         // this.artigosAVenda = new ArrayList<>();
         // this.artigosAdquiridos = new ArrayList<>();
         // this.vendasRealizadas = new ArrayList<>();
-        this.valorTotalVendas = 0.0;
     }
 
+    // Métodos de acesso e modificação dos atributos TODO Clones
+public String getEmail() {  // Vi que fiz uma formatação diferente de encomenda.
+    return email;           // Não sei se querem tudo igual. Depois vê-se
+}                           // ficava:: public String getEmail() {return email;} ¯\_(ツ)_/¯
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNome() { // dúvida: "return nome;" vs "return this.nome;"
+        return nome;          // há problema caso haja outros 'nome' por exemplo em Artigo?
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getMorada() {
+        return morada;
+    }
+
+    public void setMorada(String morada) {
+        this.morada = morada;
+    }
+
+    public String getNif() {
+        return nif;
+    }
+
+    public void setNif(String nif) {
+        this.nif = nif;
+    }
+
+    public int getTipoUtilizador() {
+        return tipoUtilizador;
+    }
+
+    public void setTipoUtilizador(int tipoUtilizador) {
+        if (tipoUtilizador < 0 || tipoUtilizador > 2) {
+            throw new IllegalArgumentException("Valor inválido para o tipo de utilizador");
+        }
+        this.tipoUtilizador = tipoUtilizador;
+    }
 
     }
