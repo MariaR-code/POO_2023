@@ -1,3 +1,4 @@
+package Trabalho.src;
 import java.util.ArrayList;
 
 /* Notepad::
@@ -19,10 +20,14 @@ public class Utilizador {
     private String nif;
     private int tipoUtilizador; // 0: comprador, 1: vendedor, 2: ambos
     private double valorTotalVendas;
-    private ArrayList<Artigo> artigosParaVenda;
-    private ArrayList<Artigo> artigosVendidos;
-    private ArrayList<Artigo> artigosComprados;
+    // private ArrayList<Artigo> artigosParaVenda;
+    // private ArrayList<Artigo> artigosVendidos;
+    // private ArrayList<Artigo> artigosComprados;
 
+
+    /**
+     * Contrutores dos objetos da classe Utilizador
+     * */
     public Utilizador(String email, String nome, String morada, String nif, int tipoUtilizador) {
         this.email = email;
         this.nome = nome;
@@ -30,46 +35,80 @@ public class Utilizador {
         this.nif = nif;
         this.tipoUtilizador = tipoUtilizador;
         this.valorTotalVendas = 0.0;
-        this.artigosParaVenda = new ArrayList<Artigo>();
-        this.artigosVendidos = new ArrayList<Artigo>();
-        this.artigosComprados = new ArrayList<Artigo>();
+        // this.artigosParaVenda = new ArrayList<Artigo>();
+        // this.artigosVendidos = new ArrayList<Artigo>();
+        // this.artigosComprados = new ArrayList<Artigo>();
     }
 
-    // Métodos de acesso e modificação dos atributos
+
+    /**
+     * Construtor de cópia de Utilizador.
+     */
+    public Utilizador(Utilizador utilizador) {
+        this.email = utilizador.getEmail();
+        this.nome = utilizador.getNome();
+        this.morada = utilizador.getMorada();
+        this.nif = utilizador.getNif();
+        this.tipoUtilizador = utilizador.getTipoUtilizador();
+        this.valorTotalVendas = utilizador.getValorTotalVendas();
+    }
+
+    /**
+     * Getters dos objetos da classe Artigo
+     * */
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public String getMorada() {
         return morada;
-    }
-
-    public void setMorada(String morada) {
-        this.morada = morada;
     }
 
     public String getNif() {
         return nif;
     }
 
-    public void setNif(String nif) {
-        this.nif = nif;
-    }
-
     public int getTipoUtilizador() {
         return tipoUtilizador;
+    }
+
+    public double getValorTotalVendas() {
+        return  valorTotalVendas;
+    }
+/*
+    public ArrayList<Artigo> getArtigosVendidos() {
+        return artigosVendidos;
+    }
+
+    public ArrayList<Artigo> getArtigosComprados() {
+        return artigosComprados;
+    }
+
+    public ArrayList<Artigo> getArtigosParaVenda() {
+        return artigosParaVenda;
+    }
+*/
+    /**
+     * Setters dos objetos da classe Utilizador
+     * */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setMorada(String morada) {
+        this.morada = morada;
+    }
+
+    public void setNif(String nif) {
+        this.nif = nif;
     }
 
     public void setTipoUtilizador(int tipoUtilizador) {
@@ -79,18 +118,8 @@ public class Utilizador {
         this.tipoUtilizador = tipoUtilizador;
     }
 
-    public ArrayList<Artigo> getArtigosParaVenda() {
-        return artigosParaVenda;
-    }
 
-    public ArrayList<Artigo> getArtigosVendidos() {
-        return artigosVendidos;
-    }
-
-    public ArrayList<Artigo> getArtigosComprados() {
-        return artigosComprados;
-    }
-
+/*
     public void adicionarArtigoParaVenda(Artigo artigo) {
         this.artigosParaVenda.add(artigo);
     }
@@ -112,14 +141,30 @@ public class Utilizador {
     public void adicionarArtigoComprado(Artigo artigo) {
         this.artigosComprados.add(artigo);
     }
+*/
 
-    // Clone
+    /**
+     * Método para clonar um objeto da classe Utilizador
+     * */
     public Utilizador clone(){
         return new Utilizador(this);
     }
 
-    // Equals
-    public
+    /**
+     * Método de verificação de igualdade de dois objetos, sendo um deles da classe Utilizador
+     * */
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || o.getClass() != this.getClass()) return false;
+        Utilizador user = (Utilizador) o;
+        return this.email.equals(user.getEmail()) &&
+                this.nome.equals(user.getNome()) &&
+                this.morada.equals(user.getMorada()) &&
+                this.nif.equals(user.getNif()) &&
+                this.tipoUtilizador == user.getTipoUtilizador() &&
+                this.valorTotalVendas == user.getValorTotalVendas();
+    }
+
 
     public String toString() {
         String tipo = "";
