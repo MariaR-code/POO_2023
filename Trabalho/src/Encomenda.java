@@ -1,11 +1,8 @@
-package Trabalho.src;
+//package Trabalho.src;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.lang.Float.sum;
-import static java.util.stream.Nodes.collect;
 
 /**
  * Classe que implementa uma Encomenda
@@ -84,7 +81,7 @@ public class Encomenda {
     //TODO pode ser necessário fazer um clone
     public List<Artigo> getArtigos()
     {
-        return this.artigos.stream().map(Artigo::clone()).collect(Collectors.toList());
+        return this.artigos.stream().map(Artigo::clone).collect(Collectors.toList());
     }
 
 
@@ -113,7 +110,7 @@ public class Encomenda {
      */
     public void setArtigos(List<Artigo> artigos_)
     {
-        artigos_.stream().map(Artigo::clone()).collect(Collectors.toList());
+        artigos_.stream().map(Artigo::clone).collect(Collectors.toList());
     }
 
     public void setDimensao(Dimensao dimensao_)
@@ -141,13 +138,14 @@ public class Encomenda {
      */
     public List<Artigo> addArtigo(Artigo artigo)
     {
-        return this.artigos.add(artigo.clone());;
+        this.artigos.add(artigo.clone());
+        return this.artigos;
     }
 
     /**
      * Método removeArtigo que remove um artigo de uma encomenda.
      */
-    public List<Artigo> removeArtigo(Artigo artigo)
+    public boolean removeArtigo(Artigo artigo)
     {
        return this.artigos.remove(artigo);
     }
@@ -159,8 +157,8 @@ public class Encomenda {
     //TODO !!!!!!!!!!!!!!!!!!!!!
     public double calculaPreco()
     {
-        this.preco_final = artigos.stream().mapToDouble(Artigo::preco()).sum();
-        return ;
+        this.preco_final = artigos.stream().mapToDouble(Artigo::preco).sum();
+        return this.preco_final;
     }
 
     /**

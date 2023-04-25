@@ -6,7 +6,6 @@ public abstract class Artigo {
     private String marca;
     private String cod_alfanr;
     private double preco_base;
-    private double correcao_preco; //check this
     private boolean usado;
     private int av_estado;
     private int nr_donos;
@@ -20,7 +19,6 @@ public abstract class Artigo {
         this.marca = marca;
         this.cod_alfanr = cod_alfanr;
         this.preco_base = preco_base;
-        this.correcao_preco = correcao_preco;
         this.usado = false;
         this.av_estado = 0;
         this.nr_donos = 0;
@@ -32,7 +30,6 @@ public abstract class Artigo {
         this.marca = marca;
         this.cod_alfanr = cod_alfanr;
         this.preco_base = preco_base;
-        this.correcao_preco = correcao_preco;
         this.usado = true;
         this.av_estado = av_estado;
         this.nr_donos = nr_donos;
@@ -43,7 +40,6 @@ public abstract class Artigo {
         this.marca = art.getMarca();
         this.cod_alfanr = art.getCod_alfanr();
         this.preco_base = art.getPreco_base();
-        this.correcao_preco = art.getCorrecao_preco();
         this.usado = art.isUsado();
         this.av_estado = art.getAv_estado();
         this.nr_donos = art.getNr_donos();
@@ -54,7 +50,6 @@ public abstract class Artigo {
         this.marca = " ";
         this.cod_alfanr = cod_alfanr;
         this.preco_base = preco_base;
-        this.correcao_preco = 0.0;
         this.usado = false;
         this.av_estado = 0;
         this.nr_donos = 0;
@@ -65,7 +60,6 @@ public abstract class Artigo {
         this.marca = " ";
         this.cod_alfanr = cod_alfanr;
         this.preco_base = preco_base;
-        this.correcao_preco = 0.0;
         this.usado = true;
         this.av_estado = av_estado;
         this.nr_donos = nr_donos;
@@ -88,10 +82,6 @@ public abstract class Artigo {
 
     public double getPreco_base() {
         return preco_base;
-    }
-
-    public double getCorrecao_preco() {
-        return correcao_preco;
     }
 
     public boolean isUsado() {
@@ -125,10 +115,6 @@ public abstract class Artigo {
         this.preco_base = preco_base;
     }
 
-    public void setCorrecao_preco(double correcao_preco) {
-        this.correcao_preco = correcao_preco;
-    }
-
     public void setUsado(boolean usado) {
         this.usado = usado;
     }
@@ -150,7 +136,6 @@ public abstract class Artigo {
         clone.marca = this.getMarca();
         clone.cod_alfanr = this.getCod_alfanr();
         clone.preco_base = this.getPreco_base();
-        clone.correcao_preco = this.getCorrecao_preco();
         clone.usado = this.isUsado();
         clone.av_estado = this.getAv_estado();
         clone.nr_donos = this.getNr_donos();
@@ -171,8 +156,8 @@ public abstract class Artigo {
         Artigo art = (Artigo) o;
         return this.descricao.equals(art.getDescricao()) && this.marca.equals(art.getMarca()) &&
                 this.cod_alfanr.equals(art.getCod_alfanr()) && this.preco_base == art.getPreco_base() &&
-                this.correcao_preco == art.getCorrecao_preco() && this.usado == art.isUsado() &&
-                this.av_estado == art.getAv_estado() && this.nr_donos == art.getNr_donos();
+                this.usado == art.isUsado() && this.av_estado == art.getAv_estado() &&
+                this.nr_donos == art.getNr_donos();
     }
 
     /*
@@ -185,7 +170,6 @@ public abstract class Artigo {
         sb.append("\nMarca: ").append(this.marca);
         sb.append("\nCódigo Alfanumérico: ").append(this.cod_alfanr);
         sb.append("\nPreço Base: ").append(this.preco_base);
-        sb.append("\nCorreção do Preço: ").append(this.correcao_preco);
         if(this.usado){
             sb.append("\nArtigo usado\n");
             sb.append("Avaliação do Estado do artigo (valores entre 1(mau estado) e 3(bom estado) ): ").append(this.av_estado);
