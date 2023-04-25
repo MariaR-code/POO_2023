@@ -14,16 +14,28 @@ public class Tshirt extends Artigo{
 
     private Tamanho tamanho;
     private Padrao padrao;
-    private double preco;
 
     /*
     * Construtores dos objetos da classe Tshirt
     * */
+    public Tshirt(String cod_alfanr, double preco_base, Tamanho tamanho,
+                  Padrao padrao){
+        super(cod_alfanr, preco_base);
+        this.tamanho = tamanho;
+        this.padrao = padrao;
+    }
+
+    public Tshirt(String cod_alfanr, double preco_base, int av_estado, int nr_donos,
+                  Tamanho tamanho, Padrao padrao){
+        super(cod_alfanr, preco_base, av_estado, nr_donos);
+        this.tamanho = tamanho;
+        this.padrao = padrao;
+    }
+
     public Tshirt(Tshirt tshirt){
         super(tshirt);
         this.tamanho = tshirt.getTamanho();
         this.padrao = tshirt.getPadrao();
-        this.preco = tshirt.getPreco();
     }
 
     /*
@@ -37,10 +49,6 @@ public class Tshirt extends Artigo{
         return padrao;
     }
 
-    public double getPreco() {
-        return preco;
-    }
-
     /*
     * Setters dos objetos da classe Tshirt
     * */
@@ -50,10 +58,6 @@ public class Tshirt extends Artigo{
 
     public void setPadrao(Padrao padrao) {
         this.padrao = padrao;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
     }
 
     /*
@@ -76,8 +80,7 @@ public class Tshirt extends Artigo{
             return false;
 
         Tshirt tshirt = (Tshirt) o;
-        return this.tamanho == tshirt.getTamanho() && this.padrao == tshirt.getPadrao()
-                && this.preco == tshirt.getPreco();
+        return this.tamanho == tshirt.getTamanho() && this.padrao == tshirt.getPadrao();
     }
 
     /*
@@ -88,7 +91,18 @@ public class Tshirt extends Artigo{
         sb.append(super.toString());
         sb.append("\nTamanho: ").append(this.tamanho);
         sb.append("\nPadrão: ").append(this.padrao);
-        sb.append("\nPreço: ").append(this.preco);
         return sb.toString();
+    }
+
+    /*
+     * Método para obter o preço
+     */
+    public double preco(){
+        double preco;
+        if(this.padrao != Padrao.Liso && super.isUsado())
+            preco = super.getPreco_base() * 0.5;
+        else
+            preco = super.getPreco_base();
+        return preco;
     }
 }
