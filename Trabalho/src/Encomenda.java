@@ -1,6 +1,11 @@
+package Trabalho.src;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.lang.Float.sum;
+import static java.util.stream.Nodes.collect;
 
 /**
  * Classe que implementa uma Encomenda
@@ -79,7 +84,7 @@ public class Encomenda {
     //TODO pode ser necessário fazer um clone
     public List<Artigo> getArtigos()
     {
-        return this.artigos;
+        return this.artigos.stream().map(Artigo::clone()).collect(Collectors.toList());
     }
 
 
@@ -106,10 +111,9 @@ public class Encomenda {
     /**
      * Setters dos objetos da classe Encomenda.
      */
-    //TODO verificar se é necesário fazer clone
     public void setArtigos(List<Artigo> artigos_)
     {
-        this.artigos = artigos_;
+        artigos_.stream().map(Artigo::clone()).collect(Collectors.toList());
     }
 
     public void setDimensao(Dimensao dimensao_)
@@ -133,6 +137,33 @@ public class Encomenda {
     }
 
     /**
+     * Método addArtigo que adiciona um artigo de uma encomenda.
+     */
+    public List<Artigo> addArtigo(Artigo artigo)
+    {
+        return this.artigos.add(artigo.clone());;
+    }
+
+    /**
+     * Método removeArtigo que remove um artigo de uma encomenda.
+     */
+    public List<Artigo> removeArtigo(Artigo artigo)
+    {
+       return this.artigos.remove(artigo);
+    }
+
+    /**
+     * Método calculaPreco que calcula o preço final
+     * a pagar pela encomenda.
+     */
+    //TODO !!!!!!!!!!!!!!!!!!!!!
+    public double calculaPreco()
+    {
+        this.preco_final = artigos.stream().mapToDouble(Artigo::preco()).sum();
+        return ;
+    }
+
+    /**
      * Método clone que faz uma cópia do objeto,
      * utilizando o contrutor de cópia.
      */
@@ -140,10 +171,6 @@ public class Encomenda {
     {
         return new Encomenda(this);
     }
-    /**
-     * Método addEncomenda
-     * Adiciona uma encomenda.
-     */
 
     /**
      * Método equals que compara e verifica
@@ -163,12 +190,11 @@ public class Encomenda {
     /**
      * Método toString que devolve a representação em String da Encomenda.
      */
-    //TODO pedir à Maria para checkar
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
         sb.append("Encomenda: {");
-        sb.append("Artigos: ").append(this.artigos);
+        sb.append("Artigos: ").append(this.artigos.toString());
         sb.append("Dimensão: ").append(this.dimensao);
         sb.append("Data: ").append(this.data);
         sb.append("Estado: ").append(this.estado).append("}");
