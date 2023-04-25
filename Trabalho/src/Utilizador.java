@@ -1,36 +1,33 @@
-// package Trabalho.src; // isto já vinha aqui. para que serve?
 import java.util.ArrayList;
+
 /* Notepad::
 Cada utilizador --> Guarda a informação relativa ao seu código no sistema (fornecido automaticamente pelo sistema)
 		p1 Email | p2 Nome | p3 Morada | p4 NIF
 
-		p5 Deverá ser guardada toda a informação sobre produtos que tem à venda, que já vendeu, bem como os que já adquiriu
-		É suposto o sistema guardar a informação sobre as vendas que foram efectuadas e o valor que delas resultou.
+		p5 Toda a informação sobre produtos que tem à venda, que já vendeu, bem como os que já adquiriu
+		Guardar a informação sobre as vendas que foram efectuadas e o valor que delas resultou.
 
 		p6 Note que um mesmo utilizador poderá actuar como vendedor e como comprador.
 	 -------------------------------------------------------------------------------------------------------------------
 	 Pensei em adicionar uma senha ao login (não estritamente necessário para a simulação mas nunca vi logins sem senha)
-
  */
 
 public class Utilizador {
     private String email;
     private String nome;
     private String morada;
-    private String nif; //String porque não vamos utilizar NIF para cálculos certo?
-    private String senha;
+    private String nif;
     private int tipoUtilizador; // 0: comprador, 1: vendedor, 2: ambos
     private double valorTotalVendas;
     private ArrayList<Artigo> artigosParaVenda;
     private ArrayList<Artigo> artigosVendidos;
     private ArrayList<Artigo> artigosComprados;
 
-    public Utilizador(String email, String nome, String morada, String nif, String senha, int tipoUtilizador) {
+    public Utilizador(String email, String nome, String morada, String nif, int tipoUtilizador) {
         this.email = email;
         this.nome = nome;
         this.morada = morada;
         this.nif = nif;
-        this.senha = senha;
         this.tipoUtilizador = tipoUtilizador;
         this.valorTotalVendas = 0.0;
         this.artigosParaVenda = new ArrayList<Artigo>();
@@ -38,7 +35,7 @@ public class Utilizador {
         this.artigosComprados = new ArrayList<Artigo>();
     }
 
-    // Métodos de acesso e modificação dos atributos TODO Clone
+    // Métodos de acesso e modificação dos atributos
     public String getEmail() {
         return email;
     }
@@ -47,8 +44,8 @@ public class Utilizador {
         this.email = email;
     }
 
-    public String getNome() { // dúvida: "return nome;" vs "return this.nome;"
-        return nome;          // há problema caso haja outros 'nome'?
+    public String getNome() {
+        return nome;
     }
 
     public void setNome(String nome) {
@@ -116,6 +113,14 @@ public class Utilizador {
         this.artigosComprados.add(artigo);
     }
 
+    // Clone
+    public Utilizador clone(){
+        return new Utilizador(this);
+    }
+
+    // Equals
+    public
+
     public String toString() {
         String tipo = "";
         if (tipoUtilizador == 0) {
@@ -130,12 +135,11 @@ public class Utilizador {
                 ", Nome='" + nome + '\'' +
                 ", Morada='" + morada + '\'' +
                 ", NIF='" + nif + '\'' +
-                ", Senha='" + senha + '\'' +
-                ", Tipo de Utilizador=" + tipo +
-                ", valorTotalVendas=" + valorTotalVendas + // faz sentido mostrar este para o tipo Comprador?
-               // ", artigosParaVenda=" + artigosParaVenda +
-               // ", artigosVendidos=" + artigosVendidos +
-               // ", artigosComprados=" + artigosComprados +
+                ", Tipo de utilizador=" + tipo +
+                ", Valor total de vendas=" + valorTotalVendas + // faz sentido mostrar este para o tipo Comprador?
+               // ", Artigos para venda=" + artigosParaVenda +
+               // ", Artigos Vendidos=" + artigosVendidos +
+               // ", Artigos Comprados=" + artigosComprados +
                 '}';
     }
 
