@@ -18,6 +18,12 @@ public class Tshirt extends Artigo{
     /*
     * Construtores dos objetos da classe Tshirt
     * */
+    public Tshirt(){
+        super();
+        this.tamanho = Tamanho.S;
+        this.padrao = Padrao.Liso;
+    }
+
     public Tshirt(String cod_alfanr, double preco_base, Tamanho tamanho,
                   Padrao padrao){
         super(cod_alfanr, preco_base);

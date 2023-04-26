@@ -13,6 +13,16 @@ public abstract class Artigo {
     /*
     * Contrutores dos objetos da classe Artigo
     * */
+    public Artigo(){
+        this.descricao = "";
+        this.marca = "";
+        this.cod_alfanr = "";
+        this.preco_base = 0.0;
+        this.usado = false;
+        this.av_estado = 0;
+        this.nr_donos = 0;
+    }
+
     public Artigo(String descricao, String marca, String cod_alfanr, double preco_base,
                   double correcao_preco){
         this.descricao = descricao;

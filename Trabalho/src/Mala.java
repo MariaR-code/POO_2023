@@ -11,6 +11,15 @@ public class Mala extends Artigo{
     /*
      * Construtores dos objetos da classe Mala
      * */
+    public Mala(){
+        super();
+        this.altura = 0.0;
+        this.profundidade = 0.0;
+        this.comprimento = 0.0;
+        this.material = "";
+        this.ano_colecao = LocalDate.now().getYear();
+        this.premium = false;
+    }
     public Mala(String cod_alfanr, double preco_base, double altura,
                 double comprimento, double profundidade, String material,
                 int ano_colecao, boolean premium){
@@ -148,10 +157,8 @@ public class Mala extends Artigo{
     public double preco(){
         double preco;
         if(super.isUsado()) {
-            //Dizer ao Duarte para perguntar ao stor se o desconto para além de ser proporcionalmente
-            //inverso também precisa de ter em conta o estado e o nr de donos que a mala já teve.
             double volume = this.altura * this.comprimento * this.profundidade;
-            preco = super.getPreco_base() - (super.getPreco_base() / (volume/10));
+            preco = super.getPreco_base() - (super.getPreco_base() / (volume/10*super.getNr_donos()+super.getAv_estado()));
         }
         else if(this.premium) {
             double volume = this.altura * this.comprimento * this.profundidade;

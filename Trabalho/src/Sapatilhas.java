@@ -10,6 +10,15 @@ public class Sapatilhas extends Artigo{
     /*
     * Construtores dos objetos da classe Sapatilhas
     * */
+    public Sapatilhas(){
+        super();
+        this.tamanho = 38;
+        this.atacadores = true;
+        this.cor = "";
+        this.data_lancamento = LocalDate.now();
+        this.premium = false;
+    }
+
     public Sapatilhas(String cod_alfanr, double preco_base, int tamanho,
                       boolean atacadores, String cor,
                       LocalDate data_lancamento, boolean premium){
