@@ -13,9 +13,9 @@ public class Encomenda {
     private List<Artigo> artigos;
     public enum Dimensao
     {
-        PEQUENO,
-        MEDIO,
-        GRANDE
+        PEQUENO, //Quando a encomenda possui apenas 1 artigo.
+        MEDIO,   //Quando a encomenda possui entre 2 a 5 artigos.
+        GRANDE   //Quando a encomenda possui mais que 5 artigos.
     }
     private Dimensao dimensao;
     private double preco_final;
@@ -49,14 +49,20 @@ public class Encomenda {
     /**
      * Construtor parametrizado de Encomenda.
      */
-    public Encomenda(List<Artigo> artigos_, Dimensao dimensao_, double preco_final_, LocalDate data_,
+    public Encomenda(List<Artigo> artigos_, double preco_final_, LocalDate data_,
                      Estado estado_)
     {
-        setArtigos(artigos_);
-        this.dimensao = dimensao_;
+        this.setArtigos(artigos_);
         this.preco_final = preco_final_;
         this.data = data_;
         this.estado = estado_;
+        if(this.artigos.size() == 1)
+            this.dimensao = Dimensao.PEQUENO;
+        else if(this.artigos.size() < 5)
+        {
+            this.dimensao = Dimensao.MEDIO;
+        }
+            else this.dimensao = Dimensao.GRANDE;
     }
 
     /**
@@ -78,7 +84,6 @@ public class Encomenda {
     /**
      * Getters dos objetos da classe Encomenda.
      */
-    //TODO pode ser necessário fazer um clone
     public List<Artigo> getArtigos()
     {
         return this.artigos.stream().map(Artigo::clone).collect(Collectors.toList());
@@ -110,7 +115,7 @@ public class Encomenda {
      */
     public void setArtigos(List<Artigo> artigos_)
     {
-        artigos_.stream().map(Artigo::clone).collect(Collectors.toList());
+        this.artigos = artigos_.stream().map(Artigo::clone).collect(Collectors.toList());
     }
 
     public void setDimensao(Dimensao dimensao_)
@@ -157,8 +162,7 @@ public class Encomenda {
     //TODO !!!!!!!!!!!!!!!!!!!!!
     public double calculaPreco()
     {
-        this.preco_final = artigos.stream().mapToDouble(Artigo::preco).sum();
-        return this.preco_final;
+        return this.preco_final = artigos.stream().mapToDouble(Artigo::preco).sum();
     }
 
     /**
