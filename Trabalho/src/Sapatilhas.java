@@ -19,10 +19,10 @@ public class Sapatilhas extends Artigo{
         this.premium = false;
     }
 
-    public Sapatilhas(String cod_alfanr, double preco_base, int tamanho,
+    public Sapatilhas(String cod_alfanr, double preco_base, String transportadora, int tamanho,
                       boolean atacadores, String cor,
                       LocalDate data_lancamento, boolean premium){
-        super(cod_alfanr, preco_base);
+        super(cod_alfanr, preco_base, transportadora);
         this.tamanho = tamanho;
         this.atacadores = atacadores;
         this.cor = cor;
@@ -30,10 +30,10 @@ public class Sapatilhas extends Artigo{
         this.premium = premium;
     }
 
-    public Sapatilhas(String cod_alfanr, double preco_base, int av_estado, int nr_donos,
+    public Sapatilhas(String cod_alfanr, double preco_base, int av_estado, int nr_donos, String transportadora,
                       int tamanho, boolean atacadores, String cor,
                       LocalDate data_lancamento, boolean premium){
-        super(cod_alfanr, preco_base, av_estado, nr_donos);
+        super(cod_alfanr, preco_base, av_estado, nr_donos, transportadora);
         this.tamanho = tamanho;
         this.atacadores = atacadores;
         this.cor = cor;

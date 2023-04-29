@@ -9,6 +9,7 @@ public abstract class Artigo {
     private boolean usado;
     private int av_estado;
     private int nr_donos;
+    private String transportadora;
 
     /*
     * Contrutores dos objetos da classe Artigo
@@ -21,10 +22,11 @@ public abstract class Artigo {
         this.usado = false;
         this.av_estado = 0;
         this.nr_donos = 0;
+        this.transportadora = "";
     }
 
     public Artigo(String descricao, String marca, String cod_alfanr, double preco_base,
-                  double correcao_preco){
+                  double correcao_preco, String transportadora){
         this.descricao = descricao;
         this.marca = marca;
         this.cod_alfanr = cod_alfanr;
@@ -32,10 +34,11 @@ public abstract class Artigo {
         this.usado = false;
         this.av_estado = 0;
         this.nr_donos = 0;
+        this.transportadora = transportadora;
     }
 
     public Artigo(String descricao, String marca, String cod_alfanr, double preco_base,
-                  double correcao_preco, int av_estado, int nr_donos){
+                  double correcao_preco, int av_estado, int nr_donos, String transportadora){
         this.descricao = descricao;
         this.marca = marca;
         this.cod_alfanr = cod_alfanr;
@@ -43,6 +46,7 @@ public abstract class Artigo {
         this.usado = true;
         this.av_estado = av_estado;
         this.nr_donos = nr_donos;
+        this.transportadora = transportadora;
     }
 
     public Artigo(Artigo art){
@@ -53,9 +57,10 @@ public abstract class Artigo {
         this.usado = art.isUsado();
         this.av_estado = art.getAv_estado();
         this.nr_donos = art.getNr_donos();
+        this.transportadora = art.getTransportadora();
     }
 
-    public Artigo(String cod_alfanr, double preco_base){
+    public Artigo(String cod_alfanr, double preco_base, String transportadora){
         this.descricao = " ";
         this.marca = " ";
         this.cod_alfanr = cod_alfanr;
@@ -63,9 +68,10 @@ public abstract class Artigo {
         this.usado = false;
         this.av_estado = 0;
         this.nr_donos = 0;
+        this.transportadora = transportadora;
     }
 
-    public Artigo(String cod_alfanr, double preco_base, int av_estado, int nr_donos){
+    public Artigo(String cod_alfanr, double preco_base, int av_estado, int nr_donos, String transportadora){
         this.descricao = " ";
         this.marca = " ";
         this.cod_alfanr = cod_alfanr;
@@ -73,6 +79,7 @@ public abstract class Artigo {
         this.usado = true;
         this.av_estado = av_estado;
         this.nr_donos = nr_donos;
+        this.transportadora = transportadora;
     }
 
     /*
@@ -106,6 +113,10 @@ public abstract class Artigo {
         return nr_donos;
     }
 
+    public String getTransportadora() {
+        return transportadora;
+    }
+
     /*
     * Setters dos objetos da classe Artigo
     * */
@@ -137,6 +148,10 @@ public abstract class Artigo {
         this.nr_donos = nr_donos;
     }
 
+    public void setTransportadora(String transportadora) {
+        this.transportadora = transportadora;
+    }
+
     /*
     * Método para clonar um objeto da classe Artigo
     * */
@@ -149,6 +164,7 @@ public abstract class Artigo {
         clone.usado = this.isUsado();
         clone.av_estado = this.getAv_estado();
         clone.nr_donos = this.getNr_donos();
+        clone.transportadora = this.getTransportadora();
 
         return clone;
     }
@@ -167,7 +183,7 @@ public abstract class Artigo {
         return this.descricao.equals(art.getDescricao()) && this.marca.equals(art.getMarca()) &&
                 this.cod_alfanr.equals(art.getCod_alfanr()) && this.preco_base == art.getPreco_base() &&
                 this.usado == art.isUsado() && this.av_estado == art.getAv_estado() &&
-                this.nr_donos == art.getNr_donos();
+                this.nr_donos == art.getNr_donos() && this.transportadora.equals(art.getTransportadora());
     }
 
     /*
@@ -180,6 +196,7 @@ public abstract class Artigo {
         sb.append("\nMarca: ").append(this.marca);
         sb.append("\nCódigo Alfanumérico: ").append(this.cod_alfanr);
         sb.append("\nPreço Base: ").append(this.preco_base);
+        sb.append("\nA transportadora utilizada por este artigo é: ").append(this.transportadora);
         if(this.usado){
             sb.append("\nArtigo usado\n");
             sb.append("Avaliação do Estado do artigo (valores entre 1(mau estado) e 3(bom estado) ): ").append(this.av_estado);
