@@ -7,7 +7,7 @@ public class Sapatilhas extends Artigo{
     private LocalDate data_lancamento;
     private boolean premium;
 
-    /*
+    /**
     * Construtores dos objetos da classe Sapatilhas
     * */
     public Sapatilhas(){
@@ -50,7 +50,7 @@ public class Sapatilhas extends Artigo{
         this.premium = sapatilhas.isPremium();
     }
 
-    /*
+    /**
     * Getters dos objetos da classe Sapatilhas
     * */
     public int getTamanho() {
@@ -73,7 +73,7 @@ public class Sapatilhas extends Artigo{
         return premium;
     }
 
-    /*
+    /**
     * Setters dos objetos da classe Sapatilhas
     * */
 
@@ -97,14 +97,14 @@ public class Sapatilhas extends Artigo{
         this.premium = premium;
     }
 
-    /*
+    /**
     * Método para clonar um objeto da classe Sapatilhas
     * */
     public Sapatilhas clone(){
         return new Sapatilhas(this);
     }
 
-    /*
+    /**
     * Método de verificação de igualdade de dois objetos, sendo um deles da classe Sapatilhas
     * */
     public boolean Equals(Object o){
@@ -122,7 +122,7 @@ public class Sapatilhas extends Artigo{
                 && this.premium == s.isPremium();
     }
 
-    /*
+    /**
     * Método que apresenta uma representação da forma String do objeto da classe Sapatilhas
     * */
     public String toString(){
@@ -139,7 +139,7 @@ public class Sapatilhas extends Artigo{
         return sb.toString();
     }
 
-    /*
+    /**
     * Método para obter o preço
     * */
     public double preco(){

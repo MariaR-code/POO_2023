@@ -11,7 +11,7 @@ public abstract class Artigo {
     private int nr_donos;
     private String transportadora;
 
-    /*
+    /**
     * Contrutores dos objetos da classe Artigo
     * */
     public Artigo(){
@@ -82,7 +82,7 @@ public abstract class Artigo {
         this.transportadora = transportadora;
     }
 
-    /*
+    /**
     * Getters dos objetos da classe Artigo
     * */
     public String getDescricao() {
@@ -117,7 +117,7 @@ public abstract class Artigo {
         return transportadora;
     }
 
-    /*
+    /**
     * Setters dos objetos da classe Artigo
     * */
     public void setDescricao(String descricao) {
@@ -152,7 +152,7 @@ public abstract class Artigo {
         this.transportadora = transportadora;
     }
 
-    /*
+    /**
     * Método para clonar um objeto da classe Artigo
     * */
     public Artigo clone(){
@@ -169,7 +169,7 @@ public abstract class Artigo {
         return clone;
     }
 
-    /*
+    /**
     * Método de verificação de igualdade de dois objetos, sendo um deles da classe Artigo
     * */
     public boolean Equals(Object o){
@@ -186,7 +186,7 @@ public abstract class Artigo {
                 this.nr_donos == art.getNr_donos() && this.transportadora.equals(art.getTransportadora());
     }
 
-    /*
+    /**
     * Método que apresenta uma representação da forma String do objeto da classe Artigo
     * */
     public String toString(){
@@ -208,7 +208,7 @@ public abstract class Artigo {
         return sb.toString();
     }
 
-    /*
+    /**
     * Método abstrato
     * */
     public abstract double preco();

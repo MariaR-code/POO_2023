@@ -15,7 +15,7 @@ public class Tshirt extends Artigo{
     private Tamanho tamanho;
     private Padrao padrao;
 
-    /*
+    /**
     * Construtores dos objetos da classe Tshirt
     * */
     public Tshirt(){
@@ -44,7 +44,7 @@ public class Tshirt extends Artigo{
         this.padrao = tshirt.getPadrao();
     }
 
-    /*
+    /**
     * Getters dos objetos da classe Tshirt
     * */
     public Tamanho getTamanho() {
@@ -66,14 +66,14 @@ public class Tshirt extends Artigo{
         this.padrao = padrao;
     }
 
-    /*
+    /**
     *Método para clonar um objeto da classe Tshirt
     * */
     public Tshirt clone(){
         return new Tshirt(this);
     }
 
-    /*
+    /**
     * Método de verificação de igualdade de dois objetos, sendo um deles da classe Tshirt
     * */
     public boolean Equals(Object o){
@@ -89,7 +89,7 @@ public class Tshirt extends Artigo{
         return this.tamanho == tshirt.getTamanho() && this.padrao == tshirt.getPadrao();
     }
 
-    /*
+    /**
     * Método que apresenta uma representação da forma String do objeto da classe Tshirt
     * */
     public String toString(){
@@ -100,7 +100,7 @@ public class Tshirt extends Artigo{
         return sb.toString();
     }
 
-    /*
+    /**
      * Método para obter o preço
      */
     public double preco(){

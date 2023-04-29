@@ -8,7 +8,7 @@ public class Mala extends Artigo{
     private int ano_colecao;
     private boolean premium;
 
-    /*
+    /**
      * Construtores dos objetos da classe Mala
      * */
     public Mala(){
@@ -55,7 +55,7 @@ public class Mala extends Artigo{
         this.premium = mala.isPremium();
     }
 
-    /*
+    /**
      * Getters dos objetos da classe Mala
      * */
     public double getAltura() {
@@ -82,7 +82,7 @@ public class Mala extends Artigo{
         return premium;
     }
 
-    /*
+    /**
      * Setters dos objetos da classe Mala
      * */
     public void setAltura(double altura) {
@@ -116,7 +116,7 @@ public class Mala extends Artigo{
         return new Mala(this);
     }
 
-    /*
+    /**
      * Método de verificação de igualdade de dois objetos, sendo um deles da classe Mala
      * */
     public boolean Equals(Object o){
@@ -136,7 +136,7 @@ public class Mala extends Artigo{
                 this.premium == mala.isPremium();
     }
 
-    /*
+    /**
      * Método que apresenta uma representação da forma String do objeto da classe Mala
      * */
     public String toString(){
@@ -150,7 +150,7 @@ public class Mala extends Artigo{
         return sb.toString();
     }
 
-    /*
+    /**
     * Método para obter o preço
     *
     * */

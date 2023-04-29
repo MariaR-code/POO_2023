@@ -1,4 +1,4 @@
-package Trabalho.src;
+//package Trabalho.src;
 
 public class Fatura {
     private Encomenda enc;
@@ -87,7 +87,7 @@ public class Fatura {
     public boolean equals(Object o){
         if (o == this) return true;
         if (o == null || o.getClass() != this.getClass()) return false;
-        Fatura f = Fatura o;
+        Fatura f = (Fatura) o;
         return (this.enc.equals(f.getEnc()) && this.custo == f.getCusto()
                 && this.nif.equals(f.getNif()));
     }
@@ -98,7 +98,7 @@ public class Fatura {
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Fatura: ");
-        sb.append("<<<<<<<<<<")
+        sb.append("<<<<<<<<<<");
         sb.append("NIF: ").append(this.nif);
         sb.append("Encomenda: ").append(this.enc.toString());
         sb.append("Custo: ").append(this.custo);
