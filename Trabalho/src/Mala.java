@@ -20,10 +20,10 @@ public class Mala extends Artigo{
         this.ano_colecao = LocalDate.now().getYear();
         this.premium = false;
     }
-    public Mala(String cod_alfanr, double preco_base, double altura,
+    public Mala(String cod_alfanr, double preco_base, String transportadora, double altura,
                 double comprimento, double profundidade, String material,
                 int ano_colecao, boolean premium){
-        super(cod_alfanr, preco_base);
+        super(cod_alfanr, preco_base, transportadora);
         this.altura = altura;
         this.comprimento = comprimento;
         this.profundidade = profundidade;
@@ -32,11 +32,11 @@ public class Mala extends Artigo{
         this.premium = premium;
     }
 
-    public Mala(String cod_alfanr, double preco_base, int av_estado, int nr_donos,
+    public Mala(String cod_alfanr, double preco_base, int av_estado, int nr_donos, String transportadora,
                 double altura, double comprimento,
                 double profundidade, String material, int ano_colecao,
                 boolean premium){
-        super(cod_alfanr, preco_base, av_estado, nr_donos);
+        super(cod_alfanr, preco_base, av_estado, nr_donos, transportadora);
         this.altura = altura;
         this.comprimento = comprimento;
         this.profundidade = profundidade;
