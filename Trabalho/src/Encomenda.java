@@ -1,4 +1,4 @@
-//package Trabalho.src;
+package Trabalho.src;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +22,9 @@ public class Encomenda {
     private LocalDate data;
     public enum Estado
     {
-        PENDENTE, /* Quando a encomenda é iniciada */
-        FINALIZADA,/* Quando a compra é concluída */
-        EXPEDIDA /* Quando a transportadora a tiver enviado */
+        PENDENTE, // Quando a encomenda é iniciada
+        FINALIZADA,// Quando a compra é concluída
+        EXPEDIDA // Quando a transportadora a tiver enviado
     }
     private Estado estado;
 
@@ -59,10 +59,8 @@ public class Encomenda {
         if(this.artigos.size() == 1)
             this.dimensao = Dimensao.PEQUENO;
         else if(this.artigos.size() < 5)
-        {
             this.dimensao = Dimensao.MEDIO;
-        }
-            else this.dimensao = Dimensao.GRANDE;
+        else this.dimensao = Dimensao.GRANDE;
     }
 
     /**
