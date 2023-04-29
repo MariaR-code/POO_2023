@@ -24,7 +24,7 @@ public class Fatura {
      * Construtor parametrizado de Fatura.
      */
     public Fatura(Encomenda enc_, double custo_, String nif_){
-        this.enc = enc_;
+        this.enc = enc_.clone();
         this.custo = custo_;
         this.nif = nif_;
     }
@@ -46,7 +46,7 @@ public class Fatura {
      * Getters dos objetos da classe Fatura.
      */
     public Encomenda getEnc() {
-        return this.enc;
+        return this.enc.clone();
     }
 
     public double getCusto() {
