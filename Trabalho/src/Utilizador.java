@@ -9,8 +9,6 @@ Cada utilizador --> Guarda a informação relativa ao seu código no sistema (fo
 		Guardar a informação sobre as vendas que foram efectuadas e o valor que delas resultou.
 
 		p6 Note que um mesmo utilizador poderá actuar como vendedor e como comprador.
-	 -------------------------------------------------------------------------------------------------------------------
-	 Pensei em adicionar uma senha ao login (não estritamente necessário para a simulação mas nunca vi logins sem senha)
  */
 
 public class Utilizador {
@@ -20,10 +18,8 @@ public class Utilizador {
     private String nif;
     private int tipoUtilizador; // 0: comprador, 1: vendedor, 2: ambos
     private double valorTotalVendas;
-    // private ArrayList<Artigo> artigosParaVenda;
-    // private ArrayList<Artigo> artigosVendidos;
-    // private ArrayList<Artigo> artigosComprados;
-
+    private List<Fatura> faturaVendedor;
+    private List<Fatura> faturaComprador;
 
     /**
      * Contrutores dos objetos da classe Utilizador
@@ -35,9 +31,8 @@ public class Utilizador {
         this.nif = nif;
         this.tipoUtilizador = tipoUtilizador;
         this.valorTotalVendas = 0.0;
-        // this.artigosParaVenda = new ArrayList<Artigo>();
-        // this.artigosVendidos = new ArrayList<Artigo>();
-        // this.artigosComprados = new ArrayList<Artigo>();
+        this.faturaVendedor = new ArrayList<>();
+        this.faturaComprador = new ArrayList<>();
     }
 
 
@@ -51,6 +46,8 @@ public class Utilizador {
         this.nif = utilizador.getNif();
         this.tipoUtilizador = utilizador.getTipoUtilizador();
         this.valorTotalVendas = utilizador.getValorTotalVendas();
+        this.faturaVendedor = utilizador.getFaturaVendedor();
+        this.faturaComprador = utilizador.getFaturaComprador();
     }
 
     /**
@@ -79,19 +76,15 @@ public class Utilizador {
     public double getValorTotalVendas() {
         return  valorTotalVendas;
     }
-/*
-    public ArrayList<Artigo> getArtigosVendidos() {
-        return artigosVendidos;
+
+    public List<Fatura> getFaturaVendedor() {
+        return faturaVendedor;
     }
 
-    public ArrayList<Artigo> getArtigosComprados() {
-        return artigosComprados;
+    public List<Fatura> getFaturaComprador() {
+        return faturaComprador;
     }
 
-    public ArrayList<Artigo> getArtigosParaVenda() {
-        return artigosParaVenda;
-    }
-*/
     /**
      * Setters dos objetos da classe Utilizador
      * */
@@ -118,30 +111,37 @@ public class Utilizador {
         this.tipoUtilizador = tipoUtilizador;
     }
 
-
-/*
-    public void adicionarArtigoParaVenda(Artigo artigo) {
-        this.artigosParaVenda.add(artigo);
+    public void setFaturaVendedor(List<Fatura> faturaVendedor) {
+        this.faturaVendedor = faturaVendedor;
     }
 
-    public void removerArtigoParaVenda(Artigo artigo) {
-        this.artigosParaVenda.remove(artigo);
+    public void setFaturaComprador(List<Fatura> faturaComprador) {
+        this.faturaComprador = faturaComprador;
     }
 
-    public void adicionarArtigoVendido(Artigo artigo, double preco) {
-        this.artigosVendidos.add(artigo);
-        this.valorTotalVendas += preco;
+    /**
+    * Métodos que adicionam ou removem uma fatura de uma encomenda.
+     */
+
+    public void addFaturaVendedor(Fatura fatura) {
+        this.faturaVendedor.add(fatura.clone());
     }
 
-    public void removerArtigoVendido(Artigo artigo, double preco) {
-        this.artigosVendidos.remove(artigo);
-        this.valorTotalVendas -= preco;
+    public void removeFaturaVendedor(Fatura fatura) {
+        this.faturaVendedor.remove(fatura);
     }
 
-    public void adicionarArtigoComprado(Artigo artigo) {
-        this.artigosComprados.add(artigo);
+    public void addFaturaComprador(Fatura fatura) {
+        this.faturaComprador.add(fatura.clone());
     }
-*/
+
+    public void removeFaturaComprador(Fatura fatura) {
+        this.faturaComprador.remove(fatura);
+    }
+
+
+// falta stream Valor total de vendas
+    // somar faturaVendedor
 
     /**
      * Método para clonar um objeto da classe Utilizador
@@ -162,11 +162,21 @@ public class Utilizador {
                 this.morada.equals(user.getMorada()) &&
                 this.nif.equals(user.getNif()) &&
                 this.tipoUtilizador == user.getTipoUtilizador() &&
-                this.valorTotalVendas == user.getValorTotalVendas();
+                this.valorTotalVendas == user.getValorTotalVendas() &&
+                this.faturaVendedor.equals(user.getFaturaVendedor()) &&
+                this.faturaComprador.equals(user.getFaturaComprador());
     }
 
 
     public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Utilizador{");
+        sb.append("Email='").append(this.email).append("',\n");
+        sb.append("Nome='").append(this.nome).append("',\n");
+        sb.append("Morada='").append(this.morada).append("',\n");
+        sb.append("NIF='").append(this.nif).append("',\n");
+
         String tipo = "";
         if (tipoUtilizador == 0) {
             tipo = "Comprador";
@@ -175,17 +185,13 @@ public class Utilizador {
         } else if (tipoUtilizador == 2) {
             tipo = "Ambos";
         }
-        return "Utilizador{" +
-                "Email='" + email + '\'' +
-                ", Nome='" + nome + '\'' +
-                ", Morada='" + morada + '\'' +
-                ", NIF='" + nif + '\'' +
-                ", Tipo de utilizador=" + tipo +
-                ", Valor total de vendas=" + valorTotalVendas + // faz sentido mostrar este para o tipo Comprador?
-               // ", Artigos para venda=" + artigosParaVenda +
-               // ", Artigos Vendidos=" + artigosVendidos +
-               // ", Artigos Comprados=" + artigosComprados +
-                '}';
+
+        sb.append("Tipo de utilizador='").append(tipo).append("',\n");
+        sb.append("Valor total de vendas='").append(this.valorTotalVendas).append("',\n");
+        sb.append("Faturas das Vendas='").append(this.faturaVendedor.toString()).append("',\n"); // não garanto nada deste
+        sb.append("Faturas das Compras='").append(this.faturaComprador.toString()).append("'");  // ou deste :/
+        sb.append("}")
+        return sb.toString();
     }
 
 }
