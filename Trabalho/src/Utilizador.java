@@ -1,15 +1,15 @@
-package Trabalho.src;
-import java.util.ArrayList;
-
 /* Notepad::
 Cada utilizador --> Guarda a informação relativa ao seu código no sistema (fornecido automaticamente pelo sistema)
 		p1 Email | p2 Nome | p3 Morada | p4 NIF
 
 		p5 Toda a informação sobre produtos que tem à venda, que já vendeu, bem como os que já adquiriu
 		Guardar a informação sobre as vendas que foram efectuadas e o valor que delas resultou.
-
+3
 		p6 Note que um mesmo utilizador poderá actuar como vendedor e como comprador.
  */
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Utilizador {
     private String email;
@@ -31,8 +31,8 @@ public class Utilizador {
         this.nif = nif;
         this.tipoUtilizador = tipoUtilizador;
         this.valorTotalVendas = 0.0;
-        this.faturaVendedor = new ArrayList<>();
-        this.faturaComprador = new ArrayList<>();
+        this.faturaVendedor = new ArrayList<Fatura>();
+        this.faturaComprador = new ArrayList<Fatura>();
     }
 
 
@@ -190,7 +190,7 @@ public class Utilizador {
         sb.append("Valor total de vendas='").append(this.valorTotalVendas).append("',\n");
         sb.append("Faturas das Vendas='").append(this.faturaVendedor.toString()).append("',\n"); // não garanto nada deste
         sb.append("Faturas das Compras='").append(this.faturaComprador.toString()).append("'");  // ou deste :/
-        sb.append("}")
+        sb.append("}");
         return sb.toString();
     }
 
