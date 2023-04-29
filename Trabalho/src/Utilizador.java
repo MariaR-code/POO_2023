@@ -1,5 +1,6 @@
 package Trabalho.src;
 import java.util.ArrayList;
+import java.util.List;
 
 /* Notepad::
 Cada utilizador --> Guarda a informação relativa ao seu código no sistema (fornecido automaticamente pelo sistema)
@@ -190,7 +191,7 @@ public class Utilizador {
         sb.append("Valor total de vendas='").append(this.valorTotalVendas).append("',\n");
         sb.append("Faturas das Vendas='").append(this.faturaVendedor.toString()).append("',\n"); // não garanto nada deste
         sb.append("Faturas das Compras='").append(this.faturaComprador.toString()).append("'");  // ou deste :/
-        sb.append("}")
+        sb.append("}");
         return sb.toString();
     }
 
