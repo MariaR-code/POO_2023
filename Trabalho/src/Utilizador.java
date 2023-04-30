@@ -25,7 +25,7 @@ public class Utilizador {
     private double valorTotalVendas;
     private List<Fatura> faturaVendedor;
     private List<Fatura> faturaComprador;
-// artigos para venda?
+
 
     /**
      * Contrutores dos objetos da classe Utilizador
@@ -42,6 +42,20 @@ public class Utilizador {
         this.faturaComprador = new ArrayList<Fatura>();
     }
 
+    /**
+     * Construtor por omissão de Utilizador.
+     */
+    public Utilizador() {
+        this.id = ++idCount;
+        this.email = "";
+        this.nome = "";
+        this.morada = "";
+        this.nif = "";
+        this.tipoUtilizador = 0;
+        this.valorTotalVendas = 0.0;
+        this.faturaVendedor = new ArrayList<Fatura>();
+        this.faturaComprador = new ArrayList<Fatura>();
+}
 
     /**
      * Construtor de cópia de Utilizador.

@@ -1,4 +1,5 @@
 package Trabalho.src;
+
 import java.time.LocalDate;
 
 public class Sapatilhas extends Artigo{

@@ -1,4 +1,5 @@
 package Trabalho.src;
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -14,7 +15,7 @@ public class Transportadora {
     private boolean premium;
     private String preco_expedicao_premium;
 
-    /*
+    /**
      * Construtores dos objetos da classe Transportadora
      * */
     public Transportadora(){
@@ -45,7 +46,7 @@ public class Transportadora {
         this.preco_expedicao_premium = transportadora.getPreco_expedicao_premium();
     }
 
-    /*
+    /**
      * Getters dos objetos da classe Transportadora
      * */
     public String getNome(){
@@ -64,7 +65,7 @@ public class Transportadora {
         return preco_expedicao_premium;
     }
 
-    /*
+    /**
      * Setters dos objetos da classe Transportadora
      * */
     public void setNome(String nome){
@@ -85,7 +86,7 @@ public class Transportadora {
 
     /*
      * Método de verificação de igualdade de dois objetos, sendo um deles da classe Transportadora
-     * @param objeto
+     * @param object
      * @return boolean
      * */
     public boolean equals(Object o){
@@ -101,7 +102,7 @@ public class Transportadora {
                 this.premium == transportadora.isPremium() && this.preco_expedicao_premium.equals(transportadora.getPreco_expedicao_premium());
     }
 
-    /*
+    /**
      * Método que apresenta uma representação da forma String do objeto da classe Transportadora
      * @return String
      * */
@@ -121,7 +122,7 @@ public class Transportadora {
         return sb.toString();
     }
 
-    /*
+    /**
      *Método para clonar um objeto da classe Transportadora
      * @return Transportadora
      * */
@@ -129,7 +130,7 @@ public class Transportadora {
         return new Transportadora(this);
     }
 
-    /*
+    /**
     * Método que vai calcular o preço da expedição de uma encomenda
     * @param
     * @return
