@@ -1,3 +1,4 @@
+package Trabalho.src;
 public abstract class Artigo {
     public static final int MAU = 3;
     public static final int RAZOAVEL = 2;

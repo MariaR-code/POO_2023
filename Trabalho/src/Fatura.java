@@ -1,3 +1,5 @@
+package Trabalho.src;
+
 public class Fatura {
     private Encomenda enc;
     private double custo;
