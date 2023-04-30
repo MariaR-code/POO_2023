@@ -1,17 +1,22 @@
+// package Trabalho.src;
 /* Notepad::
 Cada utilizador --> Guarda a informação relativa ao seu código no sistema (fornecido automaticamente pelo sistema)
 		p1 Email | p2 Nome | p3 Morada | p4 NIF
 
 		p5 Toda a informação sobre produtos que tem à venda, que já vendeu, bem como os que já adquiriu
 		Guardar a informação sobre as vendas que foram efectuadas e o valor que delas resultou.
-3
+
 		p6 Note que um mesmo utilizador poderá actuar como vendedor e como comprador.
+
+		p7 Fazer um ID incremental
  */
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Utilizador {
+    private static int idCount = 0; // pertence à própria classe, em vez de pertencer a uma instância da classe. Partilhada por todas as instâncias da classe
+    private int id;
     private String email;
     private String nome;
     private String morada;
@@ -20,11 +25,13 @@ public class Utilizador {
     private double valorTotalVendas;
     private List<Fatura> faturaVendedor;
     private List<Fatura> faturaComprador;
+// artigos para venda?
 
     /**
      * Contrutores dos objetos da classe Utilizador
      * */
     public Utilizador(String email, String nome, String morada, String nif, int tipoUtilizador) {
+        this.id = ++idCount;
         this.email = email;
         this.nome = nome;
         this.morada = morada;
@@ -40,6 +47,7 @@ public class Utilizador {
      * Construtor de cópia de Utilizador.
      */
     public Utilizador(Utilizador utilizador) {
+        this.id = utilizador.getId();
         this.email = utilizador.getEmail();
         this.nome = utilizador.getNome();
         this.morada = utilizador.getMorada();
@@ -53,6 +61,10 @@ public class Utilizador {
     /**
      * Getters dos objetos da classe Artigo
      * */
+    public int getId() {
+        return id;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -157,7 +169,8 @@ public class Utilizador {
         if (this == o) return true;
         if (o == null || o.getClass() != this.getClass()) return false;
         Utilizador user = (Utilizador) o;
-        return this.email.equals(user.getEmail()) &&
+        return  this.id == user.getId() &&
+                this.email.equals(user.getEmail()) &&
                 this.nome.equals(user.getNome()) &&
                 this.morada.equals(user.getMorada()) &&
                 this.nif.equals(user.getNif()) &&
@@ -172,6 +185,7 @@ public class Utilizador {
         StringBuilder sb = new StringBuilder();
 
         sb.append("Utilizador{");
+        sb.append("ID='").append(this.id).append("',\n");
         sb.append("Email='").append(this.email).append("',\n");
         sb.append("Nome='").append(this.nome).append("',\n");
         sb.append("Morada='").append(this.morada).append("',\n");
