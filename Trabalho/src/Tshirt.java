@@ -112,4 +112,10 @@ public class Tshirt extends Artigo{
             preco = super.getPreco_base();
         return preco;
     }
+    /**
+     * Método que indica que nenhuma tshirt é premium
+     * */
+    public boolean isPremium(){
+        return false;
+    }
 }

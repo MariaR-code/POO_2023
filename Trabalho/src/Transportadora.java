@@ -134,14 +134,18 @@ public class Transportadora {
     * @param
     * @return
     * */
-    public double preco_encomenda(String formula_preco, double valor_base, double margem_lucro){
+    public double preco_transporte(boolean premium, double valor_base, double margem_lucro){
         ScriptEngineManager formula = new ScriptEngineManager();
         ScriptEngine engine = formula.getEngineByName("nashorn");
         try {
             engine.eval("ValorBase = " + String.valueOf(valor_base));
             engine.eval("margemlucro = " + String.valueOf(margem_lucro));
             engine.eval("Imposto = " + String.valueOf(imposto));
-            return (double) engine.eval(formula_preco.toLowerCase(Locale.ROOT));
+
+            if(premium)
+                return (double) engine.eval(this.preco_expedicao_premium.toLowerCase(Locale.ROOT));
+            else
+                return (double) engine.eval(this.preco_expedicao.toLowerCase(Locale.ROOT));
         }catch (ScriptException e){
             return -1;
         }

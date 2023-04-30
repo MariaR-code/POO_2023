@@ -213,4 +213,5 @@ public abstract class Artigo {
     * Método abstrato
     * */
     public abstract double preco();
+    public abstract boolean isPremium();
 }
