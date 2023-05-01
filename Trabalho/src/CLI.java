@@ -12,46 +12,46 @@ public class CLI {
     public void run() {
         boolean running = true;
         while (running) {
-            System.out.println("\n== Welcome to Vintage ==");
-            System.out.println("1. Create User");
-            System.out.println("2. Login");
-            System.out.println("3. Exit");
+                System.out.println("\n=== VINTAGE ===\n");
+                System.out.println("1 - Criar usuário");
+                System.out.println("2 - Login");
+                System.out.println("0 - Sair");
 
-            System.out.print("Please select an option: ");
+            System.out.println("Selecione uma opção:");
             String input = scanner.nextLine();
 
             switch (input) {
                 case "1" -> createUser();
                 case "2" -> login();
                 case "3" -> {
-                    System.out.println("Thank you for using Vintage! Goodbye.");
+                    System.out.println("Obrigado por usar Vintage!");
                     running = false;
                 }
-                default -> System.out.println("Invalid input. Please choose a valid number.");
+                default -> System.out.println("Opção inválida. Tente novamente.");
             }
         }
     }
 
     private void createUser() {
         // TODO: implementação da criação de um novo usuário
-            System.out.println("\n=== CREATE USER ===");
+            System.out.println("\n=== CRIAR UTILIZADOR ===");
             System.out.print("Email: ");
             String email = scanner.nextLine();
-            System.out.print("Name: ");
+            System.out.print("Nome: ");
             String name = scanner.nextLine();
-            System.out.print("Address: ");
+            System.out.print("Morada: ");
             String address = scanner.nextLine();
             System.out.print("NIF: ");
             String nif = scanner.nextLine();
-            System.out.print("User type (0 - buyer, 1 - seller, 2 - both): ");
+            System.out.print("Tipo de utilizador (0 - Comprador, 1 - Vendedor, 2 - Ambos): ");
             int userType = scanner.nextInt();
             scanner.nextLine();
 
             try {
                 Utilizador user = new Utilizador(email, name, address, nif, userType);
-                System.out.println("User created successfully!");
+                System.out.println("Utilizador criado com sucesso!");
             } catch (IllegalArgumentException e) {
-                System.out.println("Error creating user: " + e.getMessage());
+                System.out.println("Erro na criação de utilizador: " + e.getMessage());
             }
         }
 
@@ -64,9 +64,9 @@ public class CLI {
 
         //Verificação de usuário com o email
         if (email != "") {
-            System.out.println("Login successful!");
+            System.out.println("Login com sucesso!");
         } else {
-            System.out.println("Login failed. Invalid email.");
+            System.out.println("Falha no login. Email inválido.");
         }
     }
 }
