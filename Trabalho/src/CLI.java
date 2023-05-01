@@ -33,7 +33,7 @@ public class CLI {
     }
 
     private void createUser() {
-        // TODO: implementação da criação de um novo usuário
+        // TODO: implementação da criação de um novo utilizador
             System.out.println("\n=== CRIAR UTILIZADOR ===");
             System.out.print("Email: ");
             String email = scanner.nextLine();
@@ -57,7 +57,7 @@ public class CLI {
 
 
     private void login() {
-        // TODO: implementação do login de um usuário existente
+        // TODO: implementação do login de um utilizador existente
         System.out.println("\n=== LOGIN ===");
         System.out.print("Email: ");
         String email = scanner.nextLine();
