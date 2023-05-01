@@ -51,7 +51,7 @@ public class CLI {
                 Utilizador user = new Utilizador(email, name, address, nif, userType);
                 System.out.println("Utilizador criado com sucesso!");
             } catch (IllegalArgumentException e) {
-                System.out.println("Erro na criação de utilizador: " + e.getMessage());
+                System.out.println("Erro na criação de novo utilizador: " + e.getMessage());
             }
         }
 
