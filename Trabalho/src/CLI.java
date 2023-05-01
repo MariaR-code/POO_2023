@@ -15,7 +15,7 @@ public class CLI {
                 System.out.println("\n=== VINTAGE ===\n");
                 System.out.println("1 - Criar usuário");
                 System.out.println("2 - Login");
-                System.out.println("0 - Sair");
+                System.out.println("3 - Sair");
 
             System.out.println("Selecione uma opção:");
             String input = scanner.nextLine();
