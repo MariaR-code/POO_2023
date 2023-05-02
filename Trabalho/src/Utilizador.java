@@ -115,7 +115,11 @@ public class Utilizador {
      * Setters dos objetos da classe Utilizador
      * */
     public void setEmail(String email) {
-        this.email = email;
+        if (isValidEmail(email)) {
+            this.email = email;
+        }
+        else throw new IllegalArgumentException("Valor inválido para email.");
+
     }
 
     public void setNome(String nome) {
@@ -127,12 +131,17 @@ public class Utilizador {
     }
 
     public void setNif(String nif) {
-        this.nif = nif;
+        if (isValidNIF(nif)) {
+            this.nif = nif;
+        } else {
+            throw new IllegalArgumentException("Valor inválido para NIF.");
+        }
     }
+
 
     public void setTipoUtilizador(int tipoUtilizador) {
         if (tipoUtilizador < 0 || tipoUtilizador > 2) {
-            throw new IllegalArgumentException("Valor inválido para o tipo de utilizador");
+            throw new IllegalArgumentException("Valor inválido para o tipo de utilizador.");
         }
         this.tipoUtilizador = tipoUtilizador;
     }
@@ -217,9 +226,33 @@ public class Utilizador {
         sb.append("Tipo de utilizador='").append(tipo).append("',\n");
         sb.append("Valor total de vendas='").append(this.valorTotalVendas).append("',\n");
         sb.append("Faturas das Vendas='").append(this.faturaVendedor.toString()).append("',\n"); // não garanto nada deste
-        sb.append("Faturas das Compras='").append(this.faturaComprador.toString()).append("'");  // ou deste :/
+        sb.append("Faturas das Compras='").append(this.faturaComprador.toString()).append("'");  // ou deste
         sb.append("}");
         return sb.toString();
+    }
+
+    // Validações de atributos
+    public static boolean isValidEmail(String email) {
+        if (email == null || email.length() < 5) { // "a@b.c" pelo menos length 5
+            return false;
+        }
+            int atIndex = email.indexOf('@');                                               // !! Não cobre todos os casos !!
+            int dotIndex = email.lastIndexOf('.');                                          // apenas precisa que '@' não seja o primeiro char,
+                                                                                            // tenha pelo menos 1 char entre '@' e o último '.' (em que '@' vem primeiro)
+            return (atIndex > 0 && dotIndex > atIndex + 1 && dotIndex < email.length() - 1);// não termine com '.'
+        }
+
+    public static boolean isValidNIF(String nif) { // não nulo, com 9 digitos (0-9)
+        if (nif == null || nif.length() != 9) {
+            return false;
+        }
+        for (int i = 0; i < nif.length(); i++) {
+            char c = nif.charAt(i);
+            if (c < '0' || c > '9') {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
