@@ -9,7 +9,7 @@ public class Mostrar {
     private String nome;
     private int opcao;
 
-    public Mostrar(String nome, List<String> opcoes){
+    public Mostrar(String nome, String[] opcoes){
         this.nome = nome;
         this.opcoes = Arrays.asList(opcoes);
         this.opcao = 0;
