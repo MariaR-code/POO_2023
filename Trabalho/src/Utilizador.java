@@ -38,8 +38,8 @@ public class Utilizador {
         this.nif = nif;
         this.tipoUtilizador = tipoUtilizador;
         this.valorTotalVendas = 0.0;
-        this.faturaVendedor = new ArrayList<Fatura>();
-        this.faturaComprador = new ArrayList<Fatura>();
+        this.faturaVendedor = new ArrayList<>();
+        this.faturaComprador = new ArrayList<>();
     }
 
     /**
@@ -53,8 +53,8 @@ public class Utilizador {
         this.nif = "";
         this.tipoUtilizador = 0;
         this.valorTotalVendas = 0.0;
-        this.faturaVendedor = new ArrayList<Fatura>();
-        this.faturaComprador = new ArrayList<Fatura>();
+        this.faturaVendedor = new ArrayList<>();
+        this.faturaComprador = new ArrayList<>();
 }
 
     /**
