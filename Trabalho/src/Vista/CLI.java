@@ -1,4 +1,6 @@
-package Trabalho.src;
+package Trabalho.src.Vista;
+
+import Trabalho.src.Modelo.Utilizador;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

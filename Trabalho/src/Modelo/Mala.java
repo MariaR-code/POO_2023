@@ -1,8 +1,8 @@
-package Trabalho.src;
+package Trabalho.src.Modelo;
 
 import java.time.LocalDate;
 
-public class Mala extends Artigo{
+public class Mala extends Artigo {
     private double altura; //em cm
     private double comprimento; //em cm
     private double profundidade; //em cm
