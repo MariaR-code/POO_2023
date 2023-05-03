@@ -1,4 +1,4 @@
-package Trabalho.src.Model;
+package Trabalho.src.Modelo;
 /* Notepad::
 Cada utilizador --> Guarda a informação relativa ao seu código no sistema (fornecido automaticamente pelo sistema)
 		p1 Email | p2 Nome | p3 Morada | p4 NIF

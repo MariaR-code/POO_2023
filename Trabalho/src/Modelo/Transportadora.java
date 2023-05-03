@@ -1,4 +1,4 @@
-package Trabalho.src.Model;
+package Trabalho.src.Modelo;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;

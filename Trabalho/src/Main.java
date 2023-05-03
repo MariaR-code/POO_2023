@@ -1,9 +1,9 @@
 package Trabalho.src;
-import Trabalho.src.View.CLI;
+import Trabalho.src.Controlo.Controlo;
 
 public class Main {
     public static void main(String[] args) {
-        CLI cli = new CLI();
-        cli.run();
+        Controlo controller = new controller();
+        controller.run();
     }
 }

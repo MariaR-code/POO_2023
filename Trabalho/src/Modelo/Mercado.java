@@ -1,4 +1,4 @@
-package Trabalho.src.Model;
+package Trabalho.src.Modelo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class MarketPlace {
+public class Mercado {
     private List<Encomenda> encomendas_pend;
     private List<Transportadora> transportadoras;
     private List<Utilizador> utilizadores;
@@ -16,7 +16,7 @@ public class MarketPlace {
     /**
      * Construtores dos objetos da classe MarketPlace
      * */
-    public MarketPlace(){
+    public Mercado(){
         this.encomendas_pend = new ArrayList<>();
         this.transportadoras = new ArrayList<>();
         this.utilizadores = new ArrayList<>();
@@ -24,8 +24,8 @@ public class MarketPlace {
         this.artigos_venda = new HashMap<>();
     }
 
-    public MarketPlace(List<Encomenda> encomendas_pend, List<Transportadora> transportadoras, List<Utilizador> utilizadores,
-                       List<Artigo> artigos, Map<Integer, List<String>> artigos_venda){
+    public Mercado(List<Encomenda> encomendas_pend, List<Transportadora> transportadoras, List<Utilizador> utilizadores,
+                   List<Artigo> artigos, Map<Integer, List<String>> artigos_venda){
         this.setEncomendas_pend(encomendas_pend);
         this.setTransportadoras(transportadoras);
         this.setUtilizadores(utilizadores);
@@ -33,7 +33,7 @@ public class MarketPlace {
         this.setArtigos_venda(artigos_venda); //check this one later
     }
 
-    public MarketPlace(MarketPlace marketPlace){
+    public Mercado(Mercado marketPlace){
         this.encomendas_pend = marketPlace.getEncomendas_pend();
         this.transportadoras = marketPlace.getTransportadoras();
         this.utilizadores = marketPlace.getUtilizadores();
@@ -102,7 +102,7 @@ public class MarketPlace {
         if(o==null || o.getClass() != this.getClass())
             return false;
 
-        MarketPlace mp = (MarketPlace) o;
+        Mercado mp = (Mercado) o;
         return this.transportadoras.equals(mp.getTransportadoras()) && this.utilizadores.equals(mp.getUtilizadores())
                 && this.artigos.equals(mp.getArtigos()) && this.artigos_venda.equals(mp.getArtigos_venda())
                 && this.encomendas_pend.equals(mp.getEncomendas_pend());
@@ -127,7 +127,7 @@ public class MarketPlace {
      * Método clone que faz uma cópia do objeto,
      * utilizando o contrutor de cópia.
      */
-    public MarketPlace clone(){
-        return new MarketPlace(this);
+    public Mercado clone(){
+        return new Mercado(this);
     }
 }
