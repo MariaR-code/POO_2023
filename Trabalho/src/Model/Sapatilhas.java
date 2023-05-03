@@ -1,8 +1,8 @@
-package Trabalho.src;
+package Trabalho.src.Model;
 
 import java.time.LocalDate;
 
-public class Sapatilhas extends Artigo{
+public class Sapatilhas extends Artigo {
     private int tamanho;
     private boolean atacadores;
     private String cor;

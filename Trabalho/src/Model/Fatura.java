@@ -1,4 +1,4 @@
-package Trabalho.src;
+package Trabalho.src.Model;
 
 public class Fatura {
     private Encomenda enc;
