@@ -110,6 +110,6 @@ public class Fatura {
      * Método que calcula o custo.
      */
     public double calcCusto(){
-        return this.custo = 
+        return this.custo = 0.0;
     }
 }

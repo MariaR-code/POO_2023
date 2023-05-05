@@ -38,7 +38,7 @@ public class Mostrar {
         int i;
         System.out.println("\n#####################" + this.nome + "#####################");
         for( i=1; i<=this.opcoes.size(); i++)
-            System.out.println(i + " - " + this.opcoes.get(i));
+            System.out.println(i + " - " + this.opcoes.get(i-1));
         System.out.println(i + " - " + "Sair");
     }
 
@@ -58,7 +58,7 @@ public class Mostrar {
             op = -1;
         }
 
-        if(op<0 || op>this.opcoes.size()){
+        if(op<0 || op>this.opcoes.size()+1){
             System.out.println("Opção inválida, por favor escolha outra.");
             op = -1;
         }
