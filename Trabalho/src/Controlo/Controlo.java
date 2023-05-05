@@ -31,4 +31,14 @@ public class Controlo{
                 break;
         }
     }
+
+    public void login(String email){
+        try{
+
+        }
+        catch{
+
+        }
+    }
+
 }
