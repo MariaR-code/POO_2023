@@ -1,6 +1,5 @@
 package Trabalho.src.Controlo;
 
-import Trabalho.src.Modelo.Utilizador;
 import Trabalho.src.Modelo.Mercado;
 import Trabalho.src.Vista.Menu;
 import Trabalho.src.Erros.NaoExisteUtilizador;
@@ -20,8 +19,10 @@ public class Controlo{
 
         switch (op){
             case 1:
+                loginVendedor(1);
                 break;
             case 2:
+                loginVendedor(0);
                 break;
 
             case 3:
@@ -34,15 +35,15 @@ public class Controlo{
         }
     }
 
-    public void loginVendedor(String email, int tipo) throws NaoExisteUtilizador{
+    public void loginVendedor(int tipo) throws NaoExisteUtilizador{
         try{
+            String email = "";
             if(!(this.model.procuraUtilizador(email,tipo))){
                 throw new NaoExisteUtilizador("Utilizador não registado");
             }
         }
         catch(NaoExisteUtilizador e){
-            System.out.println("Erro: " + e.getMessage());
-            //TODO MARIA menu.erro();
+            Menu.erro(e.getMessage());
             this.run();
         }
     }
