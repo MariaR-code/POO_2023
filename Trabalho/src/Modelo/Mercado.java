@@ -15,8 +15,8 @@ public class Mercado {
 
     /**
      * Construtores dos objetos da classe MarketPlace
-     * */
-    public Mercado(){
+     */
+    public Mercado() {
         this.encomendas_pend = new ArrayList<>();
         this.transportadoras = new ArrayList<>();
         this.utilizadores = new ArrayList<>();
@@ -25,7 +25,7 @@ public class Mercado {
     }
 
     public Mercado(List<Encomenda> encomendas_pend, List<Transportadora> transportadoras, List<Utilizador> utilizadores,
-                   List<Artigo> artigos, Map<Integer, List<String>> artigos_venda){
+                   List<Artigo> artigos, Map<Integer, List<String>> artigos_venda) {
         this.setEncomendas_pend(encomendas_pend);
         this.setTransportadoras(transportadoras);
         this.setUtilizadores(utilizadores);
@@ -33,7 +33,7 @@ public class Mercado {
         this.setArtigos_venda(artigos_venda); //check this one later
     }
 
-    public Mercado(Mercado marketPlace){
+    public Mercado(Mercado marketPlace) {
         this.encomendas_pend = marketPlace.getEncomendas_pend();
         this.transportadoras = marketPlace.getTransportadoras();
         this.utilizadores = marketPlace.getUtilizadores();
@@ -42,10 +42,9 @@ public class Mercado {
     }
 
 
-
     /**
      * Getters dos objetos da classe MarketPlace
-     * */
+     */
     public List<Encomenda> getEncomendas_pend() {
         return encomendas_pend.stream().map(Encomenda::clone).collect(Collectors.toList());
     }
@@ -61,6 +60,7 @@ public class Mercado {
     public List<Artigo> getArtigos() {
         return artigos.stream().map(Artigo::clone).collect(Collectors.toList());
     }
+
     //VER ISTO
     public Map<Integer, List<String>> getArtigos_venda() {
         return artigos_venda;
@@ -72,7 +72,7 @@ public class Mercado {
 
     /**
      * Setters dos objetos da classe MarketPlace
-     * */
+     */
 
     public void setTransportadoras(List<Transportadora> transportadoras) {
         this.transportadoras = transportadoras.stream().map(Transportadora::clone).collect(Collectors.toList());
@@ -85,6 +85,7 @@ public class Mercado {
     public void setArtigos(List<Artigo> artigos) {
         this.artigos = artigos.stream().map(Artigo::clone).collect(Collectors.toList());
     }
+
     //VER ESTE SET
     public void setArtigos_venda(Map<Integer, List<String>> artigos_venda) {
         this.artigos_venda = artigos_venda;
@@ -95,11 +96,11 @@ public class Mercado {
      * se os objetos em questão são iguais.
      */
     //Verificar se a comparação de listas não é shallow
-    public boolean equals(Object o){
-        if(o==this)
+    public boolean equals(Object o) {
+        if (o == this)
             return true;
 
-        if(o==null || o.getClass() != this.getClass())
+        if (o == null || o.getClass() != this.getClass())
             return false;
 
         Mercado mp = (Mercado) o;
@@ -111,7 +112,7 @@ public class Mercado {
     /**
      * Método toString que devolve a representação em String da MarketPlace.
      */
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
 
         sb.append("As encomendqas pendentes são as seguintes: ").append(this.encomendas_pend.toString());
@@ -127,7 +128,22 @@ public class Mercado {
      * Método clone que faz uma cópia do objeto,
      * utilizando o contrutor de cópia.
      */
-    public Mercado clone(){
+    public Mercado clone() {
         return new Mercado(this);
     }
+
+    /**
+     * Método procuraUtilizador que recebe um email
+     * e que verifica se existe um utilizador com o mesmo.
+     */
+    public boolean procuraUtilizador(String email, int tipo) {
+        for (Utilizador u : utilizadores) {
+            if (u.getEmail().equals(email) && (u.getTipoUtilizador() == tipo || u.getTipoUtilizador() == 2)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }
