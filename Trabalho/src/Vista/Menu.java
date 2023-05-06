@@ -7,6 +7,10 @@ public class Menu {
             "Criar conta"
     };
 
+    public static final String[] menu_Log_In = {
+            "Log in"
+    };
+
     /**
      * Método que vai mostrar o menu e devolve a opção escolhida pelo utilizador
      * @param nome Vai ser o título do menu apresentado
@@ -19,5 +23,9 @@ public class Menu {
         System.out.println("\n");
 
         return mostrar_menu.getOpcao();
+    }
+
+    public static void erro(String msg){
+        System.out.println("\nErro: " + msg);
     }
 }
