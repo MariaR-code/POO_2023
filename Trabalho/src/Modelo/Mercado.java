@@ -91,6 +91,10 @@ public class Mercado {
         this.artigos_venda = artigos_venda;
     }
 
+    /**
+     * Método que adiciona um Utilizador à lista Utilizadores
+     * @param utilizador
+     */
     public void addUtilizador(Utilizador utilizador) {
         this.utilizadores.add(utilizador.clone());
     }
