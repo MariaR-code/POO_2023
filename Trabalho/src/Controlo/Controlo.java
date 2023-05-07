@@ -186,7 +186,6 @@ public class Controlo{
             this.model.addUtilizador(user);
             System.out.println("Utilizador criado com sucesso.");
             this.run();
-            throw new ErroCriarConta("idk");
         } catch (ErroCriarConta e) {
             Menu.erro("Não foi possível criar a conta devido a " + e.getMessage());
             this.run();
