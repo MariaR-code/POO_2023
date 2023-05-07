@@ -2,6 +2,7 @@ package Trabalho.src.Controlo;
 
 
 import Trabalho.src.Modelo.Mercado;
+import Trabalho.src.Modelo.Transportadora;
 import Trabalho.src.Modelo.Utilizador;
 import Trabalho.src.Vista.Insercao;
 import Trabalho.src.Vista.Menu;
@@ -11,6 +12,7 @@ import Trabalho.src.Erros.ErroCriarConta;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class Controlo{
@@ -112,6 +114,7 @@ public class Controlo{
                 break;
 
             case 2:
+                this.ver_transportadoras();
                 break;
 
             case 3:
@@ -200,10 +203,32 @@ public class Controlo{
         }
     }
 
-    public void adicionar_transportadora(){
+    public void adicionar_transportadora() { String nome,preco_expedicao,preco_expedicao_premium; // por enquanto, não verifica nada, só cria
+            nome = Insercao.get_valor("nome da transportadora", supplier_String);
+            preco_expedicao = Insercao.get_valor("preço de expedição", supplier_String);
+            preco_expedicao_premium = Insercao.get_valor("preço de expedição premium", supplier_String);
+            Transportadora transportadora = new Transportadora(nome, preco_expedicao, preco_expedicao_premium);
+            model.addTransportadora(transportadora);
+            System.out.println("Transportadora adicionada com sucesso!");
+            this.run();
+    }
+    public void ver_transportadoras() { // só da o nome
+        List<Transportadora> transportadoras = model.getTransportadoras();
 
-       // model.add_transportadora();
-    };
+        if (transportadoras.isEmpty()) {
+            System.out.println("Não há transportadoras associadas atualmente.");
+            this.run();
+        } else {
+            System.out.println("Transportadoras associadas atualmente:");
+
+            for (Transportadora t : transportadoras) {
+                System.out.println("- " + t.getNome());
+            }
+        }
+        this.run();
+    }
+
+
 
 
     public void comprador(){

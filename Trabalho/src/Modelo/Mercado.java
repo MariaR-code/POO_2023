@@ -103,7 +103,7 @@ public class Mercado {
      * Método que adiciona uma Transportador à lista transportadoras
      * @param t
      */
-    public void add_transportadora(Transportadora t) {
+    public void addTransportadora(Transportadora t) {
         this.transportadoras.add(t.clone());
     }
 
