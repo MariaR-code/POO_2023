@@ -169,11 +169,14 @@ public class Controlo{
     }
 
     public void criar_conta() {
-        try {
-            int tipo_user = Insercao.get_valor(("tipo de utilizador (0 - Comprador, 1 - Vendedor, 2 - Ambos)"), supplier_Int);
+        try { // cria-se um 'int op = this.gui.menu...etc' para esta tipo_user selection?
+            int tipo_user = Insercao.get_valor(("o seu tipo de conta: \n0 - Comprador \n1 - Vendedor \n2 - Ambos \nEscolha a opção que pretende"), supplier_Int);
+            if (tipo_user < 0 || tipo_user > 2) {
+                throw new ErroCriarConta("tipo de utilizador inválido.");
+            }
             String email = Insercao.get_valor("email", supplier_String);
             if(!(Utilizador.isValidEmail(email)) || (this.model.procuraUtilizador(email,tipo_user))) {
-                throw new ErroCriarConta("Email inválido");
+                throw new ErroCriarConta("email inválido");
             }
             String nome = Insercao.get_valor("nome", supplier_String);
             String morada = Insercao.get_valor("morada", supplier_String);
