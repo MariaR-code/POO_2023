@@ -3,6 +3,7 @@ package Trabalho.src.Vista;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class Insercao {
@@ -13,6 +14,24 @@ public class Insercao {
         while(!ok){
             try{
                 valor = supplier.get();
+                ok = true;
+            }catch (InputMismatchException e){
+                Scanner scanner = new Scanner(System.in);
+                Menu.erro(e.getMessage());
+                System.out.println("Introduza um valor válido: ");
+                scanner.nextLine();
+            }
+        }
+        return valor;
+    }
+
+    public static <T,R> R get_tipo(T t, Function<T,R> function){
+        boolean ok = false;
+        R valor = null;
+
+        while(!ok){
+            try{
+                valor = function.apply(t);
                 ok = true;
             }catch (InputMismatchException e){
                 Scanner scanner = new Scanner(System.in);

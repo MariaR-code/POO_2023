@@ -26,16 +26,8 @@ public class Tshirt extends Artigo {
         this.padrao = Padrao.Liso;
     }
 
-    public Tshirt(String cod_alfanr, double preco_base, String transportadora, Tamanho tamanho,
-                  Padrao padrao){
-        super(cod_alfanr, preco_base, transportadora);
-        this.tamanho = tamanho;
-        this.padrao = padrao;
-    }
-
-    public Tshirt(String cod_alfanr, double preco_base, int av_estado, int nr_donos, String transportadora,
-                  Tamanho tamanho, Padrao padrao){
-        super(cod_alfanr, preco_base, av_estado, nr_donos, transportadora);
+    public Tshirt(Artigo artigo, Tamanho tamanho, Padrao padrao){
+        super(artigo);
         this.tamanho = tamanho;
         this.padrao = padrao;
     }

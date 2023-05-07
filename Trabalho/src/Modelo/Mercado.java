@@ -14,7 +14,7 @@ public class Mercado {
     private Map<Integer, List<String>> artigos_venda; //Relaciona o código do utilizador à lista dos códigos alfanuméricos dos artigos que tem à venda
 
     /**
-     * Construtores dos objetos da classe MarketPlace
+     * Construtores dos objetos da classe Mercado
      */
     public Mercado() {
         this.encomendas_pend = new ArrayList<>();
@@ -161,6 +161,38 @@ public class Mercado {
         }
         return false;
     }
+    /**
+     * Método que adiciona um artigo na lista de artigos
+     * @param artigo É o artigo que se pretende adicionar
+     * */
+    public void adicionaArtigo(Artigo artigo){
+        this.artigos.add(artigo.clone());
+    }
 
+    /**
+     * Método que devolve o código do utilizador com o email passado em parâmetro
+     * @param email Email do utilizador
+     * @return int que é o código do utilizador
+     * */
+    public int codigoUtilizador(String email){
+        for(Utilizador u : utilizadores){
+            if(u.getEmail().equals(email))
+                return u.getId();
+        }
+        return -1;
+    }
+
+    /**
+     *
+     * */
+    public void adicionaArtigoVenda(int cod, String cod_alfanr){
+        if(this.artigos_venda.containsKey(cod))
+            this.artigos_venda.get(cod).add(cod_alfanr);
+        else{
+            List<String> l = new ArrayList<>();
+            l.add(cod_alfanr);
+            this.artigos_venda.put(cod, l);
+        }
+    }
 
 }
