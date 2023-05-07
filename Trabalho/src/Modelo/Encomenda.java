@@ -1,4 +1,4 @@
-package Trabalho.src;
+package Trabalho.src.Modelo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
-package Trabalho.src;
+package Trabalho.src.Modelo;
 
-public class Tshirt extends Artigo{
+public class Tshirt extends Artigo {
     public enum Tamanho{
         S,
         M,

@@ -1,4 +1,4 @@
-package Trabalho.src;
+package Trabalho.src.Modelo;
 
 public abstract class Artigo {
     public static final int MAU = 3;

@@ -1,4 +1,4 @@
-package Trabalho.src;
+package Trabalho.src.Modelo;
 
 public class Fatura {
     private Encomenda enc;
@@ -25,7 +25,7 @@ public class Fatura {
      */
     public Fatura(Encomenda enc_, double custo_, String nif_){
         this.enc = enc_.clone();
-        this.custo = custo_;
+
         this.nif = nif_;
     }
 
@@ -104,5 +104,12 @@ public class Fatura {
         sb.append("Custo: ").append(this.custo);
         sb.append(">>>>>>>>>>");
         return sb.toString();
+    }
+
+    /**
+     * Método que calcula o custo.
+     */
+    public double calcCusto(){
+        return this.custo = 0.0;
     }
 }
