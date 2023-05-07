@@ -28,7 +28,7 @@ public abstract class Artigo {
     }
 
     public Artigo(String descricao, String marca, String cod_alfanr, double preco_base,
-                  double correcao_preco, String transportadora){
+                  String transportadora){
         this.descricao = descricao;
         this.marca = marca;
         this.cod_alfanr = cod_alfanr;
@@ -40,7 +40,7 @@ public abstract class Artigo {
     }
 
     public Artigo(String descricao, String marca, String cod_alfanr, double preco_base,
-                  double correcao_preco, int av_estado, int nr_donos, String transportadora){
+                  int av_estado, int nr_donos, String transportadora){
         this.descricao = descricao;
         this.marca = marca;
         this.cod_alfanr = cod_alfanr;
