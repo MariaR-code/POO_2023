@@ -100,6 +100,15 @@ public class Mercado {
     }
 
     /**
+     * Método que adiciona uma Transportador à lista transportadoras
+     * @param t
+     */
+    public void add_transportadora(Transportadora t) {
+        this.transportadoras.add(t.clone());
+    }
+
+
+    /**
      * Método equals que compara e verifica
      * se os objetos em questão são iguais.
      */

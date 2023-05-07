@@ -108,6 +108,7 @@ public class Controlo{
 
         switch (op){
             case 1:
+                this.adicionar_transportadora();
                 break;
 
             case 2:
@@ -169,13 +170,17 @@ public class Controlo{
     }
 
     public void criar_conta() {
-        try { // cria-se um 'int op = this.gui.menu...etc' para esta tipo_user selection?
+        try { // cria-se um menu para esta tipo_user selection ou isto serve? O que muda é as opções em vez de começar em 1 é em 0.
             int tipo_user = Insercao.get_valor(("o seu tipo de conta: \n0 - Comprador \n1 - Vendedor \n2 - Ambos \nEscolha a opção que pretende"), supplier_Int);
             if (tipo_user < 0 || tipo_user > 2) {
                 throw new ErroCriarConta("tipo de utilizador inválido.");
             }
             String email = Insercao.get_valor("email", supplier_String);
-            if(!(Utilizador.isValidEmail(email)) || (this.model.procuraUtilizador(email,tipo_user))) {
+            boolean userExists = false; // ver se funciona
+            for (int i = 0; i <= 2; i++) {
+                userExists = userExists || this.model.procuraUtilizador(email, i);
+            }
+            if(!(Utilizador.isValidEmail(email)) || userExists) {
                 throw new ErroCriarConta("email inválido");
             }
             String nome = Insercao.get_valor("nome", supplier_String);
@@ -195,6 +200,10 @@ public class Controlo{
         }
     }
 
+    public void adicionar_transportadora(){
+
+       // model.add_transportadora();
+    };
 
 
     public void comprador(){

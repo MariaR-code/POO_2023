@@ -30,8 +30,8 @@ public class Menu {
             "Remover artigo"
     };
     public static final String[] menu_Transportadoras = {
-            "Associar nova trabsportadora",
-            "Ver transportadpres atualmente associadas"
+            "Associar nova transportadora",
+            "Ver transportadoras atualmente associadas"
     };
 
     /**
