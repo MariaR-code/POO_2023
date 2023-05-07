@@ -1,9 +1,8 @@
 package Trabalho.src.Controlo;
 
 
-import Trabalho.src.Erros.ErroCriarConta;
 import Trabalho.src.Modelo.Mercado;
-import Trabalho.src.Modelo.Utilizador; //remove later?
+import Trabalho.src.Modelo.Utilizador;
 import Trabalho.src.Vista.Insercao;
 import Trabalho.src.Vista.Menu;
 import Trabalho.src.Erros.NaoExisteUtilizador;
@@ -169,13 +168,13 @@ public class Controlo{
         }
     }
 
-        public void criar_conta() {
-            try {
-                int tipo_user = Insercao.get_valor(("tipo de utilizador (0 - Comprador, 1 - Vendedor, 2 - Ambos)"), supplier_Int);
-                String email = Insercao.get_valor("email", supplier_String);
-                if(!(Utilizador.isValidEmail(email)) || (this.model.procuraUtilizador(email,tipo_user))) {
-                    throw new ErroCriarConta("Email inválido");
-                }
+    public void criar_conta() {
+        try {
+            int tipo_user = Insercao.get_valor(("tipo de utilizador (0 - Comprador, 1 - Vendedor, 2 - Ambos)"), supplier_Int);
+            String email = Insercao.get_valor("email", supplier_String);
+            if(!(Utilizador.isValidEmail(email)) || (this.model.procuraUtilizador(email,tipo_user))) {
+                throw new ErroCriarConta("Email inválido");
+            }
             String nome = Insercao.get_valor("nome", supplier_String);
             String morada = Insercao.get_valor("morada", supplier_String);
             String nif = Insercao.get_valor("nif", supplier_String);
@@ -183,11 +182,15 @@ public class Controlo{
                 throw new ErroCriarConta("NIF inválido");
             }
 
-
-                Utilizador user = new Utilizador(email, nome, morada, nif, tipo_user);
-                throw new ErroCriarConta("idk");
-            } catch (ErroCriarConta e) {e.getMessage();
-            }
+            Utilizador user = new Utilizador(email, nome, morada, nif, tipo_user);
+            this.model.addUtilizador(user);
+            System.out.println("Utilizador criado com sucesso.");
+            this.run();
+            throw new ErroCriarConta("idk");
+        } catch (ErroCriarConta e) {
+            Menu.erro("Não foi possível criar a conta devido a " + e.getMessage());
+            this.run();
+        }
     }
 
 
