@@ -204,13 +204,13 @@ public class Controlo{
     }
 
     public void adicionar_transportadora() { String nome,preco_expedicao,preco_expedicao_premium; // por enquanto, não verifica nada, só cria
-            nome = Insercao.get_valor("nome da transportadora", supplier_String);
-            preco_expedicao = Insercao.get_valor("preço de expedição", supplier_String);
-            preco_expedicao_premium = Insercao.get_valor("preço de expedição premium", supplier_String);
-            Transportadora transportadora = new Transportadora(nome, preco_expedicao, preco_expedicao_premium);
-            model.addTransportadora(transportadora);
-            System.out.println("Transportadora adicionada com sucesso!");
-            this.run();
+        nome = Insercao.get_valor("nome da transportadora", supplier_String);
+        preco_expedicao = Insercao.get_valor("preço de expedição", supplier_String);
+        preco_expedicao_premium = Insercao.get_valor("preço de expedição premium", supplier_String);
+        Transportadora transportadora = new Transportadora(nome, preco_expedicao, preco_expedicao_premium);
+        model.addTransportadora(transportadora);
+        System.out.println("Transportadora adicionada com sucesso!");
+        this.run();
     }
     public void ver_transportadoras() { // só da o nome
         List<Transportadora> transportadoras = model.getTransportadoras();
