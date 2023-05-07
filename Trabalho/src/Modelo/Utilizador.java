@@ -236,6 +236,16 @@ public class Utilizador {
         if (email == null || email.length() < 5) { // "a@b.c" pelo menos length 5
             return false;
         }
+        int count = 0;
+        for (int i = 0; i < email.length(); i++) { // verifica se existe mais de 1 '@'
+            if (email.charAt(i) == '@') {
+                count++;
+            }
+        }
+        if (count != 1) {
+            return false;
+        }
+
             int atIndex = email.indexOf('@');                                               // !! Não cobre todos os casos !!
             int dotIndex = email.lastIndexOf('.');                                          // apenas precisa que '@' não seja o primeiro char,
                                                                                             // tenha pelo menos 1 char entre '@' e o último '.' (em que '@' vem primeiro)

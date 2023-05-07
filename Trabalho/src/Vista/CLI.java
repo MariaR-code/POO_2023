@@ -1,3 +1,5 @@
+// Useless. Delete later?
+
 package Trabalho.src.Vista;
 
 import Trabalho.src.Modelo.Utilizador;

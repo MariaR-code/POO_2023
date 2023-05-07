@@ -91,6 +91,10 @@ public class Mercado {
         this.artigos_venda = artigos_venda;
     }
 
+    public void addUtilizador(Utilizador utilizador) {
+        this.utilizadores.add(utilizador.clone());
+    }
+
     /**
      * Método equals que compara e verifica
      * se os objetos em questão são iguais.
@@ -115,7 +119,7 @@ public class Mercado {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("As encomendqas pendentes são as seguintes: ").append(this.encomendas_pend.toString());
+        sb.append("As encomendas pendentes são as seguintes: ").append(this.encomendas_pend.toString());
         sb.append("\nAs transportadoras são: ").append(this.transportadoras.toString());
         sb.append("\nOs utilizadores são: ").append(this.utilizadores.toString());
         sb.append("\nOs artigos são: ").append(this.artigos.toString());

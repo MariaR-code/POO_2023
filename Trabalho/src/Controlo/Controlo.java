@@ -1,9 +1,13 @@
 package Trabalho.src.Controlo;
 
+
+import Trabalho.src.Erros.ErroCriarConta;
 import Trabalho.src.Modelo.Mercado;
+import Trabalho.src.Modelo.Utilizador; //remove later?
 import Trabalho.src.Vista.Insercao;
 import Trabalho.src.Vista.Menu;
 import Trabalho.src.Erros.NaoExisteUtilizador;
+import Trabalho.src.Erros.ErroCriarConta;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -60,6 +64,8 @@ public class Controlo{
                 break;
 
             case 3:
+
+                this.criar_conta();
                 break;
 
             case 4:
@@ -162,6 +168,29 @@ public class Controlo{
                 break;
         }
     }
+
+        public void criar_conta() {
+            try {
+                int tipo_user = Insercao.get_valor(("tipo de utilizador (0 - Comprador, 1 - Vendedor, 2 - Ambos)"), supplier_Int);
+                String email = Insercao.get_valor("email", supplier_String);
+                if(!(Utilizador.isValidEmail(email)) || (this.model.procuraUtilizador(email,tipo_user))) {
+                    throw new ErroCriarConta("Email inválido");
+                }
+            String nome = Insercao.get_valor("nome", supplier_String);
+            String morada = Insercao.get_valor("morada", supplier_String);
+            String nif = Insercao.get_valor("nif", supplier_String);
+            if (!(Utilizador.isValidNIF(nif))) {
+                throw new ErroCriarConta("NIF inválido");
+            }
+
+
+                Utilizador user = new Utilizador(email, nome, morada, nif, tipo_user);
+                throw new ErroCriarConta("idk");
+            } catch (ErroCriarConta e) {e.getMessage();
+            }
+    }
+
+
 
     public void comprador(){
         int op = this.gui.menu(" Comprador ", Menu.menu_Comprador);
