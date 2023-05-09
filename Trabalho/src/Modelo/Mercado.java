@@ -71,7 +71,7 @@ public class Mercado {
     }
 
     /**
-     * Setters dos objetos da classe MarketPlace
+     * Setters dos objetos da classe Mercado
      */
 
     public void setTransportadoras(List<Transportadora> transportadoras) {
@@ -127,7 +127,7 @@ public class Mercado {
     }
 
     /**
-     * Método toString que devolve a representação em String da MarketPlace.
+     * Método toString que devolve a representação em String do Mercado.
      */
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -193,6 +193,14 @@ public class Mercado {
             l.add(cod_alfanr);
             this.artigos_venda.put(cod, l);
         }
+    }
+
+    public boolean existeTransportadora(String nome){
+        for(Transportadora t : this.transportadoras){
+            if(t.getNome().equals(nome))
+                return true;
+        }
+        return false;
     }
 
 }

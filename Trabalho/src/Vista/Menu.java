@@ -55,4 +55,12 @@ public class Menu {
     public static void erro(String msg){
         System.out.println("\nErro: " + msg);
     }
+
+    /**
+     * Método que notifica o utilizador que determinada ação foi realizada
+     * @param mensagem É a informação que o controlo quer passar ao utilizador
+     * */
+    public static void mostraMensagem(String mensagem){
+        System.out.println("\n" + mensagem);
+    }
 }

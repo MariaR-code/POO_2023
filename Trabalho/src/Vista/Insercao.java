@@ -2,7 +2,6 @@ package Trabalho.src.Vista;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -12,10 +11,14 @@ public class Insercao {
         T valor = null;
 
         while(!ok){
+            System.out.println("ciclo");
             try{
                 valor = supplier.get();
                 ok = true;
             }catch (InputMismatchException e){
+                Menu.erro(e.getMessage());
+                System.out.println("Introduza um valor válido: ");
+            }catch (IllegalArgumentException e){
                 Scanner scanner = new Scanner(System.in);
                 Menu.erro(e.getMessage());
                 System.out.println("Introduza um valor válido: ");
@@ -34,10 +37,8 @@ public class Insercao {
                 valor = function.apply(t);
                 ok = true;
             }catch (InputMismatchException e){
-                Scanner scanner = new Scanner(System.in);
                 Menu.erro(e.getMessage());
-                System.out.println("Introduza um valor válido: ");
-                scanner.nextLine();
+                System.out.print("Introduza um valor válido: ");
             }
         }
         return valor;
