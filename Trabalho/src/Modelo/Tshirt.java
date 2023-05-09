@@ -103,7 +103,7 @@ public class Tshirt extends Artigo {
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(super.toString());
-        sb.append("\nTamanho: ").append(this.tamanho);
+        sb.append("Tamanho: ").append(this.tamanho);
         sb.append("\nPadrão: ").append(this.padrao);
         return sb.toString();
     }

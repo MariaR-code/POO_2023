@@ -194,7 +194,7 @@ public abstract class Artigo {
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Artigo:\n");
-        sb.append("Descrição do artigo: ").append(this.descricao);
+        sb.append("\nDescrição do artigo: ").append(this.descricao);
         sb.append("\nMarca: ").append(this.marca);
         sb.append("\nCódigo Alfanumérico: ").append(this.cod_alfanr);
         sb.append("\nPreço Base: ").append(this.preco_base);

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class Controlo{
+public class Controlo {
     private Menu gui;
     private Mercado model;
     private Supplier<String> supplier_String = () -> {
@@ -67,34 +67,34 @@ public class Controlo{
     private Function<String, Boolean> function_Boolean = s -> {
         boolean b = false;
         boolean valid = false;
-        do{
+        do {
             Scanner input = new Scanner(System.in);
             Menu.mostraMensagem(s + "? (Se sim, escreva sim. Caso contrário escreva não): ");
             String sn = input.nextLine();
 
-            if(sn.equals("sim")){
-                b= true;
+            if (sn.equals("sim")) {
+                b = true;
                 valid = true;
             }
-            if(sn.equals("não")){
-                b= false;
+            if (sn.equals("não")) {
+                b = false;
                 valid = true;
             }
-        }while(!valid);
+        } while (!valid);
 
         return b;
     };
 
-    public Controlo(){
+    public Controlo() {
         this.gui = new Menu();
         this.model = new Mercado();
 
     }
 
-    public void run(){
+    public void run() {
         int op = this.gui.menu(" Bem-vind@ à Vintage ", Menu.menu_Principal_Vintage);
 
-        switch (op){
+        switch (op) {
             case 1:
                 this.logIn(1);
                 break;
@@ -127,13 +127,14 @@ public class Controlo{
                 break;
         }
     }
-    public void logIn(int tipo){
+
+    public void logIn(int tipo) {
         int op = this.gui.menu(" Log In ", Menu.menu_Log_In);
 
-        switch (op){
+        switch (op) {
             case 1:
                 int cod = this.loginVendedor(tipo);
-                if(tipo == 1)
+                if (tipo == 1)
                     this.vendedor(cod);
                 else this.comprador(cod);
                 break;
@@ -143,10 +144,10 @@ public class Controlo{
         }
     }
 
-    public void transportadoras(){
+    public void transportadoras() {
         int op = this.gui.menu(" Transportadoras ", Menu.menu_Transportadoras);
 
-        switch (op){
+        switch (op) {
             case 1:
                 this.adicionar_transportadora();
                 this.run();
@@ -163,31 +164,31 @@ public class Controlo{
         }
     }
 
-    public int loginVendedor(int tipo){
-        try{
+    public int loginVendedor(int tipo) {
+        try {
             String email = Insercao.get_valor("email", this.supplier_String);
-            if(!(this.model.procuraUtilizador(email,tipo))) {
+            if (!(this.model.procuraUtilizador(email, tipo))) {
                 throw new NaoExisteUtilizador("Utilizador não registado");
             }
 
             return model.codigoUtilizador(email);
-        }
-        catch(NaoExisteUtilizador e){
+        } catch (NaoExisteUtilizador e) {
             Menu.erro(e.getMessage());
             this.run();
         }
         return -1;
     }
 
-    public void vendedor(int cod){
+    public void vendedor(int cod) {
         int op = this.gui.menu(" Vendedor ", Menu.menu_Vendedor);
 
-        switch (op){
+        switch (op) {
             case 1:
                 this.adicionar_artigo(cod);
                 break;
 
             case 2:
+                this.historico_vendas(cod);
                 break;
 
             case 3:
@@ -203,7 +204,7 @@ public class Controlo{
     public void adicionar_artigo(int cod) {
         int op = this.gui.menu(" Adicionar Artigo ", Menu.menu_Adicionar_Artigo);
 
-        switch (op){
+        switch (op) {
             case 1:
                 this.adicionaVestuario(cod);
                 this.adicionar_artigo(cod);
@@ -225,7 +226,7 @@ public class Controlo{
         }
     }
 
-    public void criar_conta(){
+    public void criar_conta() {
         try {
             int tipo_user = Insercao.get_valor(("o seu tipo de conta: \n0 - Comprador \n1 - Vendedor \n2 - Ambos \nEscolha a opção que pretende"), supplier_Int);
             if (tipo_user < 0 || tipo_user > 2) {
@@ -236,7 +237,7 @@ public class Controlo{
             for (int i = 0; i <= 2; i++) {
                 userExists = userExists || this.model.procuraUtilizador(email, i);
             }
-            if(!(Utilizador.isValidEmail(email)) || userExists) {
+            if (!(Utilizador.isValidEmail(email)) || userExists) {
                 throw new ErroCriarConta("Email inválido ou pré-existente");
             }
             String nome = Insercao.get_valor("nome", supplier_String);
@@ -253,6 +254,20 @@ public class Controlo{
             Menu.erro("Não foi possível criar a conta devido a " + e.getMessage());
             this.run();
         }
+    }
+
+    public void historico_vendas(int cod) {
+        Utilizador utilizador = model.getUtilizadores().get(cod-1);
+        List<Fatura> faturas = utilizador.getFaturaVendedor();
+        if (faturas.isEmpty()) {
+            Menu.mostraMensagem("O utilizador " + utilizador.getNome() + " ainda não tem faturas de vendas registadas.");
+            this.vendedor(cod); //funciona até aqui.
+        }
+        Menu.mostraMensagem("Histórico de vendas do utilizador " + utilizador.getNome() + ":");
+        for (Fatura fatura : faturas) {
+            Menu.mostraMensagem(fatura.toString());
+        }
+        this.vendedor(cod);
     }
 
     public void adicionar_transportadora() {

@@ -194,11 +194,11 @@ public class Encomenda {
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append("Encomenda: {");
+        sb.append("\nEncomenda: \n{");
         sb.append("Artigos: ").append(this.artigos.toString());
-        sb.append("Dimensão: ").append(this.dimensao);
-        sb.append("Data: ").append(this.data);
-        sb.append("Estado: ").append(this.estado).append("}");
+        sb.append("\nDimensão: ").append(this.dimensao);
+        sb.append("\nData: ").append(this.data);
+        sb.append("\nEstado: ").append(this.estado).append("}");
         return sb.toString();
     }
 

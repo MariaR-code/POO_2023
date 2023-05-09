@@ -97,12 +97,12 @@ public class Fatura {
      */
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Fatura: ");
-        sb.append("<<<<<<<<<<");
-        sb.append("NIF: ").append(this.nif);
-        sb.append("Encomenda: ").append(this.enc.toString());
-        sb.append("Custo: ").append(this.custo);
-        sb.append(">>>>>>>>>>");
+        sb.append("\nFatura: ");
+        sb.append("\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+        sb.append("\nNIF: ").append(this.nif);
+        sb.append("\nEncomenda: ").append(this.enc.toString());
+        sb.append("\nCusto: ").append(this.custo);
+        sb.append("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         return sb.toString();
     }
 
