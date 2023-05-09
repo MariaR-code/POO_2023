@@ -193,6 +193,7 @@ public class Controlo {
 
             case 3:
                 //Algum menu que mostre os artigos que se encontram à venda
+                this.artigos_para_venda(cod);
                 break;
 
             case 4:
@@ -260,15 +261,35 @@ public class Controlo {
         Utilizador utilizador = model.getUtilizadores().get(cod-1);
         List<Fatura> faturas = utilizador.getFaturaVendedor();
         if (faturas.isEmpty()) {
-            Menu.mostraMensagem("O utilizador " + utilizador.getNome() + " ainda não tem faturas de vendas registadas.");
+            Menu.mostraMensagem("O utilizador '" + utilizador.getNome() + "' ainda não tem faturas de vendas registadas.");
             this.vendedor(cod); //funciona até aqui.
         }
-        Menu.mostraMensagem("Histórico de vendas do utilizador " + utilizador.getNome() + ":");
+        Menu.mostraMensagem("Histórico de vendas do utilizador '" + utilizador.getNome() + "':");
         for (Fatura fatura : faturas) {
             Menu.mostraMensagem(fatura.toString());
         }
         this.vendedor(cod);
     }
+
+    public void artigos_para_venda(int cod) {
+        Utilizador utilizador = model.getUtilizadores().get(cod - 1);
+        List<String> artigosVenda = model.getArtigos_venda().get(cod);
+        if (artigosVenda != null) {
+            Menu.mostraMensagem("Artigos do vendedor '" + utilizador.getNome() + "':");
+            for (String codAlfanr : artigosVenda) {
+                for (Artigo artigo : model.getArtigos()) {
+                    if (artigo.getCod_alfanr().equals(codAlfanr)) {
+                        Menu.mostraMensagem(artigo.toString());
+                    }
+                }
+            }
+        } else {
+            Menu.mostraMensagem("Este utilizador não tem artigos à venda.");
+        }
+
+        this.vendedor(cod);
+    }
+
 
     public void adicionar_transportadora() {
         Transportadora transportadora = null;
