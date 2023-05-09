@@ -84,9 +84,9 @@ public class Transportadora {
         this.preco_expedicao_premium = preco_expedicao_premium;
     }
 
-    /*
+    /**
      * Método de verificação de igualdade de dois objetos, sendo um deles da classe Transportadora
-     * @param object
+     * @param o
      * @return boolean
      * */
     public boolean equals(Object o){
@@ -132,8 +132,8 @@ public class Transportadora {
 
     /**
     * Método que vai calcular o preço da expedição de uma encomenda
-    * @param
-    * @return
+    * @param premium
+    * @return double
     * */
     public double preco_transporte(boolean premium, double valor_base, double margem_lucro){
         ScriptEngineManager formula = new ScriptEngineManager();

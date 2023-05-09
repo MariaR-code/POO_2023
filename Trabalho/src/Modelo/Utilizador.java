@@ -246,10 +246,10 @@ public class Utilizador {
             return false;
         }
 
-            int atIndex = email.indexOf('@');                                               // !! Não cobre todos os casos !!
-            int dotIndex = email.lastIndexOf('.');                                          // apenas precisa que '@' não seja o primeiro char,
-                                                                                            // tenha pelo menos 1 char entre '@' e o último '.' (em que '@' vem primeiro)
-            return (atIndex > 0 && dotIndex > atIndex + 1 && dotIndex < email.length() - 1);// não termine com '.'
+        int atIndex = email.indexOf('@');
+        int dotIndex = email.lastIndexOf('.');
+
+        return (atIndex > 0 && dotIndex > atIndex + 1 && dotIndex < email.length() - 1);
         }
 
     public static boolean isValidNIF(String nif) { // não nulo, com 9 digitos (0-9)

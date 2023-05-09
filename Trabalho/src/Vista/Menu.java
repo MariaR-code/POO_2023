@@ -14,7 +14,8 @@ public class Menu {
     };
     public static final String[] menu_Vendedor = {
             "Adicionar artigo",
-            "Histórico de vendas" //Necessário para ter 16 valores
+            "Histórico de vendas", //Necessário para ter 16 valores
+            "Ver artigos à venda"
     };
     public static final String[] menu_Adicionar_Artigo = {
             "Vestuário", //Secalhar era melhor ser Tshirt, sapatilhas e mala
@@ -26,7 +27,7 @@ public class Menu {
             "Histórico de encomendas" //Podemos fazer, acho que não custa muito. Não ser prioridade
     };
     public static final String[] menu_Criar_Encomenda = {
-            "Adicionar artigo", //Depois deste ser selecionado mostrar o menu_Adicionar_Artigo
+            "Adicionar artigo",
             "Remover artigo"
     };
     public static final String[] menu_Transportadoras = {

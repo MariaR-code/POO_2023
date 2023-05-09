@@ -11,7 +11,6 @@ public class Insercao {
         T valor = null;
 
         while(!ok){
-            System.out.println("ciclo");
             try{
                 valor = supplier.get();
                 ok = true;

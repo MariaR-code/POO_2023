@@ -8,7 +8,6 @@ import Trabalho.src.Erros.NaoExisteUtilizador;
 import Trabalho.src.Erros.ErroCriarConta;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.List;
 import java.util.function.Function;
@@ -50,6 +49,21 @@ public class Controlo{
         return Tshirt.Padrao.valueOf(padrao);
     };
 
+    //VER SE ESTAS DUAS SÃO PRECISAS PROVAVELMENTE NÃO!!!!!!
+    private Supplier<Encomenda.Dimensao> supplier_Dimensao = () -> {
+        Scanner input = new Scanner(System.in);
+        String dimensao = input.nextLine();
+
+        return Encomenda.Dimensao.valueOf(dimensao);
+    };
+
+    private Supplier<Encomenda.Estado> supplier_Estado = () -> {
+        Scanner input = new Scanner(System.in);
+        String estado = input.nextLine();
+
+        return Encomenda.Estado.valueOf(estado);
+    };
+
     private Function<String, Boolean> function_Boolean = s -> {
         boolean b = false;
         boolean valid = false;
@@ -89,8 +103,8 @@ public class Controlo{
                 break;
 
             case 3:
-
                 this.criar_conta();
+                this.run();
                 break;
 
             case 4:
@@ -135,10 +149,12 @@ public class Controlo{
         switch (op){
             case 1:
                 this.adicionar_transportadora();
+                this.run();
                 break;
 
             case 2:
                 this.ver_transportadoras();
+                this.run();
                 break;
 
             case 3:
@@ -147,7 +163,7 @@ public class Controlo{
         }
     }
 
-    public int loginVendedor(int tipo) throws NaoExisteUtilizador{
+    public int loginVendedor(int tipo){
         try{
             String email = Insercao.get_valor("email", this.supplier_String);
             if(!(this.model.procuraUtilizador(email,tipo))) {
@@ -175,7 +191,11 @@ public class Controlo{
                 break;
 
             case 3:
-                this.run(); //??? Talvez algum que mostre os artigos que se encontram à venda
+                //Algum menu que mostre os artigos que se encontram à venda
+                break;
+
+            case 4:
+                this.run();
                 break;
         }
     }
@@ -205,8 +225,8 @@ public class Controlo{
         }
     }
 
-    public void criar_conta() {
-        try { // cria-se um menu para esta tipo_user selection ou isto serve? O que muda é as opções em vez de começar em 1 é em 0.
+    public void criar_conta(){
+        try {
             int tipo_user = Insercao.get_valor(("o seu tipo de conta: \n0 - Comprador \n1 - Vendedor \n2 - Ambos \nEscolha a opção que pretende"), supplier_Int);
             if (tipo_user < 0 || tipo_user > 2) {
                 throw new ErroCriarConta("Tipo de utilizador inválido.");
@@ -217,7 +237,7 @@ public class Controlo{
                 userExists = userExists || this.model.procuraUtilizador(email, i);
             }
             if(!(Utilizador.isValidEmail(email)) || userExists) {
-                throw new ErroCriarConta("Email inválido");
+                throw new ErroCriarConta("Email inválido ou pré-existente");
             }
             String nome = Insercao.get_valor("nome", supplier_String);
             String morada = Insercao.get_valor("morada", supplier_String);
@@ -229,28 +249,42 @@ public class Controlo{
             Utilizador user = new Utilizador(email, nome, morada, nif, tipo_user);
             this.model.addUtilizador(user);
             Menu.mostraMensagem("Utilizador criado com sucesso.");
-            this.run();
         } catch (ErroCriarConta e) {
             Menu.erro("Não foi possível criar a conta devido a " + e.getMessage());
             this.run();
         }
     }
 
-    public void adicionar_transportadora() { String nome,preco_expedicao,preco_expedicao_premium; // por enquanto, não verifica nada, só cria
-        nome = Insercao.get_valor("nome da transportadora", supplier_String);
-        preco_expedicao = Insercao.get_valor("preço de expedição", supplier_String);
-        preco_expedicao_premium = Insercao.get_valor("preço de expedição premium", supplier_String);
-        Transportadora transportadora = new Transportadora(nome, preco_expedicao, preco_expedicao_premium);
+    public void adicionar_transportadora() {
+        Transportadora transportadora = null;
+        String nome= "";
+        String preco_expedicao,preco_expedicao_premium;
+        try{
+            nome = Insercao.get_valor("nome da transportadora", supplier_String);
+
+            if(this.model.existeTransportadora(nome))
+                throw new NaoExisteTransportadora("A transportadora já se encontra associada.");
+
+        }catch (NaoExisteTransportadora e){
+            Menu.erro(e.getMessage());
+            this.transportadoras();
+        }
+        preco_expedicao = Insercao.get_valor("a fórmula do preço de expedição de forma genérica onde escreve ValorBase, Imposto e margemlucro", supplier_String);
+        boolean premium = Insercao.get_tipo("Faz entregas de artigos premium", function_Boolean);
+
+        if(premium){
+            preco_expedicao_premium = Insercao.get_valor(" a fórmula do preço de expedição premium", supplier_String);
+            transportadora = new Transportadora(nome, preco_expedicao, preco_expedicao_premium);
+        }else transportadora = new Transportadora(nome, preco_expedicao);
+
         model.addTransportadora(transportadora);
         Menu.mostraMensagem("Transportadora adicionada com sucesso!");
-        this.run();
     }
     public void ver_transportadoras() { // só da o nome
         List<Transportadora> transportadoras = model.getTransportadoras();
 
         if (transportadoras.isEmpty()) {
             Menu.mostraMensagem("Não há transportadoras associadas atualmente.");
-            this.run();
         } else {
             Menu.mostraMensagem("Transportadoras associadas atualmente:");
 
@@ -258,7 +292,6 @@ public class Controlo{
                 Menu.mostraMensagem("- " + t.getNome());
             }
         }
-        this.run();
     }
 
     public void adicionaVestuario(int cod){
@@ -268,7 +301,19 @@ public class Controlo{
         String marca = Insercao.get_valor("a marca", supplier_String);
         String descricao = Insercao.get_valor("a descrição", supplier_String);
         double preco_base = Insercao.get_valor("o preço base", supplier_Double);
-        String transportadora = Insercao.get_valor("o nome da transportadora", supplier_String); //ver se a transportadora existe
+        String transportadora = "";
+
+        try {
+            transportadora = Insercao.get_valor("o nome da transportadora", supplier_String);
+
+            if(!this.model.existeTransportadora(transportadora))
+                throw new NaoExisteTransportadora("Essa transportadora não se encontra associada à Vintage.");
+
+        }catch (NaoExisteTransportadora e){
+            Menu.erro(e.getMessage());
+            this.adicionar_artigo(cod);
+        }
+
         Tshirt.Tamanho tamanho = Insercao.get_valor("o tamanho da thirt (S, M, L, XL)", supplier_Tamanho);
         Tshirt.Padrao padrao = Insercao.get_valor("o padrao da tshirt (Liso, Riscas, Palmeiras)", supplier_Padrao);
         boolean usado = Insercao.get_tipo("É usado", function_Boolean);
@@ -286,7 +331,7 @@ public class Controlo{
         Menu.mostraMensagem("Artigo adicionado com sucesso.");
     }
 
-    public void adicionaCalcado(int cod) throws NaoExisteTransportadora{
+    public void adicionaCalcado(int cod){
         Sapatilhas sapatilhas = null;
 
         String cod_alfnr = Insercao.get_valor("o código alfanumérico", supplier_String);
@@ -332,7 +377,18 @@ public class Controlo{
         String marca = Insercao.get_valor("a marca", supplier_String);
         String descricao = Insercao.get_valor("a descrição", supplier_String);
         double preco_base = Insercao.get_valor("o preço base", supplier_Double);
-        String transportadora = Insercao.get_valor("o nome da transportadora", supplier_String); //ver se a transportadora existe
+        String transportadora = "";
+        try {
+            transportadora = Insercao.get_valor("o nome da transportadora", supplier_String);
+
+            if(!this.model.existeTransportadora(transportadora))
+                throw new NaoExisteTransportadora("Transportadora inválida");
+
+        }catch (NaoExisteTransportadora e){
+            Menu.erro("Essa transportadora não se encontra associada à Vintage.");
+            this.adicionar_artigo(cod);
+        }
+
         double altura = Insercao.get_valor("a altura", supplier_Double);
         double comprimento = Insercao.get_valor("o comprimento", supplier_Double);
         double profundidade = Insercao.get_valor("a profundidade", supplier_Double);
