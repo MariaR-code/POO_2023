@@ -1,5 +1,6 @@
 package Trabalho.src.Modelo;
 
+import java.rmi.MarshalledObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,30 +8,32 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Mercado {
-    private List<Encomenda> encomendas_pend;
+    private Map<Integer,List<Encomenda>> encomendas_pend;
     private List<Transportadora> transportadoras;
     private List<Utilizador> utilizadores;
     private List<Artigo> artigos;
     private Map<Integer, List<String>> artigos_venda; //Relaciona o código do utilizador à lista dos códigos alfanuméricos dos artigos que tem à venda
-
+    private Map<Integer, List<String>> artigos_vendidos;
     /**
      * Construtores dos objetos da classe Mercado
      */
     public Mercado() {
-        this.encomendas_pend = new ArrayList<>();
+        this.encomendas_pend = new HashMap<>();
         this.transportadoras = new ArrayList<>();
         this.utilizadores = new ArrayList<>();
         this.artigos = new ArrayList<>();
         this.artigos_venda = new HashMap<>();
+        this.artigos_vendidos = new HashMap<>();
     }
 
-    public Mercado(List<Encomenda> encomendas_pend, List<Transportadora> transportadoras, List<Utilizador> utilizadores,
-                   List<Artigo> artigos, Map<Integer, List<String>> artigos_venda) {
+    public Mercado(Map<Integer, List<Encomenda>> encomendas_pend, List<Transportadora> transportadoras, List<Utilizador> utilizadores,
+                   List<Artigo> artigos, Map<Integer, List<String>> artigos_venda, Map<Integer, List<String>> artigos_vendidos) {
         this.setEncomendas_pend(encomendas_pend);
         this.setTransportadoras(transportadoras);
         this.setUtilizadores(utilizadores);
         this.setArtigos(artigos);
-        this.setArtigos_venda(artigos_venda); //check this one later
+        this.setArtigos_venda(artigos_venda);
+        this.setArtigos_vendidos(artigos_vendidos);
     }
 
     public Mercado(Mercado marketPlace) {
@@ -38,15 +41,25 @@ public class Mercado {
         this.transportadoras = marketPlace.getTransportadoras();
         this.utilizadores = marketPlace.getUtilizadores();
         this.artigos = marketPlace.getArtigos();
-        this.artigos_venda = marketPlace.getArtigos_venda(); // check this later
+        this.artigos_venda = marketPlace.getArtigos_venda();
+        this.artigos_vendidos = marketPlace.getArtigos_vendidos();
     }
 
 
     /**
      * Getters dos objetos da classe MarketPlace
      */
-    public List<Encomenda> getEncomendas_pend() {
-        return encomendas_pend.stream().map(Encomenda::clone).collect(Collectors.toList());
+    public Map<Integer, List<Encomenda>> getEncomendas_pend() {
+        Map<Integer, List<Encomenda>> copia = new HashMap<>();
+
+        for(Map.Entry<Integer,List<Encomenda>> entrada : this.encomendas_pend.entrySet()){
+            int chave = entrada.getKey();
+            List<Encomenda> nova_lista = new ArrayList<>();
+            nova_lista = entrada.getValue().stream().map(Encomenda::clone).collect(Collectors.toList());
+
+            copia.put(chave, nova_lista);
+        }
+        return copia;
     }
 
     public List<Transportadora> getTransportadoras() {
@@ -61,13 +74,28 @@ public class Mercado {
         return artigos.stream().map(Artigo::clone).collect(Collectors.toList());
     }
 
-    //VER ISTO
     public Map<Integer, List<String>> getArtigos_venda() {
-        return artigos_venda;
+        Map<Integer, List<String>> copia = new HashMap<>();
+
+        for(Map.Entry<Integer,List<String>> entrada : this.artigos_venda.entrySet()){
+            int chave = entrada.getKey();
+            List<String> nova_lista = new ArrayList<>(entrada.getValue());
+
+            copia.put(chave, nova_lista);
+        }
+        return copia;
     }
 
-    public void setEncomendas_pend(List<Encomenda> encomendas_pend) {
-        this.encomendas_pend = encomendas_pend.stream().map(Encomenda::clone).collect(Collectors.toList());
+    public Map<Integer, List<String>> getArtigos_vendidos() {
+        Map<Integer, List<String>> copia = new HashMap<>();
+
+        for(Map.Entry<Integer,List<String>> entrada : this.artigos_vendidos.entrySet()){
+            int chave = entrada.getKey();
+            List<String> nova_lista = new ArrayList<>(entrada.getValue());
+
+            copia.put(chave, nova_lista);
+        }
+        return copia;
     }
 
     /**
@@ -78,6 +106,14 @@ public class Mercado {
         this.transportadoras = transportadoras.stream().map(Transportadora::clone).collect(Collectors.toList());
     }
 
+
+    public void setEncomendas_pend(Map<Integer, List<Encomenda>> encomendas_pend) {
+        for(Map.Entry<Integer, List<Encomenda>> entrada : encomendas_pend.entrySet()){
+            int chave = entrada.getKey();
+            this.encomendas_pend.put(chave, entrada.getValue().stream().map(Encomenda::clone).collect(Collectors.toList()));
+        }
+    }
+
     public void setUtilizadores(List<Utilizador> utilizadores) {
         this.utilizadores = utilizadores.stream().map(Utilizador::clone).collect(Collectors.toList());
     }
@@ -86,9 +122,22 @@ public class Mercado {
         this.artigos = artigos.stream().map(Artigo::clone).collect(Collectors.toList());
     }
 
-    //VER ESTE SET
     public void setArtigos_venda(Map<Integer, List<String>> artigos_venda) {
-        this.artigos_venda = artigos_venda;
+        for(Map.Entry<Integer, List<String>> entrada : artigos_venda.entrySet()){
+            int chave = entrada.getKey();
+            List<String> nova_lista = new ArrayList<>(entrada.getValue());
+
+            this.artigos_venda.put(chave, nova_lista);
+        }
+    }
+
+    public void setArtigos_vendidos(Map<Integer, List<String>> artigos_vendidos) {
+        for(Map.Entry<Integer, List<String>> entrada : artigos_vendidos.entrySet()){
+            int chave = entrada.getKey();
+            List<String> nova_lista = new ArrayList<>(entrada.getValue());
+
+            this.artigos_vendidos.put(chave, nova_lista);
+        }
     }
 
     /**
