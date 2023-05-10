@@ -7,11 +7,14 @@ import Trabalho.src.Vista.Insercao;
 import Trabalho.src.Vista.Menu;
 import Trabalho.src.Erros.NaoExisteUtilizador;
 import Trabalho.src.Erros.ErroCriarConta;
+import Trabalho.src.Vista.Mostrar;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.List;
 import java.util.function.Consumer;
@@ -269,7 +272,7 @@ public class Controlo {
         List<Fatura> faturas = utilizador.getFaturaVendedor();
         if (faturas.isEmpty()) {
             Menu.mostraMensagem("O utilizador '" + utilizador.getNome() + "' ainda não tem faturas de vendas registadas.");
-            this.vendedor(cod); //funciona até aqui.
+            this.vendedor(cod);
         }
         Menu.mostraMensagem("Histórico de vendas do utilizador '" + utilizador.getNome() + "':");
         for (Fatura fatura : faturas) {
@@ -279,23 +282,21 @@ public class Controlo {
     }
 
     public void artigos_para_venda(int cod) {
-        Utilizador utilizador = model.getUtilizadores().get(cod - 1);
-        List<String> artigosVenda = model.getArtigos_venda().get(cod);
-        if (artigosVenda != null) {
-            Menu.mostraMensagem("Artigos do vendedor '" + utilizador.getNome() + "':");
-            for (String codAlfanr : artigosVenda) {
-                for (Artigo artigo : model.getArtigos()) {
-                    if (artigo.getCod_alfanr().equals(codAlfanr)) {
-                        Menu.mostraMensagem(artigo.toString());
+            Utilizador utilizador = model.getUtilizadores().get(cod - 1);
+            List<String> artigosVenda = model.getArtigos_venda().get(cod);
+            if (artigosVenda != null) {
+                Menu.mostraMensagem("Artigos do vendedor '" + utilizador.getNome() + "':");
+                for (String codAlfanr : artigosVenda) {
+                    for (Artigo artigo : model.getArtigos()) {
+                        if (artigo.getCod_alfanr().equals(codAlfanr)) {
+                            Menu.mostraMensagem(artigo.toString());
+                        }
                     }
                 }
-            }
-        } else {
-            Menu.mostraMensagem("Este utilizador não tem artigos à venda.");
-        }
-
+            } else Menu.mostraMensagem("Este utilizador não tem artigos à venda.");
         this.vendedor(cod);
     }
+
 
 
     public void adicionar_transportadora() {
@@ -463,7 +464,8 @@ public class Controlo {
                 break;
 
             case 2:
-                break;
+                run(); // só tem isto aqui porque senão um User comprador consegue vender artigos e vira tipo Ambos, don't ask me why ¯\_(ツ)_/¯
+                break; // ^^^ remover ao colocar a função certa
 
             case 3:
                 this.run(); //???? Talvez algum que mostre os artigos que se encontram à venda
@@ -475,10 +477,11 @@ public class Controlo {
         int op = this.gui.menu(" Criar Encomenda ", Menu.menu_Criar_Encomenda);
 
         switch (op){
-            case 1:
+            case 1:   //add artigo a encomenda pendente
+                add_artigo_enc(cod);
                 break;
 
-            case 2:
+            case 2:   //remove artigo da encomenda pendente
                 break;
 
             case 3:
@@ -486,6 +489,83 @@ public class Controlo {
                 break;
         }
     }
+
+ // Nem o ChatGPT me salvou todo
+    private void add_artigo_enc(int cod) {
+        // Mostrar artigos à venda
+        this.artigos_a_venda();
+
+        // Selecionar o código alfa numérico do artigo que deseja
+        String codalfa = Insercao.get_valor("o código alfa numérico do artigo que deseja", supplier_String);
+
+        // Iterar sobre o Map artigos_venda e encontrar o ID do vendedor associado ao codalfa
+        int sellerID = -1;
+        for (Map.Entry<Integer, List<String>> entry : model.getArtigos_venda().entrySet()) {
+            List<String> alfanr = entry.getValue();
+            if (alfanr.contains(codalfa)) {
+                sellerID = entry.getKey();
+            }
+        }
+
+        // Verificar se o codalfa recebido é de um artigo que está à venda
+        if (sellerID != -1) {
+
+            // Obter a lista de encomendas pendentes para o Comprador
+            List<Encomenda> encomendasPendentes = model.getEncomendas_pend().get(cod);
+
+            // Criar uma nova encomenda se ainda não houver nenhuma para o comprador
+            if (encomendasPendentes == null) {
+                encomendasPendentes = new ArrayList<>();
+                model.getEncomendas_pend().put(cod, encomendasPendentes);
+            }
+            // adicionar à lista de encomendas pendentes do comprador
+            Encomenda encomenda;
+            if (encomendasPendentes.isEmpty()) {
+                encomenda = new Encomenda();
+                encomendasPendentes.add(encomenda);
+            } else {
+                encomenda = encomendasPendentes.get(encomendasPendentes.size() - 1); // obter a última encomenda criada
+            }
+            encomenda.addArtigo(model.getArtigoByCodigo(codalfa)); // adicionar o artigo selecionado à encomenda
+            Menu.mostraMensagem("Artigo adicionado à encomenda com sucesso.");
+
+            // Remover o artigo selecionado do map artigos_venda e adicioná-lo ao map artigos_vendidos
+            model.getArtigos_venda().get(sellerID).remove(codalfa);
+            List<String> artigosVendidos = model.getArtigos_vendidos().get(sellerID);
+            if (artigosVendidos != null) {
+                artigosVendidos.add(codalfa);
+            } else {
+                artigosVendidos = new ArrayList<>();
+                artigosVendidos.add(codalfa);
+                model.getArtigos_vendidos().put(sellerID, artigosVendidos);
+            }
+        } else {
+            Menu.mostraMensagem("O código alfa numérico não pertence aos artigos à venda");
+        }
+        this.comprador(cod);
+    }
+
+    public void artigos_a_venda() {
+        boolean temArtigos = false;
+        Menu.mostraMensagem("Artigos à venda:");
+        for (Map.Entry<Integer, List<String>> entry : model.getArtigos_venda().entrySet()) {
+            List<String> artigosVenda = entry.getValue();
+            if (artigosVenda != null) {
+                for (String codAlfanr : artigosVenda) {
+                    for (Artigo artigo : model.getArtigos()) {
+                        if (artigo.getCod_alfanr().equals(codAlfanr)) {
+                            Menu.mostraMensagem(artigo.toString());
+                            temArtigos = true;
+                        }
+                    }
+                }
+            }
+        }
+        if (!temArtigos) {
+            Menu.mostraMensagem("Não tem artigos à venda.");
+        }
+    }
+
 
     public void criarArtigo(){
 

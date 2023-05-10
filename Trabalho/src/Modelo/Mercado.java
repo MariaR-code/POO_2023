@@ -252,4 +252,13 @@ public class Mercado {
         return false;
     }
 
+    public Artigo getArtigoByCodigo(String alfnr) {
+        for (Artigo artigo : this.artigos) {
+            if (artigo.getCod_alfanr().equals(alfnr)) {
+                return artigo;
+            }
+        }
+        return null; // not found
+    }
+
 }

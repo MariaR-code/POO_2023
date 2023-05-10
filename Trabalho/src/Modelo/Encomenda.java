@@ -158,7 +158,7 @@ public class Encomenda {
      * Método calculaPreco que calcula o preço final
      * a pagar pela encomenda.
      */
-    //TODO !!!!!!!!!!!!!!!!!!!!!
+    //TODO !!!!!!!!!!!!!!!!!!!!!!!
     public double calculaPreco()
     {
         return this.preco_final = artigos.stream().mapToDouble(Artigo::preco).sum();

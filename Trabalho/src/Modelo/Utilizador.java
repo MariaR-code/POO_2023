@@ -175,8 +175,9 @@ public class Utilizador {
     }
 
 
-// falta stream Valor total de vendas
-    // somar faturaVendedor
+// todo
+//  falta Valor total de vendas
+//  somar faturaVendedor
 
     /**
      * Método para clonar um objeto da classe Utilizador
