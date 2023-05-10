@@ -14,8 +14,8 @@ public class Salvaguarda {
             Files.createFile(path);
     }
 
-    public static void escreveFicheiro(List<? super Object> objs, Consumer<? super Object> consumer){
-        for(Object o : objs){
+    public static <T> void escreveFicheiro(List<T> objs, Consumer<T> consumer){
+        for(T o : objs){
             consumer.accept(o);
         }
     }

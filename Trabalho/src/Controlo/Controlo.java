@@ -517,12 +517,12 @@ public class Controlo {
             Consumer<Encomenda> consumer_encomenda = (encomenda) -> {
                 escreve.println(encomenda.oneLineString());
             };
-            /*
+
             Salvaguarda.escreveFicheiro(this.model.getArtigos(), consumer_Artigo);
             Salvaguarda.escreveFicheiro(this.model.getUtilizadores(), consumer_Utilizador);
             Salvaguarda.escreveFicheiro(this.model.getTransportadoras(), consumer_Transportadora);
             Salvaguarda.escreveFicheiro(this.model.getEncomendas_pend(), consumer_encomenda);
-            */
+
         }catch (IOException e){
             Menu.erro("Não foi possível guardar o estado!");
         }
