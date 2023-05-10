@@ -211,6 +211,25 @@ public abstract class Artigo {
     }
 
     /**
+     * Método que representa um objeto da classe Artigo numa string com apenas uma linha
+     * @return String
+     * */
+    public String oneLineString(){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(this.descricao).append(",");
+        sb.append(this.marca).append(",");
+        sb.append(this.cod_alfanr).append(",");
+        sb.append(this.preco_base).append(",");
+        sb.append(this.usado).append(",");
+        sb.append(this.av_estado).append(",");
+        sb.append(this.nr_donos).append(",");
+        sb.append(this.transportadora);
+
+        return sb.toString();
+    }
+
+    /**
     * Método abstrato
     * */
     public abstract double preco();

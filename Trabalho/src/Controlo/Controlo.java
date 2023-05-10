@@ -1,15 +1,20 @@
 package Trabalho.src.Controlo;
 
 import Trabalho.src.Erros.NaoExisteTransportadora;
+import Trabalho.src.Estado.Salvaguarda;
 import Trabalho.src.Modelo.*;
 import Trabalho.src.Vista.Insercao;
 import Trabalho.src.Vista.Menu;
 import Trabalho.src.Erros.NaoExisteUtilizador;
 import Trabalho.src.Erros.ErroCriarConta;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -85,6 +90,8 @@ public class Controlo {
         return b;
     };
 
+
+
     public Controlo() {
         this.gui = new Menu();
         this.model = new Mercado();
@@ -112,7 +119,7 @@ public class Controlo {
                 break;
 
             case 5:
-                //Método usado para salvaguardar o estado
+                this.salvaguardaEstado();
                 this.run();
                 break;
 
@@ -481,6 +488,46 @@ public class Controlo {
     }
 
     public void criarArtigo(){
+
+    }
+
+    public void salvaguardaEstado(){
+        String caminhoFicheiro = Insercao.get_valor("o caminho pretendido para o ficheiro", supplier_String);
+        try{
+            Salvaguarda.criaFicheiro(caminhoFicheiro);
+        }catch (IOException e){
+            e.printStackTrace();
+            salvaguardaEstado();
+        }
+        try{
+            PrintWriter escreve = new PrintWriter(new FileWriter(caminhoFicheiro, true));
+
+            Consumer<Artigo> consumer_Artigo = (artigo) -> {
+                escreve.println(artigo.oneLineString());
+            };
+
+            Consumer<Utilizador> consumer_Utilizador = (utilizador) -> {
+                escreve.println(utilizador.oneLineString());
+            };
+
+            Consumer<Transportadora> consumer_Transportadora = (transportadora) -> {
+                escreve.println(transportadora.oneLineString());
+            };
+
+            Consumer<Encomenda> consumer_encomenda = (encomenda) -> {
+                escreve.println(encomenda.oneLineString());
+            };
+            /*
+            Salvaguarda.escreveFicheiro(this.model.getArtigos(), consumer_Artigo);
+            Salvaguarda.escreveFicheiro(this.model.getUtilizadores(), consumer_Utilizador);
+            Salvaguarda.escreveFicheiro(this.model.getTransportadoras(), consumer_Transportadora);
+            Salvaguarda.escreveFicheiro(this.model.getEncomendas_pend(), consumer_encomenda);
+            */
+        }catch (IOException e){
+            Menu.erro("Não foi possível guardar o estado!");
+        }
+
+
 
     }
 }

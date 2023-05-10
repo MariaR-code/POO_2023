@@ -1,7 +1,6 @@
 package Trabalho.src.Vista;
 
 import java.util.InputMismatchException;
-import java.util.Scanner;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -18,10 +17,8 @@ public class Insercao {
                 Menu.erro(e.getMessage());
                 System.out.println("Introduza um valor válido: ");
             }catch (IllegalArgumentException e){
-                Scanner scanner = new Scanner(System.in);
                 Menu.erro(e.getMessage());
                 System.out.println("Introduza um valor válido: ");
-                scanner.nextLine();
             }
         }
         return valor;

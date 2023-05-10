@@ -123,6 +123,21 @@ public class Transportadora {
     }
 
     /**
+     * Método que representa um objeto da classe Transportadora numa string com apenas uma linha
+     * @return String
+     * */
+    public String oneLineString(){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Transportadora:");
+        sb.append(this.preco_expedicao).append(",");
+        sb.append(this.premium).append(",");
+        sb.append(this.preco_expedicao_premium);
+
+        return sb.toString();
+    }
+
+    /**
      *Método para clonar um objeto da classe Transportadora
      * @return Transportadora
      * */

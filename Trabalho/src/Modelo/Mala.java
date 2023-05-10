@@ -152,6 +152,25 @@ public class Mala extends Artigo {
     }
 
     /**
+     * Método que representa um objeto da classe Mala numa string com apenas uma linha
+     * @return String
+     * */
+    public String oneLineString(){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Mala:");
+        sb.append(super.oneLineString()).append(",");
+        sb.append(this.altura).append(",");
+        sb.append(this.comprimento).append(",");
+        sb.append(this.profundidade).append(",");
+        sb.append(this.material).append(",");
+        sb.append(this.ano_colecao).append(",");
+        sb.append(this.premium);
+
+        return sb.toString();
+    }
+
+    /**
     * Método para obter o preço
     *
     * */

@@ -202,4 +202,21 @@ public class Encomenda {
         return sb.toString();
     }
 
+    /**
+     * Método que representa um objeto da classe Encomenda numa string com apenas uma linha
+     * @return String
+     * */
+    public String oneLineString(){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Encomenda:");
+        sb.append(this.dimensao).append(",");
+        sb.append(this.preco_final).append(",");
+        sb.append(this.data).append(",");
+        sb.append(this.estado).append(",");
+        sb.append(this.artigos.toString());
+
+        return sb.toString();
+    }
+
 }

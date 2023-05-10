@@ -141,6 +141,24 @@ public class Sapatilhas extends Artigo {
     }
 
     /**
+     * Método que representa um objeto da classe Sapatilhas numa string com apenas uma linha
+     * @return String
+     * */
+    public String oneLineString(){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Sapatilhas:");
+        sb.append(super.oneLineString()).append(",");
+        sb.append(this.tamanho).append(",");
+        sb.append(this.atacadores).append(",");
+        sb.append(this.cor).append(",");
+        sb.append(this.data_lancamento).append(",");
+        sb.append(this.premium);
+
+        return sb.toString();
+    }
+
+    /**
     * Método para obter o preço
     * */
     public double preco(){

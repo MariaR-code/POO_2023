@@ -107,6 +107,21 @@ public class Fatura {
     }
 
     /**
+     * Método que representa um objeto da classe Fatura numa string com apenas uma linha
+     * @return String
+     * */
+    public String oneLineString(){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Fatura:");
+        sb.append(this.enc.oneLineString()).append(",");
+        sb.append(this.custo).append(",");
+        sb.append(this.nif);
+
+        return sb.toString();
+    }
+
+    /**
      * Método que calcula o custo.
      */
     public double calcCusto(){

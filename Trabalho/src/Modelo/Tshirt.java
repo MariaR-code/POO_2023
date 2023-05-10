@@ -109,6 +109,21 @@ public class Tshirt extends Artigo {
     }
 
     /**
+     * Método que representa um objeto da classe Tshirt numa string com apenas uma linha
+     * @return String
+     * */
+    public String oneLineString(){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Tshirt:");
+        sb.append(super.oneLineString()).append(",");
+        sb.append(this.tamanho).append(",");
+        sb.append(this.padrao);
+
+        return sb.toString();
+    }
+
+    /**
      * Método para obter o preço
      */
     public double preco(){

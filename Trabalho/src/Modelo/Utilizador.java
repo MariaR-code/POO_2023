@@ -231,6 +231,27 @@ public class Utilizador {
         return sb.toString();
     }
 
+    /**
+     * Método que representa um objeto da classe Utilizador numa string com apenas uma linha
+     * @return String
+     * */
+    public String oneLineString(){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Utilizador:");
+        sb.append(this.id).append(",");
+        sb.append(this.email).append(",");
+        sb.append(this.nome).append(",");
+        sb.append(this.morada).append(",");
+        sb.append(this.nif).append(",");
+        sb.append(this.tipoUtilizador).append(",");
+        sb.append(this.valorTotalVendas).append(",");
+        sb.append(this.faturaVendedor.toString()).append(",");
+        sb.append(this.faturaComprador.toString());
+
+        return sb.toString();
+    }
+
     // Validações de atributos
     public static boolean isValidEmail(String email) {
         if (email == null || email.length() < 5) { // "a@b.c" pelo menos length 5
