@@ -702,7 +702,6 @@ public class Controlo {
                 // Se o vendedor foi encontrado
                 if (vendedor != null) {
                     String nif_vendedor = vendedor.getNif();
-
                     // Percorre todos os artigos da encomenda pendente novamente
                     // para encontrar todos os artigos vendidos pelo mesmo vendedor e calcular o preço total
                     for (Artigo art : enc_pend.getArtigos()) {
