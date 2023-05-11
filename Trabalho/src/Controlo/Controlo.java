@@ -481,7 +481,8 @@ public class Controlo {
             case 2:   //remove artigo da encomenda pendente
                 break;
 
-            case 3:
+            case 3: // finaliza encomenda
+                finaliza_enc(cod);
                 break;
 
             case 4:
@@ -589,9 +590,44 @@ public class Controlo {
             for (Encomenda enc : encomendas) {
                 Menu.mostraMensagem(enc.toString());
             }
-        } else { Menu.mostraMensagem("Ainda não existem encomendas");
+        } else { Menu.mostraMensagem("Ainda não existem encomendas.");
         }
         comprador(cod);
+    }
+
+    public void finaliza_enc(int cod){
+        Map<Integer,List<Encomenda>> map_enc = model.getEncomendas_pend();
+        List<Encomenda> encomendas = model.getEncomendas_pend().get(cod);
+        Encomenda enc_pend = null;
+        for (Encomenda enc : encomendas) {
+            if (enc.getEstado() == Encomenda.Estado.PENDENTE) {
+                enc_pend = enc;
+            }
+        }
+        List<Artigo> artigos = enc_pend.getArtigos();
+        int dimensao = artigos.size();
+        if (dimensao==0 || (enc_pend==null)) { Menu.mostraMensagem("Não tem artigos na encomenda."); comprador(cod);}
+        if (dimensao<2){ enc_pend.setDimensao(Encomenda.Dimensao.PEQUENO); }
+        if (dimensao<2){ enc_pend.setDimensao(Encomenda.Dimensao.MEDIO);}
+        else {enc_pend.setDimensao(Encomenda.Dimensao.GRANDE);}
+
+        double preco_final = enc_pend.getPreco_final();
+        Menu.mostraMensagem("O preço final da encomenda é:"+ preco_final);
+
+        // Depois de mostrar o preço, deseja continuar?
+        boolean continuar = Insercao.get_tipo("Deseja continuar com a compra?", function_Boolean);
+        if (!continuar) {comprador(cod);}
+        // Finaliza
+        enc_pend.setEstado(Encomenda.Estado.FINALIZADA); //<-- useless, só teria sentido na vida real
+        enc_pend.setData(LocalDate.now());
+        enc_pend.setEstado(Encomenda.Estado.EXPEDIDA); // porque aqui o único delay foi mudar a data
+        encomendas.add(enc_pend);
+        map_enc.put(cod,encomendas);
+        model.setEncomendas_pend(map_enc);
+        //depois como é que se quer as faturas?
+        // faz se aqui?
+        comprador(cod);
+
     }
 
 
