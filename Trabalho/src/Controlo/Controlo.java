@@ -125,6 +125,7 @@ public class Controlo {
 
             case 6:
                 //Método usado para recuperar o estado
+                this.recuperarEstado();
                 this.run();
                 break;
 
@@ -768,5 +769,9 @@ public class Controlo {
         }catch (IOException e){
             Menu.erro("Não foi possível guardar o estado!");
         }
+    }
+
+    public void recuperarEstado(){
+
     }
 }
