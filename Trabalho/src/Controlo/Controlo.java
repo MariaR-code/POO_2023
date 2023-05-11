@@ -710,9 +710,6 @@ public class Controlo {
                 }
             }
         }
-
-
-
         comprador(cod);
     }
 
