@@ -47,7 +47,7 @@ public class Mercado {
 
 
     /**
-     * Getters dos objetos da classe MarketPlace
+     * Getters dos objetos da classe Mercado
      */
     public Map<Integer, List<Encomenda>> getEncomendas_pend() {
         Map<Integer, List<Encomenda>> copia = new HashMap<>();
@@ -169,10 +169,10 @@ public class Mercado {
         if (o == null || o.getClass() != this.getClass())
             return false;
 
-        Mercado mp = (Mercado) o;
-        return this.transportadoras.equals(mp.getTransportadoras()) && this.utilizadores.equals(mp.getUtilizadores())
-                && this.artigos.equals(mp.getArtigos()) && this.artigos_venda.equals(mp.getArtigos_venda())
-                && this.encomendas_pend.equals(mp.getEncomendas_pend());
+        Mercado mercado = (Mercado) o;
+        return this.transportadoras.equals(mercado.getTransportadoras()) && this.utilizadores.equals(mercado.getUtilizadores())
+                && this.artigos.equals(mercado.getArtigos()) && this.artigos_venda.equals(mercado.getArtigos_venda())
+                && this.encomendas_pend.equals(mercado.getEncomendas_pend()) && this.artigos_vendidos.equals(mercado.getArtigos_vendidos());
     }
 
     /**
@@ -186,6 +186,7 @@ public class Mercado {
         sb.append("\nOs utilizadores são: ").append(this.utilizadores.toString());
         sb.append("\nOs artigos são: ").append(this.artigos.toString());
         sb.append("\nO utilizador com o código x tem os artigos a seguir para venda: ").append(this.artigos_venda.toString());
+        sb.append("\nO vendedor com o código x vendeu os artigos com código alfanúmero: ").append(this.artigos_vendidos.toString());
 
         return sb.toString();
     }
