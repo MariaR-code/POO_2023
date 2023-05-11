@@ -595,8 +595,8 @@ public class Controlo {
         comprador(cod);
     }
 
-    public void finaliza_enc(int cod){
-        Map<Integer,List<Encomenda>> map_enc = model.getEncomendas_pend();
+    public void finaliza_enc(int cod) {
+        Map<Integer, List<Encomenda>> map_enc = model.getEncomendas_pend();
         List<Encomenda> encomendas = model.getEncomendas_pend().get(cod);
         Encomenda enc_pend = null;
         for (Encomenda enc : encomendas) {
@@ -606,30 +606,51 @@ public class Controlo {
         }
         List<Artigo> artigos = enc_pend.getArtigos();
         int dimensao = artigos.size();
-        if (dimensao==0 || (enc_pend==null)) { Menu.mostraMensagem("Não tem artigos na encomenda."); comprador(cod);}
-        if (dimensao<2){ enc_pend.setDimensao(Encomenda.Dimensao.PEQUENO); }
-        if (dimensao<2){ enc_pend.setDimensao(Encomenda.Dimensao.MEDIO);}
-        else {enc_pend.setDimensao(Encomenda.Dimensao.GRANDE);}
+        if (dimensao == 0 || (enc_pend == null)) {
+            Menu.mostraMensagem("Não tem artigos na encomenda.");
+            comprador(cod);
+        }
+        if (dimensao < 2) {
+            enc_pend.setDimensao(Encomenda.Dimensao.PEQUENO);
+        }
+        if (dimensao < 2) {
+            enc_pend.setDimensao(Encomenda.Dimensao.MEDIO);
+        } else {
+            enc_pend.setDimensao(Encomenda.Dimensao.GRANDE);
+        }
 
         double preco_final = enc_pend.getPreco_final();
-        Menu.mostraMensagem("O preço final da encomenda é:"+ preco_final);
+        Menu.mostraMensagem("O preço final da encomenda é:" + preco_final);
 
         // Depois de mostrar o preço, deseja continuar?
         boolean continuar = Insercao.get_tipo("Deseja continuar com a compra?", function_Boolean);
-        if (!continuar) {comprador(cod);}
+        if (!continuar) {
+            comprador(cod);
+        }
         // Finaliza
         enc_pend.setEstado(Encomenda.Estado.FINALIZADA); //<-- useless, só teria sentido na vida real
         enc_pend.setData(LocalDate.now());
         enc_pend.setEstado(Encomenda.Estado.EXPEDIDA); // porque aqui o único delay foi mudar a data
         encomendas.add(enc_pend);
-        map_enc.put(cod,encomendas);
+        map_enc.put(cod, encomendas);
         model.setEncomendas_pend(map_enc);
         //depois como é que se quer as faturas?
         // faz se aqui?
-        comprador(cod);
+        List<Utilizador> utilizadores = model.getUtilizadores();
+        Utilizador comprador = null;
+        for (Utilizador u : utilizadores) {
+            if (u.getId() == cod) {
+                comprador = u;
+                break;
+            }
+        }
 
+        //add fatura compra
+        String nif_comprador = comprador.getNif();
+        Fatura fatura_compra = new Fatura(enc_pend, preco_final, nif_comprador);
+        comprador.addFaturaComprador(fatura_compra);
+            comprador(cod);
     }
-
 
     public void criarArtigo(){
 
