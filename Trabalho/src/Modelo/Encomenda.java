@@ -159,8 +159,8 @@ public class Encomenda {
      * a pagar pela encomenda.
      */
     //TODO !!!!!!!!!!!!!!!!!!!!!!!
-    public double calculaPreco()
-    {
+        public double calculaPreco() // não é melhor calcular o preco final de cada artigo em Artigo
+    {                                // e depois somar em encomenda os preços todos?
         return this.preco_final = artigos.stream().mapToDouble(Artigo::preco).sum();
     }
 
