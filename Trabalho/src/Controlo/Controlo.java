@@ -700,7 +700,7 @@ public class Controlo {
                     // para encontrar todos os artigos vendidos pelo mesmo vendedor e calcular o preço total
                     for (Artigo art : enc_pend.getArtigos()) {
                         if (art.getCod_alfanr().equals(codalfa)) {
-                            preco_artigos += art.getPreco();
+                            preco_artigos += art.preco();
                         }
                     }
 

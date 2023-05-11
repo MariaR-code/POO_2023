@@ -204,8 +204,9 @@ public abstract class Artigo {
             sb.append("Avaliação do Estado do artigo (valores entre 1(mau estado) e 3(bom estado) ): ").append(this.av_estado);
             sb.append("\nNúmerod de donos: ").append(this.nr_donos);
         }else{
-            sb.append("\nArtigo novo.\n");
+            sb.append("\nArtigo novo.");
         }
+            sb.append("\nPreço final:").append(this.preco()).append("\n");
 
         return sb.toString();
     }

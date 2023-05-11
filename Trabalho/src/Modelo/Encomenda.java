@@ -96,7 +96,7 @@ public class Encomenda {
 
     public double getPreco_final()
     {
-        return this.preco_final;
+        return this.calculaPreco();
     }
 
     public LocalDate getData()
