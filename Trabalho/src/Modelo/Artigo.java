@@ -238,9 +238,12 @@ public abstract class Artigo {
 
     // TODO um get preco final do artigo
     // com custo de expedição, preco_base, se é usado, nr de donos, estado
-    // já a taxa de satisfação Vintage (0.5€ por artigo novo, 0.25€ por usado)
-    // n sei se também já se faz aqui ou se é preferível fazer no finalizar encomenda
     public double getPreco() {
-        return preco_base;
+        double preco_final = 0.0;
+
+
+        // taxa de satisfação Vintage (0.5 art Novo, 0.25 Usado)
+        if (usado) {preco_final += 0.25;} else {preco_final += 0.5;}
+        return preco_final;
     }
 }

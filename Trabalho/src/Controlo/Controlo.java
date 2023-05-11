@@ -643,8 +643,8 @@ public class Controlo {
         encomendas.add(enc_pend);
         map_enc.put(cod, encomendas);
         model.setEncomendas_pend(map_enc);
-        //depois como é que se quer as faturas?
-        // faz se aqui?
+
+        // Faturas
         List<Utilizador> utilizadores = model.getUtilizadores();
         Utilizador comprador = null;
         for (Utilizador u : utilizadores) {
@@ -660,13 +660,7 @@ public class Controlo {
         comprador.addFaturaComprador(fatura_compra);
 
         //add fatura venda
-        // Percorrer cada Artigo no arquivo enc_pend.
-        // Para cada Artigo, encontrar o vendedor
-        // Se já processou um Artigo a ser vendido pelo mesmo Utilizador, some o seu preço ao total preco_artigos desse vendedor.
-        // Caso contrário, adicionar o preço do Artigo atual.
-        // Fatura fatura_venda = new Fatura(enc_pend, preco_artigos, nif_vendedor); para cada vendedor
-        // Adicione a Fatura à lista de Fatura do vendedor.
-
+        // Percorrer cada Artigo no arquivo enc_pend. Para cada Artigo, encontrar o vendedor. Se já processou um Artigo a ser vendido pelo mesmo Utilizador, some o seu preço ao total preco_artigos desse vendedor. Caso contrário, adicionar o preço do Artigo atual. Fatura fatura_venda = new Fatura(enc_pend, preco_artigos, nif_vendedor); para cada vendedor. Adicione a Fatura à lista de Fatura do vendedor.
         // Para cada artigo na encomenda pendente
         for (Artigo artigo : enc_pend.getArtigos()) {
             // Inicializa as variáveis que serão utilizadas para obter as informações do vendedor
