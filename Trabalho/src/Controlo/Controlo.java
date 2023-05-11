@@ -560,7 +560,7 @@ public class Controlo {
             Menu.mostraMensagem("Artigo adicionado à encomenda com sucesso.");
 
         } else {
-            Menu.mostraMensagem("O código alfa numérico não pertence aos artigos à venda");
+            Menu.mostraMensagem("O código alfanumérico não pertence aos artigos à venda");
         }
         this.comprador(cod);
     }
@@ -573,7 +573,6 @@ public class Controlo {
                 artigosVenda.add(str);
             }
         }
-
         if (!artigosVenda.isEmpty()) {
             for (String codAlfanr : artigosVenda) {
                 Artigo artigo = model.getArtigoByCodigo(codAlfanr);
@@ -597,16 +596,26 @@ public class Controlo {
 
     public void finaliza_enc(int cod) {
         Map<Integer, List<Encomenda>> map_enc = model.getEncomendas_pend();
-        List<Encomenda> encomendas = model.getEncomendas_pend().get(cod);
+        List<Encomenda> encomendas = map_enc.get(cod);
+        if (encomendas == null) {
+            Menu.mostraMensagem("Não tem artigos na encomenda.");
+            comprador(cod);
+        }
         Encomenda enc_pend = null;
         for (Encomenda enc : encomendas) {
             if (enc.getEstado() == Encomenda.Estado.PENDENTE) {
                 enc_pend = enc;
+                break;
             }
         }
+        if (enc_pend == null) {
+            Menu.mostraMensagem("Não tem artigos na encomenda.");
+            comprador(cod);
+        }
+
         List<Artigo> artigos = enc_pend.getArtigos();
         int dimensao = artigos.size();
-        if (dimensao == 0 || (enc_pend == null)) {
+        if (dimensao == 0) {
             Menu.mostraMensagem("Não tem artigos na encomenda.");
             comprador(cod);
         }
@@ -620,10 +629,10 @@ public class Controlo {
         }
 
         double preco_final = enc_pend.getPreco_final();
-        Menu.mostraMensagem("O preço final da encomenda é:" + preco_final);
+        Menu.mostraMensagem("O preço final da encomenda são: " + preco_final + "€.");
 
         // Depois de mostrar o preço, deseja continuar?
-        boolean continuar = Insercao.get_tipo("Deseja continuar com a compra?", function_Boolean);
+        boolean continuar = Insercao.get_tipo("Deseja continuar com a compra", function_Boolean);
         if (!continuar) {
             comprador(cod);
         }
@@ -634,8 +643,8 @@ public class Controlo {
         encomendas.add(enc_pend);
         map_enc.put(cod, encomendas);
         model.setEncomendas_pend(map_enc);
-        //depois como é que se quer as faturas?
-        // faz se aqui?
+
+        // Faturas
         List<Utilizador> utilizadores = model.getUtilizadores();
         Utilizador comprador = null;
         for (Utilizador u : utilizadores) {
@@ -649,7 +658,62 @@ public class Controlo {
         String nif_comprador = comprador.getNif();
         Fatura fatura_compra = new Fatura(enc_pend, preco_final, nif_comprador);
         comprador.addFaturaComprador(fatura_compra);
-            comprador(cod);
+
+        //add fatura venda
+        // Percorrer cada Artigo no arquivo enc_pend. Para cada Artigo, encontrar o vendedor. Se já processou um Artigo a ser vendido pelo mesmo Utilizador, some o seu preço ao total preco_artigos desse vendedor. Caso contrário, adicionar o preço do Artigo atual. Fatura fatura_venda = new Fatura(enc_pend, preco_artigos, nif_vendedor); para cada vendedor. Adicione a Fatura à lista de Fatura do vendedor.
+        // Para cada artigo na encomenda pendente
+        for (Artigo artigo : enc_pend.getArtigos()) {
+            // Inicializa as variáveis que serão utilizadas para obter as informações do vendedor
+            String codalfa = artigo.getCod_alfanr();
+            int sellerID = -1;
+            double preco_artigos = 0.0;
+
+            // Percorre o mapa de artigos vendidos para encontrar o ID do vendedor
+            for (Map.Entry<Integer, List<String>> entry : model.getArtigos_vendidos().entrySet()) {
+                int vendID = entry.getKey();
+                List<String> vendArtigos = entry.getValue();
+
+                // Se a lista de artigos vendidos do vendedor contém o código alfanumérico do artigo da encomenda,
+                // então o ID do vendedor é atribuído à variável sellerID e o loop é interrompido.
+                if (vendArtigos.contains(codalfa)) {
+                    sellerID = vendID;
+                    break;
+                }
+            }
+
+            // Se o ID do vendedor foi encontrado
+            if (sellerID != -1) {
+                Utilizador vendedor = null;
+
+                // Procura o vendedor na lista de utilizadores
+                for (Utilizador u : utilizadores) {
+                    if (u.getId() == sellerID) {
+                        vendedor = u;
+                        break;
+                    }
+                }
+
+                // Se o vendedor foi encontrado
+                if (vendedor != null) {
+                    String nif_vendedor = vendedor.getNif();
+                    // Percorre todos os artigos da encomenda pendente novamente
+                    // para encontrar todos os artigos vendidos pelo mesmo vendedor e calcular o preço total
+                    for (Artigo art : enc_pend.getArtigos()) {
+                        if (art.getCod_alfanr().equals(codalfa)) {
+                            preco_artigos += art.preco();
+                        }
+                    }
+
+                    // Cria a fatura para o vendedor com o preço total e o NIF do vendedor
+                    Fatura fatura_venda = new Fatura(enc_pend, preco_artigos, nif_vendedor);
+                    vendedor.addFaturaVendedor(fatura_venda);
+                }
+            }
+        }
+
+
+
+        comprador(cod);
     }
 
     public void criarArtigo(){

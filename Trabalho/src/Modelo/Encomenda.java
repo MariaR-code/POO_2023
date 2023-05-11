@@ -96,7 +96,7 @@ public class Encomenda {
 
     public double getPreco_final()
     {
-        return this.preco_final;
+        return this.calculaPreco();
     }
 
     public LocalDate getData()
@@ -159,9 +159,18 @@ public class Encomenda {
      * a pagar pela encomenda.
      */
     //TODO !!!!!!!!!!!!!!!!!!!!!!!
-    public double calculaPreco()
+        public double calculaPreco()
     {
-        return this.preco_final = artigos.stream().mapToDouble(Artigo::preco).sum();
+        this.preco_final = artigos.stream().mapToDouble(Artigo::preco).sum();
+        // taxa de satisfação
+        for (Artigo artigo : artigos) {
+            if (artigo.isUsado()) {
+                preco_final += 0.25;
+            } else {
+                preco_final += 0.5;
+            }
+        }
+        return preco_final;
     }
 
     /**
