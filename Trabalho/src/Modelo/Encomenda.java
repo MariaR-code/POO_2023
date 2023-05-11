@@ -161,7 +161,16 @@ public class Encomenda {
     //TODO !!!!!!!!!!!!!!!!!!!!!!!
         public double calculaPreco()
     {
-        return this.preco_final = artigos.stream().mapToDouble(Artigo::preco).sum();
+        this.preco_final = artigos.stream().mapToDouble(Artigo::preco).sum();
+        // taxa de satisfação
+        for (Artigo artigo : artigos) {
+            if (artigo.isUsado()) {
+                preco_final += 0.25;
+            } else {
+                preco_final += 0.5;
+            }
+        }
+        return preco_final;
     }
 
     /**

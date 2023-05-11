@@ -234,16 +234,4 @@ public abstract class Artigo {
     * */
     public abstract double preco();
     public abstract boolean isPremium();
-
-
-    // TODO um get preco final do artigo
-    // com custo de expedição, preco_base, se é usado, nr de donos, estado
-    public double getPreco() {
-        double preco_final = 0.0;
-
-
-        // taxa de satisfação Vintage (0.5 art Novo, 0.25 Usado)
-        if (usado) {preco_final += 0.25;} else {preco_final += 0.5;}
-        return preco_final;
-    }
 }
