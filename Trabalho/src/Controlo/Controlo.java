@@ -13,10 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -464,8 +461,8 @@ public class Controlo {
                 break;
 
             case 2:
-                run(); // só tem isto aqui porque senão um User comprador consegue vender artigos e vira tipo Ambos, don't ask me why ¯\_(ツ)_/¯
-                break; // ^^^ remover ao colocar a função certa
+                this.historico_encomendas(cod);
+                break;
 
             case 3:
                 this.run(); //???? Talvez algum que mostre os artigos que se encontram à venda
@@ -485,12 +482,15 @@ public class Controlo {
                 break;
 
             case 3:
+                break;
+
+            case 4:
                 this.comprador(cod);
                 break;
         }
     }
 
- // Nem o ChatGPT me salvou todo
+
     private void add_artigo_enc(int cod) {
         // Mostrar artigos à venda
         this.artigos_a_venda();
@@ -510,14 +510,12 @@ public class Controlo {
         // Verificar se o codalfa recebido é de um artigo que está à venda
         if (sellerID != -1) {
 
-            // Obter a lista de encomendas pendentes para o Comprador
             List<Encomenda> encomendasPendentes = model.getEncomendas_pend().get(cod);
-
-            // Criar uma nova encomenda se ainda não houver nenhuma para o comprador
+            // Criar uma nova lista de encomendas pendentes se ainda não houver nenhuma para o comprador
             if (encomendasPendentes == null) {
                 encomendasPendentes = new ArrayList<>();
-                model.getEncomendas_pend().put(cod, encomendasPendentes);
             }
+
             // adicionar à lista de encomendas pendentes do comprador
             Encomenda encomenda;
             if (encomendasPendentes.isEmpty()) {
@@ -527,18 +525,39 @@ public class Controlo {
                 encomenda = encomendasPendentes.get(encomendasPendentes.size() - 1); // obter a última encomenda criada
             }
             encomenda.addArtigo(model.getArtigoByCodigo(codalfa)); // adicionar o artigo selecionado à encomenda
-            Menu.mostraMensagem("Artigo adicionado à encomenda com sucesso.");
+            Map<Integer, List<Encomenda>> novoMap = new HashMap<>();
+            novoMap.put(cod, encomendasPendentes);
+            model.setEncomendas_pend(novoMap);
 
-            // Remover o artigo selecionado do map artigos_venda e adicioná-lo ao map artigos_vendidos
-            model.getArtigos_venda().get(sellerID).remove(codalfa);
+
+            // Adicionar ao map artigos_vendidos
+            Map<Integer,List<String>> mapVendido = new HashMap<>();
+            mapVendido = model.getArtigos_vendidos();
             List<String> artigosVendidos = model.getArtigos_vendidos().get(sellerID);
             if (artigosVendidos != null) {
                 artigosVendidos.add(codalfa);
             } else {
                 artigosVendidos = new ArrayList<>();
                 artigosVendidos.add(codalfa);
-                model.getArtigos_vendidos().put(sellerID, artigosVendidos);
             }
+            mapVendido.put(sellerID, artigosVendidos);
+            model.setArtigos_vendidos(mapVendido);
+
+            // Remover o artigo selecionado do map artigos_venda
+            Map<Integer,List<String>> mapParaVenda = new HashMap<>();
+            mapParaVenda = model.getArtigos_venda();
+            List<String> artigosParaVenda = model.getArtigos_venda().get(sellerID);
+            artigosParaVenda.remove(codalfa);
+            if (artigosParaVenda.isEmpty()) {
+                mapParaVenda.remove(sellerID);
+            } else {
+                mapParaVenda.put(sellerID, artigosParaVenda);
+            }
+            model.setArtigos_venda(mapParaVenda);
+
+
+            Menu.mostraMensagem("Artigo adicionado à encomenda com sucesso.");
+
         } else {
             Menu.mostraMensagem("O código alfa numérico não pertence aos artigos à venda");
         }
@@ -546,24 +565,33 @@ public class Controlo {
     }
 
     public void artigos_a_venda() {
-        boolean temArtigos = false;
         Menu.mostraMensagem("Artigos à venda:");
-        for (Map.Entry<Integer, List<String>> entry : model.getArtigos_venda().entrySet()) {
-            List<String> artigosVenda = entry.getValue();
-            if (artigosVenda != null) {
-                for (String codAlfanr : artigosVenda) {
-                    for (Artigo artigo : model.getArtigos()) {
-                        if (artigo.getCod_alfanr().equals(codAlfanr)) {
-                            Menu.mostraMensagem(artigo.toString());
-                            temArtigos = true;
-                        }
-                    }
-                }
+        List<String> artigosVenda = new ArrayList<>();
+        for (List<String> strings : model.getArtigos_venda().values()) {
+            for (String str : strings) {
+                artigosVenda.add(str);
             }
         }
-        if (!temArtigos) {
+
+        if (!artigosVenda.isEmpty()) {
+            for (String codAlfanr : artigosVenda) {
+                Artigo artigo = model.getArtigoByCodigo(codAlfanr);
+                Menu.mostraMensagem(artigo.toString());
+            }
+        } else {
             Menu.mostraMensagem("Não tem artigos à venda.");
         }
+    }
+
+    public void historico_encomendas(int cod) {
+        List<Encomenda> encomendas = model.getEncomendas_pend().get(cod);
+        if (encomendas != null) {
+            for (Encomenda enc : encomendas) {
+                Menu.mostraMensagem(enc.toString());
+            }
+        } else { Menu.mostraMensagem("Ainda não existem encomendas");
+        }
+        comprador(cod);
     }
 
 

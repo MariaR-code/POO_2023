@@ -23,12 +23,13 @@ public class Menu {
             "Acessórios"
     };
     public static final String[] menu_Comprador = {
-            "Criar nova encomenda",
+            "Gerir encomenda",
             "Histórico de encomendas" //Podemos fazer, acho que não custa muito. Não ser prioridade
     };
     public static final String[] menu_Criar_Encomenda = {
             "Adicionar artigo",
-            "Remover artigo"
+            "Remover artigo",
+            "Finalizar encomenda"
     };
     public static final String[] menu_Transportadoras = {
             "Associar nova transportadora",
