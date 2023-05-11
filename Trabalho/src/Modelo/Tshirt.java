@@ -112,11 +112,11 @@ public class Tshirt extends Artigo {
      * Método que representa um objeto da classe Tshirt numa string com apenas uma linha
      * @return String
      * */
-    public String oneLineString(){
+    public String umalinhaString(){
         StringBuilder sb = new StringBuilder();
 
         sb.append("Tshirt:");
-        sb.append(super.oneLineString()).append(",");
+        sb.append(super.umalinhaString()).append(",");
         sb.append(this.tamanho).append(",");
         sb.append(this.padrao);
 

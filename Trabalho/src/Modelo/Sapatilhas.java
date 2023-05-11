@@ -144,11 +144,11 @@ public class Sapatilhas extends Artigo {
      * Método que representa um objeto da classe Sapatilhas numa string com apenas uma linha
      * @return String
      * */
-    public String oneLineString(){
+    public String umalinhaString(){
         StringBuilder sb = new StringBuilder();
 
         sb.append("Sapatilhas:");
-        sb.append(super.oneLineString()).append(",");
+        sb.append(super.umalinhaString()).append(",");
         sb.append(this.tamanho).append(",");
         sb.append(this.atacadores).append(",");
         sb.append(this.cor).append(",");

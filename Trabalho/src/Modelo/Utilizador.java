@@ -236,7 +236,7 @@ public class Utilizador {
      * Método que representa um objeto da classe Utilizador numa string com apenas uma linha
      * @return String
      * */
-    public String oneLineString(){
+    public String umalinhaString(){
         StringBuilder sb = new StringBuilder();
 
         sb.append("Utilizador:");
@@ -247,8 +247,13 @@ public class Utilizador {
         sb.append(this.nif).append(",");
         sb.append(this.tipoUtilizador).append(",");
         sb.append(this.valorTotalVendas).append(",");
-        sb.append(this.faturaVendedor.toString()).append(",");
-        sb.append(this.faturaComprador.toString());
+        for(Fatura fatura : this.faturaVendedor)
+            sb.append(fatura.umalinhaString()).append(",");
+        sb.deleteCharAt(sb.length() - 1);
+
+        for(Fatura fatura : this.faturaComprador)
+            sb.append(fatura.umalinhaString());
+        sb.deleteCharAt(sb.length()-1);
 
         return sb.toString();
     }

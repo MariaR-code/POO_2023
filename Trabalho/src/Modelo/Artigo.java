@@ -214,7 +214,7 @@ public abstract class Artigo {
      * Método que representa um objeto da classe Artigo numa string com apenas uma linha
      * @return String
      * */
-    public String oneLineString(){
+    public String umalinhaString(){
         StringBuilder sb = new StringBuilder();
 
         sb.append(this.descricao).append(",");

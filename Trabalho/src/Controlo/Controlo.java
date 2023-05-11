@@ -7,13 +7,13 @@ import Trabalho.src.Vista.Insercao;
 import Trabalho.src.Vista.Menu;
 import Trabalho.src.Erros.NaoExisteUtilizador;
 import Trabalho.src.Erros.ErroCriarConta;
-import Trabalho.src.Vista.Mostrar;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -657,42 +657,55 @@ public class Controlo {
     }
 
     public void salvaguardaEstado(){
-        String caminhoFicheiro = Insercao.get_valor("o caminho pretendido para o ficheiro", supplier_String);
-        try{
-            Salvaguarda.criaFicheiro(caminhoFicheiro);
-        }catch (IOException e){
-            e.printStackTrace();
-            salvaguardaEstado();
-        }
+        String caminhoFicheiro = Insercao.get_valor("o caminho (completo) pretendido para o ficheiro", supplier_String);
+
         try{
             PrintWriter escreve = new PrintWriter(new FileWriter(caminhoFicheiro, true));
 
             Consumer<Artigo> consumer_Artigo = (artigo) -> {
-                escreve.println(artigo.oneLineString());
+                escreve.println(artigo.umalinhaString());
             };
 
             Consumer<Utilizador> consumer_Utilizador = (utilizador) -> {
-                escreve.println(utilizador.oneLineString());
+                escreve.println(utilizador.umalinhaString());
             };
 
             Consumer<Transportadora> consumer_Transportadora = (transportadora) -> {
-                escreve.println(transportadora.oneLineString());
+                escreve.println(transportadora.umalinhaString());
             };
 
-            Consumer<Encomenda> consumer_encomenda = (encomenda) -> {
-                escreve.println(encomenda.oneLineString());
+            Consumer<Map.Entry<Integer, List<Encomenda>>> consumer_encomenda = (entrada) -> {
+                int chave = entrada.getKey();
+                List<Encomenda> encomendas = entrada.getValue();
+
+                for(Encomenda enc : encomendas){
+                    escreve.print("Encomendas_Pendentes:");
+                    escreve.println(chave + "=" + enc.umalinhaString());
+                }
+            };
+
+            BiConsumer<String, Map.Entry<Integer, List<String>>> biConsumer_string = (nome, entrada) ->{
+                int chave = entrada.getKey();
+                List<String> strings = entrada.getValue();
+
+                for(String s : strings){
+                    escreve.print(nome + ":");
+                    escreve.println(chave + "=" + s);
+                }
             };
 
             Salvaguarda.escreveFicheiro(this.model.getArtigos(), consumer_Artigo);
             Salvaguarda.escreveFicheiro(this.model.getUtilizadores(), consumer_Utilizador);
             Salvaguarda.escreveFicheiro(this.model.getTransportadoras(), consumer_Transportadora);
-            //Salvaguarda.escreveFicheiro(this.model.getEncomendas_pend(), consumer_encomenda);
+            Salvaguarda.escreveFicheiroMap(this.model.getEncomendas_pend(), consumer_encomenda);
+            Salvaguarda.escreveFicheiroMap(this.model.getArtigos_venda(), "Artigos_venda", biConsumer_string);
+            Salvaguarda.escreveFicheiroMap(this.model.getArtigos_vendidos(), "Artigos_vendidos", biConsumer_string);
+
+            escreve.close();
+            Menu.mostraMensagem("Estado guardado com sucesso!");
 
         }catch (IOException e){
             Menu.erro("Não foi possível guardar o estado!");
         }
-
-
-
     }
 }

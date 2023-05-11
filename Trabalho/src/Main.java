@@ -1,9 +1,5 @@
 package Trabalho.src;
 import Trabalho.src.Controlo.Controlo;
-import Trabalho.src.Modelo.*;
-
-import java.time.LocalDate;
-
 
 public class Main {
     public static void main(String[] args) {
@@ -22,9 +18,9 @@ public class Main {
         utilizador.addFaturaVendedor(fatura);
         */
         Controlo controller = new Controlo();
-         //controller.model.addUtilizador(utilizador); // precisa de model public para isto funcionar assim
-         //controller.model.addUtilizador(user2);
-         //controller.model.addUtilizador(user3);
+        //controller.model.addUtilizador(utilizador); // precisa de model public para isto funcionar assim
+        //controller.model.addUtilizador(user2);
+        //controller.model.addUtilizador(user3);
         controller.run();
     }
 }

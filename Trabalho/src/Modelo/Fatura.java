@@ -110,11 +110,11 @@ public class Fatura {
      * Método que representa um objeto da classe Fatura numa string com apenas uma linha
      * @return String
      * */
-    public String oneLineString(){
+    public String umalinhaString(){
         StringBuilder sb = new StringBuilder();
 
         sb.append("Fatura:");
-        sb.append(this.enc.oneLineString()).append(",");
+        sb.append(this.enc.umalinhaString()).append(",");
         sb.append(this.custo).append(",");
         sb.append(this.nif);
 
