@@ -566,7 +566,7 @@ public class Controlo {
         } else {
             Menu.mostraMensagem("O código alfanumérico não pertence aos artigos à venda");
         }
-        this.comprador(cod);
+        this.criarEncomenda(cod);
     }
 
     public void artigos_a_venda() {

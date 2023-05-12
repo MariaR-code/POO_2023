@@ -25,16 +25,18 @@ public class Recuperar {
 
     //1,a@b.c,M,J,132546895,0,0.0,[],[]
     public static Utilizador parseUtilizador(String linha){
-        String[] var = linha.split(",");
-        int id = Integer.parseInt(var[0]);
-        String email = var[1];
-        String nome = var[2];
-        String morada = var[3];
-        String nif = var[4];
-        int tipo = Integer.parseInt(var[5]);
-        double valorTotalVendas = Double.parseDouble(var[6]);
+        String[] var = linha.split(";");
+        String[] varUt = var[0].split(",");
+        int id = Integer.parseInt(varUt[0]);
+        String email = varUt[1];
+        String nome = varUt[2];
+        String morada = varUt[3];
+        String nif = varUt[4];
+        int tipo = Integer.parseInt(varUt[5]);
+        double valorTotalVendas = Double.parseDouble(varUt[6]);
 
-        //VER COMO FAZER A PARTE DAS FATURAS e ver o return
+        String[] varFatVend = var[1].split("");
+
 
         return new Utilizador(id, email, nome, valorTotalVendas, morada, nif, tipo);
     }
