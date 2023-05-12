@@ -3,10 +3,10 @@ Mala:ff,vf,jfkf,21.0,true,2,1,S,12.0,3.0,21.0,vfdf,2012,false
 Utilizador:1,a@b.c,M,M,123456789,1,0.0,[],[]
 Utilizador:2,b@c.d,L,J,156236845,2,0.0,[],[]
 Utilizador:3,d@a.f,K,n,152364945,0,0.0,[],[]
-Transportadora:jd,false,
+Transportadora:ad,false,
 3=Encomenda:PEQUENO,0.0,2023-05-11,PENDENTE,[Artigo:
 
-Descrição do artigo: ff
+Descrição do artigo: fpo
 Marca: vf
 Código Alfanumérico: jfkf
 Preço Base: 21.0
