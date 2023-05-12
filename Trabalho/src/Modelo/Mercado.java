@@ -245,6 +245,26 @@ public class Mercado {
         }
     }
 
+    public void adicionaArtigoVendido(int cod, String cod_alfanr){
+        if(this.artigos_vendidos.containsKey(cod))
+            this.artigos_vendidos.get(cod).add(cod_alfanr);
+        else{
+            List<String> l = new ArrayList<>();
+            l.add(cod_alfanr);
+            this.artigos_vendidos.put(cod, l);
+        }
+    }
+
+    public void adicionaEncomendaPend(int cod, Encomenda encomenda){
+        if(this.encomendas_pend.containsKey(cod))
+            this.encomendas_pend.get(cod).add(encomenda);
+        else{
+            List<Encomenda> encomendaList = new ArrayList<>();
+            encomendaList.add(encomenda);
+            this.encomendas_pend.put(cod, encomendaList);
+        }
+    }
+
     public boolean existeTransportadora(String nome){
         for(Transportadora t : this.transportadoras){
             if(t.getNome().equals(nome))

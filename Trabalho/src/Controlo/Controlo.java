@@ -1,6 +1,7 @@
 package Trabalho.src.Controlo;
 
 import Trabalho.src.Erros.NaoExisteTransportadora;
+import Trabalho.src.Estado.Recuperar;
 import Trabalho.src.Estado.Salvaguarda;
 import Trabalho.src.Modelo.*;
 import Trabalho.src.Vista.Insercao;
@@ -89,7 +90,6 @@ public class Controlo {
 
         return b;
     };
-
 
 
     public Controlo() {
@@ -771,7 +771,64 @@ public class Controlo {
         }
     }
 
+    //Talvez tenha de adaptar para ler um caminho e não o nome do ficheiro
     public void recuperarEstado(){
+        String nomeFicheiro = Insercao.get_valor("o nome do ficheiro de onde pretende recuperar o estado", supplier_String);
+        List<String> linhas = Recuperar.lerFicheiro(nomeFicheiro);
+        String[] linhaPartida;
+        Utilizador utilizador = null;
+        Transportadora transportadora = null;
+        Artigo artigo = null;
+        Encomenda encomenda = null;
 
+        for(String linha : linhas){
+            linhaPartida = linha.split(":");
+            switch(linhaPartida[0]){
+                case "Utilizador":
+                    utilizador = Recuperar.parseUtilizador(linhaPartida[1]);
+                    this.model.addUtilizador(utilizador);
+                    break;
+
+                case "Transportadora":
+                    transportadora = Recuperar.parseTransportadora(linhaPartida[1]);
+                    this.model.addTransportadora(transportadora);
+                    break;
+
+                case "Sapatilhas":
+                    artigo = Recuperar.parseSapatilhas(linhaPartida[1]);
+                    this.model.adicionaArtigo(artigo);
+                    break;
+
+                case "Mala":
+                    artigo = Recuperar.parseMala(linhaPartida[1]);
+                    this.model.adicionaArtigo(artigo);
+                    break;
+
+                case "Tshirt":
+                    artigo = Recuperar.parseTshirt(linhaPartida[1]);
+                    this.model.adicionaArtigo(artigo);
+                    break;
+
+                case "Encomendas_Pendentes":
+                    int chaveEP = Recuperar.parseEncomendas_PendenteChave(linhaPartida[1]);
+                    encomenda = Recuperar.parseEncomendas_PendenteValor(linhaPartida[1]);
+                    this.model.adicionaEncomendaPend(chaveEP, encomenda);
+                    break;
+
+                case "Artigos_venda":
+                    int chaveAV = Recuperar.parseArtigos_vChave(linhaPartida[1]);
+                    String valorAV = Recuperar.parseArtigos_vValor(linhaPartida[1]);
+                    this.model.adicionaArtigoVenda(chaveAV, valorAV);
+                    break;
+
+                case "Artigos_vendidos":
+                    int chaveAv = Recuperar.parseArtigos_vChave(linhaPartida[1]);
+                    String valorAv = Recuperar.parseArtigos_vValor(linhaPartida[1]);
+                    this.model.adicionaArtigoVendido(chaveAv, valorAv);
+                    break;
+            }
+        }
+
+        Menu.mostraMensagem("Estado recuperado com sucesso!");
     }
 }
