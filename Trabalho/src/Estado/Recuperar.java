@@ -10,7 +10,6 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class Recuperar {
     public static List<String> lerFicheiro(String nomeFicheiro){
@@ -134,17 +133,40 @@ public class Recuperar {
         return chave;
     }
 
-    //PEQUENO,45.0,2023-05-12,PENDENTE;Tshirt:lkm,lkmm,lkvnf,12.0,false,0,0,S,S,Palmeiras,
+    //PEQUENO,45.0,2023-05-12,PENDENTE;Tshirt:lkm,lkmm,lkvnf,12.0,false,0,0,S,S,Palmeiras/
     // Tshirt:df,vf,3,32.0,false,0,0,S,M,Riscas
-    /*
     public static Encomenda parseEncomendas_PendenteValor(String linha){
+        List<Artigo> lstArt = new ArrayList<>();
         String[] enc = linha.split(";");
         String[] var_enc = enc[0].split(",");
+
         Encomenda.Dimensao dimensao = Encomenda.Dimensao.valueOf(var_enc[0]);
         double preco_final = Double.parseDouble(var_enc[1]);
         LocalDate data = LocalDate.parse(var_enc[2]);
         Encomenda.Estado estado = Encomenda.Estado.valueOf(var_enc[3]);
+
+        String[] artigos = var_enc[1].split("/");
+        for(String artigo : artigos){
+            String[] nomeartigo = artigo.split(":");
+            Artigo art = null;
+
+            switch(nomeartigo[0]){
+                case "Sapatilhas":
+                    art = parseSapatilhas(nomeartigo[1]);
+                    break;
+                case "Mala":
+                    art = parseMala(nomeartigo[1]);
+                    break;
+                case "Tshirt":
+                    art = parseTshirt(nomeartigo[1]);
+                    break;
+            }
+
+            lstArt.add(art);
+        }
+
         //ver como é que vou pôr aqui os artigos, maybe até é fácil
+        //Acho que só falta criar a encomenda em si
 
         return ;
     }
@@ -156,5 +178,4 @@ public class Recuperar {
     public static String parseArtigos_vValor(String linha){
         return ;
     }
-     */
 }

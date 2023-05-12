@@ -223,7 +223,7 @@ public class Encomenda {
         sb.append(this.estado).append(";");
 
         for(Artigo artigo : this.artigos){
-            sb.append(artigo.umalinhaString()).append(",");
+            sb.append(artigo.umalinhaString()).append("/");
         }
         sb.deleteCharAt(sb.length() - 1);
 
