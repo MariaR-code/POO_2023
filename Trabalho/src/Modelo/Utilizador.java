@@ -262,13 +262,13 @@ public class Utilizador {
         sb.append(this.morada).append(",");
         sb.append(this.nif).append(",");
         sb.append(this.tipoUtilizador).append(",");
-        sb.append(this.valorTotalVendas).append(",");
-        sb.append("FaturasVendedor").append(",");
+        sb.append(this.valorTotalVendas).append("#");
+        sb.append("FaturasVendedor").append("&");
         for(Fatura fatura : this.faturaVendedor)
-            sb.append(fatura.umalinhaString()).append(",");
+            sb.append(fatura.umalinhaString()).append("=");
         //sb.deleteCharAt(sb.length() - 1);
 
-        sb.append("FaturasComprador").append(",");
+        sb.append("FaturasComprador").append("&");
         for(Fatura fatura : this.faturaComprador)
             sb.append(fatura.umalinhaString()).append(",");
         sb.deleteCharAt(sb.length()-1);

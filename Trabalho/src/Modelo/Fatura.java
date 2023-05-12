@@ -114,7 +114,7 @@ public class Fatura {
         StringBuilder sb = new StringBuilder();
 
         sb.append("Fatura:");
-        sb.append(this.enc.umalinhaString()).append(",");
+        sb.append(this.enc.umalinhaString()).append("%");
         sb.append(this.custo).append(",");
         sb.append(this.nif);
 

@@ -25,7 +25,9 @@ public class Recuperar {
 
     //1,a@b.c,M,J,132546895,0,0.0,[],[]
     public static Utilizador parseUtilizador(String linha){
-        String[] var = linha.split(";");
+        Fatura fatura = null;
+
+        String[] var = linha.split("#");
         String[] varUt = var[0].split(",");
         int id = Integer.parseInt(varUt[0]);
         String email = varUt[1];
@@ -35,10 +37,36 @@ public class Recuperar {
         int tipo = Integer.parseInt(varUt[5]);
         double valorTotalVendas = Double.parseDouble(varUt[6]);
 
-        String[] varFatVend = var[1].split("");
+        Utilizador utilizador = new Utilizador(id, email, nome, valorTotalVendas, morada, nif, tipo);
 
+        String[] varFatVend = var[1].split("&");
+        String[] varfatV = varFatVend[1].split("=");
+        for(String fat : varfatV) {
+            fatura = parseFatura(fat);
+            utilizador.addFaturaVendedor(fatura);
+        }
 
-        return new Utilizador(id, email, nome, valorTotalVendas, morada, nif, tipo);
+        String[] varfatC = varFatVend[3].split("=");
+        for(String fatC : varfatC){
+            fatura = parseFatura(fatC);
+            utilizador.addFaturaComprador(fatura);
+        }
+
+        return utilizador;
+    }
+
+    public static Fatura parseFatura(String linha){
+        Encomenda encomenda = null;
+        String[] var = linha.split(":");
+        String[] varenc = var[1].split("%");
+
+        encomenda = parseEncomendas_PendenteValor(varenc[0]);
+
+        String[] varFatura = varenc[1].split(",");
+        double custo = Double.parseDouble(varFatura[0]);
+        String nif = varFatura[1];
+
+        return new Fatura(encomenda, custo, nif);
     }
 
     public static Transportadora parseTransportadora(String linha){
