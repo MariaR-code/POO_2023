@@ -465,6 +465,10 @@ public class Controlo {
                 break;
 
             case 3:
+                this.devolucao(cod);
+                break;
+
+            case 4:
                 this.run(); //???? Talvez algum que mostre os artigos que se encontram à venda
                 break;
         }
@@ -710,6 +714,11 @@ public class Controlo {
                 }
             }
         }
+        comprador(cod);
+    }
+
+    // testing... novo sistema operativo, novo github
+    public void devolucao(int cod) {
         comprador(cod);
     }
 

@@ -24,7 +24,8 @@ public class Menu {
     };
     public static final String[] menu_Comprador = {
             "Gerir encomenda",
-            "Histórico de encomendas" //Podemos fazer, acho que não custa muito. Não ser prioridade
+            "Histórico de encomendas",
+            "Devoluções"
     };
     public static final String[] menu_Criar_Encomenda = {
             "Adicionar artigo",
