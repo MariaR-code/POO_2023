@@ -138,7 +138,6 @@ public class Recuperar {
         String[] enc = linha.split(";");
         String[] var_enc = enc[0].split(",");
 
-        Encomenda.Dimensao dimensao = Encomenda.Dimensao.valueOf(var_enc[0]);
         double preco_final = Double.parseDouble(var_enc[1]);
         LocalDate data = LocalDate.parse(var_enc[2]);
         Encomenda.Estado estado = Encomenda.Estado.valueOf(var_enc[3]);
@@ -163,10 +162,5 @@ public class Recuperar {
         }
 
         return new Encomenda(lstArt, preco_final, data, estado);
-    }
-
-    //2=lkn
-    public static String parseArtigos_vValor(String linha){
-        return ;
     }
 }

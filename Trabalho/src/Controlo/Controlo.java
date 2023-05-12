@@ -827,17 +827,14 @@ public class Controlo {
                 case "Artigos_venda":
                     String[] chave_valorAV = linhaPartida[1].split("=");
                     int chaveAV = Recuperar.parseChaves(chave_valorAV[0]);
-                    String valorAV = Recuperar.parseArtigos_vValor(chave_valorAV[1]);
-                    this.model.adicionaArtigoVenda(chaveAV, valorAV);
+                    this.model.adicionaArtigoVenda(chaveAV, chave_valorAV[1]);
                     break;
 
                 case "Artigos_vendidos":
                     String[] chave_valorAv = linhaPartida[1].split("=");
                     int chaveAv = Recuperar.parseChaves(chave_valorAv[0]);
-                    String valorAv = Recuperar.parseArtigos_vValor(chave_valorAv[1]);
-                    this.model.adicionaArtigoVendido(chaveAv, valorAv);
+                    this.model.adicionaArtigoVendido(chaveAv, chave_valorAv[1]);
                     break;
-
             }
         }
 
