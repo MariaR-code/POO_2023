@@ -128,13 +128,11 @@ public class Recuperar {
         return tshirt;
     }
 
-    public static int parseEncomendas_PendenteChave(String linha){
+    public static int parseChaves(String linha){
         int chave = Integer.parseInt(linha);
         return chave;
     }
 
-    //PEQUENO,45.0,2023-05-12,PENDENTE;Tshirt:lkm,lkmm,lkvnf,12.0,false,0,0,S,S,Palmeiras/
-    // Tshirt:df,vf,3,32.0,false,0,0,S,M,Riscas
     public static Encomenda parseEncomendas_PendenteValor(String linha){
         List<Artigo> lstArt = new ArrayList<>();
         String[] enc = linha.split(";");
@@ -161,20 +159,13 @@ public class Recuperar {
                     art = parseTshirt(nomeartigo[1]);
                     break;
             }
-
             lstArt.add(art);
         }
 
-        //ver como é que vou pôr aqui os artigos, maybe até é fácil
-        //Acho que só falta criar a encomenda em si
-
-        return ;
+        return new Encomenda(lstArt, preco_final, data, estado);
     }
 
-    public static int parseArtigos_vChave(String linha){
-        return ;
-    }
-
+    //2=lkn
     public static String parseArtigos_vValor(String linha){
         return ;
     }

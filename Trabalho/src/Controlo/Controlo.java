@@ -816,27 +816,28 @@ public class Controlo {
                     artigo = Recuperar.parseTshirt(linhaPartida[1]);
                     this.model.adicionaArtigo(artigo);
                     break;
-/*
+
                 case "Encomendas_Pendentes":
                     String[] chave_valor = linhaPartida[1].split("=");
-                    int chaveEP = Recuperar.parseEncomendas_PendenteChave(chave_valor[0]);
+                    int chaveEP = Recuperar.parseChaves(chave_valor[0]);
                     encomenda = Recuperar.parseEncomendas_PendenteValor(chave_valor[1]);
                     this.model.adicionaEncomendaPend(chaveEP, encomenda);
                     break;
 
                 case "Artigos_venda":
-                    int chaveAV = Recuperar.parseArtigos_vChave(linhaPartida[1]);
-                    String valorAV = Recuperar.parseArtigos_vValor(linhaPartida[1]);
+                    String[] chave_valorAV = linhaPartida[1].split("=");
+                    int chaveAV = Recuperar.parseChaves(chave_valorAV[0]);
+                    String valorAV = Recuperar.parseArtigos_vValor(chave_valorAV[1]);
                     this.model.adicionaArtigoVenda(chaveAV, valorAV);
                     break;
 
                 case "Artigos_vendidos":
-                    int chaveAv = Recuperar.parseArtigos_vChave(linhaPartida[1]);
-                    String valorAv = Recuperar.parseArtigos_vValor(linhaPartida[1]);
+                    String[] chave_valorAv = linhaPartida[1].split("=");
+                    int chaveAv = Recuperar.parseChaves(chave_valorAv[0]);
+                    String valorAv = Recuperar.parseArtigos_vValor(chave_valorAv[1]);
                     this.model.adicionaArtigoVendido(chaveAv, valorAv);
                     break;
 
- */
             }
         }
 
