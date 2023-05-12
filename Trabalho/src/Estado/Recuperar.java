@@ -23,7 +23,7 @@ public class Recuperar {
         return linhas;
     }
 
-    //1,a@b.c,M,J,132546895,0,0.0,[],[]
+    //Falta testar com listas vazias
     public static Utilizador parseUtilizador(String linha){
         Fatura fatura = null;
 
