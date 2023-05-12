@@ -51,8 +51,7 @@ public class Encomenda {
      * Construtor parametrizado de Encomenda.
      */
     public Encomenda(List<Artigo> artigos_, double preco_final_, LocalDate data_,
-                     Estado estado_)
-    {
+                     Estado estado_){
         this.setArtigos(artigos_);
         this.preco_final = preco_final_;
         this.data = data_;
@@ -221,7 +220,7 @@ public class Encomenda {
         sb.append(this.dimensao).append(",");
         sb.append(this.preco_final).append(",");
         sb.append(this.data).append(",");
-        sb.append(this.estado).append(",");
+        sb.append(this.estado).append(";");
 
         for(Artigo artigo : this.artigos){
             sb.append(artigo.umalinhaString()).append(",");

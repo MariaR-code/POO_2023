@@ -130,6 +130,7 @@ public class Transportadora {
         StringBuilder sb = new StringBuilder();
 
         sb.append("Transportadora:");
+        sb.append(this.nome).append(",");
         sb.append(this.preco_expedicao).append(",");
         sb.append(this.premium);
         if(this.premium){

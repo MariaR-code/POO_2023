@@ -42,6 +42,22 @@ public class Utilizador {
         this.faturaComprador = new ArrayList<>();
     }
 
+    public Utilizador(int id, String email, String nome, double valorTotalVendas, String morada,
+                      String nif, int tipoUtilizador) {
+        this.id = id;
+        this.email = email;
+        this.nome = nome;
+        this.morada = morada;
+        this.nif = nif;
+        this.tipoUtilizador = tipoUtilizador;
+        this.valorTotalVendas = valorTotalVendas;
+        this.faturaVendedor = new ArrayList<>();
+        this.faturaComprador = new ArrayList<>();
+
+        if(id>idCount)
+            idCount = id;
+    }
+
     /**
      * Construtor por omissão de Utilizador.
      */

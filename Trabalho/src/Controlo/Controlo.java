@@ -124,7 +124,6 @@ public class Controlo {
                 break;
 
             case 6:
-                //Método usado para recuperar o estado
                 this.recuperarEstado();
                 this.run();
                 break;
@@ -808,10 +807,11 @@ public class Controlo {
                     artigo = Recuperar.parseTshirt(linhaPartida[1]);
                     this.model.adicionaArtigo(artigo);
                     break;
-
+/*
                 case "Encomendas_Pendentes":
-                    int chaveEP = Recuperar.parseEncomendas_PendenteChave(linhaPartida[1]);
-                    encomenda = Recuperar.parseEncomendas_PendenteValor(linhaPartida[1]);
+                    String[] chave_valor = linhaPartida[1].split("=");
+                    int chaveEP = Recuperar.parseEncomendas_PendenteChave(chave_valor[0]);
+                    encomenda = Recuperar.parseEncomendas_PendenteValor(chave_valor[1]);
                     this.model.adicionaEncomendaPend(chaveEP, encomenda);
                     break;
 
@@ -826,8 +826,11 @@ public class Controlo {
                     String valorAv = Recuperar.parseArtigos_vValor(linhaPartida[1]);
                     this.model.adicionaArtigoVendido(chaveAv, valorAv);
                     break;
+
+ */
             }
         }
+
 
         Menu.mostraMensagem("Estado recuperado com sucesso!");
     }
