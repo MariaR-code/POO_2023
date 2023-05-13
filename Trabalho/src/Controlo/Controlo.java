@@ -543,8 +543,9 @@ public class Controlo {
             model.setEncomendas_pend(novoMap);
 
 
-            // Adicionar ao map artigos_vendidos TODO: não sei se está a dar
-            Map<Integer,List<String>> mapVendido = model.getArtigos_vendidos();
+            // Adicionar ao map artigos_vendidos
+            Map<Integer,List<String>> mapVendido = new HashMap<>();
+            mapVendido = model.getArtigos_vendidos();
             List<String> artigosVendidos = model.getArtigos_vendidos().get(sellerID);
             if (artigosVendidos != null) {
                 artigosVendidos.add(codalfa);
@@ -555,8 +556,9 @@ public class Controlo {
             mapVendido.put(sellerID, artigosVendidos);
             model.setArtigos_vendidos(mapVendido);
 
-            // Remover o artigo selecionado do map artigos_venda TODO: não está a dar
-            Map<Integer, List<String>> mapParaVenda = model.getArtigos_venda();
+            // Remover o artigo selecionado do map artigos_venda
+            Map<Integer, List<String>> mapParaVenda = new HashMap<>();
+            mapParaVenda = model.getArtigos_venda();
             List<String> artigosParaVenda = model.getArtigos_venda().get(sellerID);
             artigosParaVenda.remove(codalfa);
             if (artigosParaVenda.isEmpty()) {
@@ -643,9 +645,9 @@ public class Controlo {
             return;
         }
         // Finaliza
-        enc_pend.setEstado(Encomenda.Estado.FINALIZADA); //<-- useless, só teria sentido na vida real
+        enc_pend.setEstado(Encomenda.Estado.FINALIZADA); //<-- useless
         enc_pend.setData(LocalDate.now());
-        enc_pend.setEstado(Encomenda.Estado.EXPEDIDA); // porque aqui o único delay foi mudar a data
+        enc_pend.setEstado(Encomenda.Estado.EXPEDIDA);
         map_enc.put(cod, encomendas);
         model.setEncomendas_pend(map_enc);
 
