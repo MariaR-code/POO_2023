@@ -497,13 +497,15 @@ public class Controlo {
         }
     }
 
-// deixou de dar
+
     private void add_artigo_enc(int cod) {
         // Mostrar artigos à venda
         this.artigos_a_venda();
 
         // Selecionar o código alfa numérico do artigo que deseja
-        String codalfa = Insercao.get_valor("o código alfa numérico do artigo que deseja", supplier_String);
+        String codalfa = null;
+        codalfa = Insercao.get_valor("o código alfa numérico do artigo que deseja", supplier_String);
+        if (codalfa==null||codalfa=="") {Menu.mostraMensagem("Código inválido. Tente novamente");}
 
         // Iterar sobre o Map artigos_venda e encontrar o ID do vendedor associado ao codalfa
         int sellerID = -1;
@@ -543,7 +545,7 @@ public class Controlo {
             model.setEncomendas_pend(novoMap);
 
 
-            // Adicionar ao map artigos_vendidos
+            // Adicionar ao map artigos_vendidos // todo help
             Map<Integer,List<String>> mapVendido = new HashMap<>();
             mapVendido = model.getArtigos_vendidos();
             List<String> artigosVendidos = model.getArtigos_vendidos().get(sellerID);
@@ -556,7 +558,7 @@ public class Controlo {
             mapVendido.put(sellerID, artigosVendidos);
             model.setArtigos_vendidos(mapVendido);
 
-            // Remover o artigo selecionado do map artigos_venda
+            // Remover o artigo selecionado do map artigos_venda  // todo help
             Map<Integer, List<String>> mapParaVenda = new HashMap<>();
             mapParaVenda = model.getArtigos_venda();
             List<String> artigosParaVenda = model.getArtigos_venda().get(sellerID);
@@ -707,7 +709,7 @@ public class Controlo {
                     // para encontrar todos os artigos vendidos pelo mesmo vendedor e calcular o preço total
                     for (Artigo art : enc_pend.getArtigos()) {
                         if (art.getCod_alfanr().equals(codalfa)) {
-                            preco_artigos += art.preco();
+                            preco_artigos += art.getPreco_base(); //todo: mudar quando Preco estiver operacional
                         }
                     }
 
@@ -779,13 +781,48 @@ public class Controlo {
         }
         model.setEncomendas_pend(map_enc_pend);
 
-
-        // TODO remover as faturas associadas à encomenda (comprador e vendedores)
+        /*
         // remove fatura comprador
-
+        Utilizador comprador = new Utilizador();
+        comprador = model.getUtilizadores().get(cod);
+        List<Fatura> fatura_compras = new ArrayList<>();
+        fatura_compras = comprador.getFaturaComprador();
+        if (!(fatura_compras.isEmpty())) {
+            for (Fatura faturaC : fatura_compras) {
+                if (faturaC.getEnc().equals(encomenda_devolvida)) {
+                    comprador.removeFaturaComprador(faturaC);
+                }
+            }
+        }
 
         // remove faturas vendedores
+        List<Artigo> artigos_devolucao = new ArrayList<>();
+        artigos_devolucao = encomenda_devolvida.getArtigos();
+        for (Artigo artigo : artigos_devolucao) {
+            String codalfa = artigo.getCod_alfanr();
+            int sellerID = -1;
+            for (Map.Entry<Integer, List<String>> entry : model.getArtigos_vendidos().entrySet()) {
+                int vendID = entry.getKey();
+                List<String> vendArtigos = entry.getValue();
 
+                // Se a lista de artigos vendidos do vendedor contém o código alfanumérico do artigo da encomenda,
+                // então o ID do vendedor é atribuído à variável sellerID e o loop é interrompido.
+                if (vendArtigos.contains(codalfa)) {
+                    sellerID = vendID;
+                }
+            }
+            Utilizador vendedor = new Utilizador();
+            vendedor = model.getUtilizadores().get(sellerID);
+            List<Fatura> fatura_vendas = new ArrayList<>();
+            fatura_vendas = vendedor.getFaturaVendedor();
+            for (Fatura faturaV : fatura_vendas) {
+                if (faturaV.getEnc().equals(encomenda_devolvida)) {
+                    vendedor.removeFaturaVendedor(faturaV);
+                }
+            }
+        }
+
+         */
 
         Menu.mostraMensagem("A encomenda foi devolvida com sucesso!");
         comprador(cod);
