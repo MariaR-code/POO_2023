@@ -12,7 +12,9 @@ import Trabalho.src.Erros.ErroCriarConta;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -495,7 +497,7 @@ public class Controlo {
         }
     }
 
-
+// deixou de dar
     private void add_artigo_enc(int cod) {
         // Mostrar artigos à venda
         this.artigos_a_venda();
@@ -513,7 +515,9 @@ public class Controlo {
         }
 
         // Verificar se o codalfa recebido é de um artigo que está à venda
-        if (sellerID != -1) {
+        if (sellerID == -1) {
+            Menu.mostraMensagem("O código alfanumérico não pertence aos artigos à venda");
+        }
 
             List<Encomenda> encomendasPendentes = model.getEncomendas_pend().get(cod);
             // Criar uma nova lista de encomendas pendentes se ainda não houver nenhuma para o comprador
@@ -528,6 +532,10 @@ public class Controlo {
                 encomendasPendentes.add(encomenda);
             } else {
                 encomenda = encomendasPendentes.get(encomendasPendentes.size() - 1); // obter a última encomenda criada
+                if (encomenda.getEstado()!= Encomenda.Estado.PENDENTE) {
+                    encomenda = new Encomenda();
+                    encomendasPendentes.add(encomenda);
+                }
             }
             encomenda.addArtigo(model.getArtigoByCodigo(codalfa)); // adicionar o artigo selecionado à encomenda
             Map<Integer, List<Encomenda>> novoMap = new HashMap<>();
@@ -535,9 +543,8 @@ public class Controlo {
             model.setEncomendas_pend(novoMap);
 
 
-            // Adicionar ao map artigos_vendidos
-            Map<Integer,List<String>> mapVendido = new HashMap<>();
-            mapVendido = model.getArtigos_vendidos();
+            // Adicionar ao map artigos_vendidos TODO: não sei se está a dar
+            Map<Integer,List<String>> mapVendido = model.getArtigos_vendidos();
             List<String> artigosVendidos = model.getArtigos_vendidos().get(sellerID);
             if (artigosVendidos != null) {
                 artigosVendidos.add(codalfa);
@@ -548,9 +555,8 @@ public class Controlo {
             mapVendido.put(sellerID, artigosVendidos);
             model.setArtigos_vendidos(mapVendido);
 
-            // Remover o artigo selecionado do map artigos_venda
-            Map<Integer,List<String>> mapParaVenda = new HashMap<>();
-            mapParaVenda = model.getArtigos_venda();
+            // Remover o artigo selecionado do map artigos_venda TODO: não está a dar
+            Map<Integer, List<String>> mapParaVenda = model.getArtigos_venda();
             List<String> artigosParaVenda = model.getArtigos_venda().get(sellerID);
             artigosParaVenda.remove(codalfa);
             if (artigosParaVenda.isEmpty()) {
@@ -559,14 +565,8 @@ public class Controlo {
                 mapParaVenda.put(sellerID, artigosParaVenda);
             }
             model.setArtigos_venda(mapParaVenda);
-
-
             Menu.mostraMensagem("Artigo adicionado à encomenda com sucesso.");
-
-        } else {
-            Menu.mostraMensagem("O código alfanumérico não pertence aos artigos à venda");
-        }
-        this.criarEncomenda(cod);
+            this.criarEncomenda(cod);
     }
 
     public void artigos_a_venda() {
@@ -615,6 +615,7 @@ public class Controlo {
         if (enc_pend == null) {
             Menu.mostraMensagem("Não tem artigos na encomenda.");
             comprador(cod);
+            return;
         }
 
         List<Artigo> artigos = enc_pend.getArtigos();
@@ -622,11 +623,11 @@ public class Controlo {
         if (dimensao == 0) {
             Menu.mostraMensagem("Não tem artigos na encomenda.");
             comprador(cod);
+            return;
         }
         if (dimensao < 2) {
             enc_pend.setDimensao(Encomenda.Dimensao.PEQUENO);
-        }
-        if (dimensao < 2) {
+        } else if (dimensao < 5) {
             enc_pend.setDimensao(Encomenda.Dimensao.MEDIO);
         } else {
             enc_pend.setDimensao(Encomenda.Dimensao.GRANDE);
@@ -639,12 +640,12 @@ public class Controlo {
         boolean continuar = Insercao.get_tipo("Deseja continuar com a compra", function_Boolean);
         if (!continuar) {
             comprador(cod);
+            return;
         }
         // Finaliza
         enc_pend.setEstado(Encomenda.Estado.FINALIZADA); //<-- useless, só teria sentido na vida real
         enc_pend.setData(LocalDate.now());
         enc_pend.setEstado(Encomenda.Estado.EXPEDIDA); // porque aqui o único delay foi mudar a data
-        encomendas.add(enc_pend);
         map_enc.put(cod, encomendas);
         model.setEncomendas_pend(map_enc);
 
@@ -714,15 +715,85 @@ public class Controlo {
                 }
             }
         }
+        Menu.mostraMensagem("Compra realizada com sucesso!");
         comprador(cod);
     }
 
-    // testing... novo sistema operativo, novo github
+
+
     public void devolucao(int cod) {
+        // Ir ao historico de encomendas deste user
+        List<Encomenda> historico = model.getEncomendas_pend().get(cod);
+        if (historico == null) {
+            Menu.mostraMensagem("Não existem encomendas capazes de devolução.");
+            comprador(cod);
+            return;
+        }
+
+        // Filtrar de modo a apenas apresentar as que 1- Foram expedidas 2- foram feitas à menos de 2 dias
+        List<Encomenda> enc_elegiveis = new ArrayList<>();
+        for (Encomenda encomenda : historico) {
+            long dias_passados = ChronoUnit.DAYS.between(encomenda.getData(), LocalDate.now());
+            if (encomenda.getEstado() == Encomenda.Estado.EXPEDIDA && dias_passados <= 2) {
+                enc_elegiveis.add(encomenda);
+            }
+        }
+        if (enc_elegiveis.isEmpty()) {
+            Menu.mostraMensagem("Não existem encomendas capazes de devolução.");
+            comprador(cod);
+            return;
+        }
+
+        // Arranjar maneira de deixar o User escolher a encomenda
+        Menu.mostraMensagem("Encomendas disponíveis para devolução:");
+        for (int i = 0; i < enc_elegiveis.size(); i++) {
+            Menu.mostraMensagem((1 + i) + ". " + enc_elegiveis.get(i).toString());
+        }
+        Menu.mostraMensagem("Para cancelar digite 0.");
+        int escolha = -1;
+        while (true) {
+            escolha = Insercao.get_valor("um número válido correspondente à encomenda que deseja devolver", supplier_Int);
+            if (escolha == 0) {
+                comprador(cod);
+                return;
+            }
+            else if (escolha > 0 && escolha <= enc_elegiveis.size()) {
+                break;
+            }
+            else {
+                Menu.mostraMensagem("Escolha inválida. Tente novamente.");
+            }
+        }
+
+        // remover a encomenda do histórico encomendas_pend
+        Encomenda encomenda_devolvida = enc_elegiveis.get((escolha - 1));
+        Map<Integer, List<Encomenda>> map_enc_pend = model.getEncomendas_pend();
+        List<Encomenda> nova_lista_enc = map_enc_pend.get(cod);
+        nova_lista_enc.remove(encomenda_devolvida);
+        if (nova_lista_enc.isEmpty()) {
+            map_enc_pend.remove(cod);
+        } else {
+            map_enc_pend.put(cod, nova_lista_enc);
+        }
+        model.setEncomendas_pend(map_enc_pend);
+
+
+        // TODO remover as faturas associadas à encomenda (comprador e vendedores)
+        // remove fatura comprador
+
+
+        // remove faturas vendedores
+
+
+        Menu.mostraMensagem("A encomenda foi devolvida com sucesso!");
         comprador(cod);
+
     }
 
-    public void criarArtigo(){
+
+
+
+        public void criarArtigo(){
 
     }
 
