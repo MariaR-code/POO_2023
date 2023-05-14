@@ -305,7 +305,7 @@ public class Controlo {
         try{
             nome = Insercao.get_valor("nome da transportadora", supplier_String);
 
-            if(this.model.existeTransportadora(nome))
+            if(this.model.existeTransportadora(nome)||nome=="")
                 throw new NaoExisteTransportadora("A transportadora já se encontra associada.");
 
         }catch (NaoExisteTransportadora e){
@@ -340,7 +340,16 @@ public class Controlo {
     public void adicionaVestuario(int cod){
         Tshirt tshirt = null;
 
-        String cod_alfnr = Insercao.get_valor("o código alfanumérico", supplier_String);
+        String cod_alfnr = "";
+        while (cod_alfnr == "") {
+            cod_alfnr = Insercao.get_valor("um código alfanumérico válido", supplier_String);
+            for (Artigo artigo : model.getArtigos()) {
+                if (artigo.getCod_alfanr().equals(cod_alfnr)) {
+                    Menu.mostraMensagem("Já existe um artigo à venda com este código.");
+                    cod_alfnr = "";
+                }
+            }
+        }
         String marca = Insercao.get_valor("a marca", supplier_String);
         String descricao = Insercao.get_valor("a descrição", supplier_String);
         double preco_base = Insercao.get_valor("o preço base", supplier_Double);
@@ -377,7 +386,16 @@ public class Controlo {
     public void adicionaCalcado(int cod){
         Sapatilhas sapatilhas = null;
 
-        String cod_alfnr = Insercao.get_valor("o código alfanumérico", supplier_String);
+        String cod_alfnr = "";
+        while (cod_alfnr == "") {
+            cod_alfnr = Insercao.get_valor("um código alfanumérico válido", supplier_String);
+            for (Artigo artigo : model.getArtigos()) {
+                if (artigo.getCod_alfanr().equals(cod_alfnr)) {
+                    Menu.mostraMensagem("Já existe um artigo à venda com este código.");
+                    cod_alfnr = "";
+                }
+            }
+        }
         String marca = Insercao.get_valor("a marca", supplier_String);
         String descricao = Insercao.get_valor("a descrição", supplier_String);
         double preco_base = Insercao.get_valor("o preço base", supplier_Double);
@@ -396,7 +414,17 @@ public class Controlo {
         int tamanho = Insercao.get_valor("o tamanho do calçado", supplier_Int);
         String cor = Insercao.get_valor("a cor", supplier_String);
         boolean atacadores = Insercao.get_tipo("Tem atacadores", function_Boolean);
-        boolean premium = Insercao.get_tipo("É premium", function_Boolean);
+        List<Transportadora> transportes = model.getTransportadoras();
+        boolean expedicao_p = false;
+        for (Transportadora transporte : transportes) {
+            if (transporte.getNome().equals(transportadora)){
+                expedicao_p = transporte.isPremium();
+            }
+        }
+        boolean premium = false;
+        if (expedicao_p) {
+            premium = Insercao.get_tipo("É premium", function_Boolean);
+        }
         LocalDate data_lancamento = Insercao.get_valor("a data de lançamento (no formato aaaa-mm-dd)", supplier_LocalDate);
 
         boolean usado = Insercao.get_tipo("É usado", function_Boolean);
@@ -416,7 +444,16 @@ public class Controlo {
     public void adicionaAcessorios(int cod){
         Mala mala = null;
 
-        String cod_alfnr = Insercao.get_valor("o código alfanumérico", supplier_String);
+        String cod_alfnr = "";
+        while (cod_alfnr == "") {
+            cod_alfnr = Insercao.get_valor("um código alfanumérico válido", supplier_String);
+            for (Artigo artigo : model.getArtigos()) {
+                if (artigo.getCod_alfanr().equals(cod_alfnr)) {
+                    Menu.mostraMensagem("Já existe um artigo à venda com este código.");
+                    cod_alfnr = "";
+                }
+            }
+        }
         String marca = Insercao.get_valor("a marca", supplier_String);
         String descricao = Insercao.get_valor("a descrição", supplier_String);
         double preco_base = Insercao.get_valor("o preço base", supplier_Double);
@@ -437,8 +474,17 @@ public class Controlo {
         double profundidade = Insercao.get_valor("a profundidade", supplier_Double);
         String material = Insercao.get_valor("o material", supplier_String);
         int ano_colecao = Insercao.get_valor("o ano da coleção", supplier_Int);
-        boolean premium = Insercao.get_tipo("É premium", function_Boolean);
-
+        List<Transportadora> transportes = model.getTransportadoras();
+        boolean expedicao_p = false;
+        for (Transportadora transporte : transportes) {
+            if (transporte.getNome().equals(transportadora)){
+            expedicao_p = transporte.isPremium();
+            }
+        }
+        boolean premium = false;
+        if (expedicao_p) {
+             premium = Insercao.get_tipo("É premium", function_Boolean);
+        }
         boolean usado = Insercao.get_tipo("É usado", function_Boolean);
 
         if(usado){
@@ -744,20 +790,6 @@ public class Controlo {
                    nrArtigos+=1;
                 }
             }
-            // TODO
-            /*
-            if (nrArtigos<2){
-                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":1");
-                preco_trans += 1;
-            } else if (nrArtigos<5) {
-                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":2");
-                preco_trans += 2;
-             } else {
-                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":3.5");
-                preco_trans += 3.5;
-             }
-
-             */
 
              // o que era suposto dar
             if (nrArtigos<2){
@@ -923,7 +955,7 @@ public class Controlo {
 
     //Talvez tenha de adaptar para ler um caminho e não o nome do ficheiro
     public void recuperarEstado(){
-        String nomeFicheiro = Insercao.get_valor("o nome do ficheiro de onde pretende recuperar o estado", supplier_String);
+        String nomeFicheiro = Insercao.get_valor("o caminho (completo) do ficheiro onde pretende recuperar o estado", supplier_String);
         List<String> linhas = Recuperar.lerFicheiro(nomeFicheiro);
         String[] linhaPartida;
         Utilizador utilizador = null;
@@ -984,7 +1016,6 @@ public class Controlo {
                     }
             }
         }
-        Menu.mostraMensagem("Estado recuperado com sucesso!");
     }
 
     /**

@@ -1,11 +1,11 @@
 package Trabalho.src.Modelo;
 
 import Trabalho.src.Vista.Menu;
-
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.util.Locale;
+
 
 public class Transportadora {
     private String nome;
@@ -163,7 +163,7 @@ public class Transportadora {
         formula = formula.replaceAll("valorbase", String.valueOf(valorBase));
         formula = formula.replaceAll("margemlucro", String.valueOf(margemLucro));
         formula = formula.replaceAll("imposto", String.valueOf(imposto));
-        Menu.mostraMensagem(formula);
+
         try {
             ScriptEngineManager mgr = new ScriptEngineManager();
             ScriptEngine engine = mgr.getEngineByName("JavaScript");
