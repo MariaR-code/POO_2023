@@ -305,7 +305,7 @@ public class Controlo {
         try{
             nome = Insercao.get_valor("nome da transportadora", supplier_String);
 
-            if(this.model.existeTransportadora(nome))
+            if(this.model.existeTransportadora(nome)||nome=="")
                 throw new NaoExisteTransportadora("A transportadora já se encontra associada.");
 
         }catch (NaoExisteTransportadora e){
