@@ -533,10 +533,11 @@ public class Controlo {
 
         switch (op){
             case 1:   //add artigo a encomenda pendente
-                add_artigo_enc(cod);
+                this.add_artigo_enc(cod);
                 break;
 
-            case 2:   //remove artigo da encomenda pendente
+            case 2:  //remove artigo da encomenda pendente
+                this.remove_artigo_enc(cod);
                 break;
 
             case 3: // finaliza encomenda
@@ -622,7 +623,105 @@ public class Controlo {
             Menu.mostraMensagem("Artigo adicionado à encomenda com sucesso.");
             this.criarEncomenda(cod);
     }
+    /**
+     * Método remove_artigo_enc que remove um artigo da encomenda.
+     * @param cod , sendo este o código de utilizador associado à encomenda.
+     */
+    public void remove_artigo_enc(int cod){
+        // Mostrar artigos na encomenda
+        this.model.getUltimaEncPend(cod).listarArtigosEnc();
 
+        // Selecionar o código alfa numérico do artigo que deseja remover
+        String codalfa = Insercao.get_valor("o código alfa numérico do artigo que deseja remover", supplier_String);
+
+        // remover da encomenda
+        Map<Integer, List<Encomenda>> enc_map = model.getEncomendas_pend();
+
+        if (enc_map.isEmpty()) {
+            Menu.mostraMensagem("Não existem encomendas pendentes");
+            comprador(cod);
+        }
+
+        List<Encomenda> encomendas = enc_map.get(cod);
+
+        if (encomendas == null) {
+            Menu.mostraMensagem("Não existem encomendas pendentes");
+            comprador(cod);
+        } else {
+            for (Encomenda enc : encomendas) {
+                if (enc.getEstado() == Encomenda.Estado.PENDENTE) {
+                    List<Artigo> artigos = enc.getArtigos();
+                    List<Artigo> artigosToRemove = new ArrayList<>();
+
+                    if (artigos.isEmpty()) {
+                        Menu.mostraMensagem("Não existem artigos para remover.");
+                        comprador(cod);
+                    } else {
+                        for (Artigo art : artigos) {
+                            if (art.getCod_alfanr().equals(codalfa)) {
+                                artigosToRemove.add(art);
+                            }
+                        }
+                        if (artigosToRemove.isEmpty()) {
+                            Menu.mostraMensagem("Não existem artigos com esse código");
+                            comprador(cod);
+                        } else {
+                            artigos.removeAll(artigosToRemove);
+                            enc.setArtigos(artigos);
+                            encomendas.remove(enc);
+                            encomendas.add(enc);
+                            enc_map.put(cod, encomendas);
+                            model.setEncomendas_pend(enc_map);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Iterar sobre o Map encomendas_pend e encontrar o ID do vendedor associado ao codalfa
+        int sellerID = -1;
+        for (Map.Entry<Integer, List<String>> entry : this.model.getArtigos_vendidos().entrySet()) {
+            int vendID = entry.getKey();
+            List<String> vendArtigos = entry.getValue();
+            if (vendArtigos.contains(codalfa)) {
+                sellerID = vendID;
+                break;
+            }
+        }
+        // Verificar se o codalfa recebido é de um artigo que está na encomenda
+        if (sellerID == -1) {
+            Menu.mostraMensagem("O código alfanumérico não pertence aos artigos à venda");
+            this.comprador(cod);
+        }
+        // Remover do map artigos_vendidos
+        Map<Integer,List<String>> mapVendido = model.getArtigos_vendidos();
+        List<String> artigosVendidos = model.getArtigos_vendidos().get(sellerID);
+        artigosVendidos.remove(codalfa);
+        if (artigosVendidos.isEmpty()) {
+            mapVendido.remove(sellerID);
+        }
+        else{
+            mapVendido.remove(sellerID);
+        }
+        mapVendido.put(sellerID, artigosVendidos);
+        model.setArtigos_vendidos(mapVendido);
+
+        // Adicionar ao map artigos_venda
+        Map<Integer,List<String>> mapVenda = model.getArtigos_venda();
+        List<String> artigosVenda = model.getArtigos_venda().get(sellerID);
+        if(artigosVenda != null){
+            artigosVenda.add(codalfa);
+        }
+        else{
+            artigosVenda = new ArrayList<>();
+            artigosVenda.add(codalfa);
+        }
+        mapVenda.put(sellerID, artigosVenda);
+        model.setArtigos_venda(mapVenda);
+
+        Menu.mostraMensagem("Artigo removido da encomenda com sucesso.");
+        this.criarEncomenda(cod);
+    }
     public void artigos_a_venda(int cod, boolean enc) {
         Menu.mostraMensagem("Artigos à venda:");
         List<String> artigosVenda = new ArrayList<>();
@@ -1019,57 +1118,5 @@ public class Controlo {
         Menu.mostraMensagem("Estado recuperado com sucesso!");
     }
 
-    /**
-     * Método remove_artigo_enc que remove um artigo da encomenda.
-     * @param cod , sendo este o código de utilizador associado à encomenda.
-     */
-    public void remove_artigo_enc(int cod){
-        // Mostrar artigos na encomenda
-        this.model.getUltimaEncPend(cod).listarArtigosEnc();
-        // Selecionar o código alfa numérico do artigo que deseja remover
-        String codalfa = Insercao.get_valor("o código alfa numérico do artigo que deseja remover", supplier_String);
-        // Iterar sobre o Map encomendas_pend e encontrar o ID do vendedor associado ao codalfa
-        /*
-        int sellerID = -1;
-        for (Map.Entry<Integer, List<Encomenda>> entry : model.getUltimaEncPend().getArtigos().entrySet()) {
-            List<String> alfanr = entry.getValue();
-            if (alfanr.contains(codalfa)) {
-                sellerID = entry.getKey();
-            }
-        }
-        // Verificar se o codalfa recebido é de um artigo que está na encomenda
-        if (sellerID == -1) {
-            Menu.mostraMensagem("O código alfanumérico não pertence aos artigos à venda");
-            this.comprador(cod);
-        }
-        // Remover do map artigos_vendidos
-        Map<Integer,List<String>> mapVendido = model.getArtigos_vendidos();
-        List<String> artigosVendidos = model.getArtigos_vendidos().get(sellerID);
-        artigosVendidos.remove(codalfa);
-        if (artigosVendidos.isEmpty()) {
-            mapVendido.remove(sellerID);
-        }
-        else{
-            mapVendido.remove(sellerID);
-        }
-        mapVendido.put(sellerID, artigosVendidos);
-        model.setArtigos_vendidos(mapVendido);
 
-        // Adicionar ao map artigos_venda
-        Map<Integer,List<String>> mapVenda = model.getArtigos_venda();
-        List<String> artigosVenda = model.getArtigos_venda().get(sellerID);
-        if(artigosVenda != null){
-            artigosVenda.add(codalfa);
-        }
-        else{
-            artigosVenda = new ArrayList<>();
-            artigosVenda.add(codalfa);
-        }
-        mapVenda.put(sellerID, artigosVenda);
-        model.setArtigos_venda(mapVenda);
-
-         */
-        Menu.mostraMensagem("Artigo removido da encomenda com sucesso.");
-        this.criarEncomenda(cod);
-    }
 }
