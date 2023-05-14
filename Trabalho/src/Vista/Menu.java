@@ -14,8 +14,8 @@ public class Menu {
     };
     public static final String[] menu_Vendedor = {
             "Adicionar artigo",
-            "Histórico de vendas", //Necessário para ter 16 valores
-            "Ver artigos à venda"  // remover?
+            "Histórico de vendas",
+            "Ver artigos à venda"
     };
     public static final String[] menu_Adicionar_Artigo = {
             "Vestuário", //Se calhar era melhor ser Tshirt, sapatilhas e mala

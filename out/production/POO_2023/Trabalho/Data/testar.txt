@@ -1,0 +1,4 @@
+Tshirt£lkvnd,lknvfd,jvnd,12.0,false,0,0,S,S,Riscas
+Utilizador:1,a@b.c,Maria,Rua,123456789,2,0.0#FaturasVendedor&FaturasComprador
+Transportadora:S,jhvfd,false
+Artigos_venda:1=jvnd

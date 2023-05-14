@@ -23,7 +23,6 @@ public class Recuperar {
         return linhas;
     }
 
-    //Falta testar com listas vazias
     public static Utilizador parseUtilizador(String linha){
         Fatura fatura = null;
 
@@ -40,24 +39,41 @@ public class Recuperar {
         Utilizador utilizador = new Utilizador(id, email, nome, valorTotalVendas, morada, nif, tipo);
 
         String[] varFatVend = var[1].split("&");
-        String[] varfatV = varFatVend[1].split("=");
+
+        if(varFatVend.length == 4){
+            parseFatVend(varFatVend[1], utilizador);
+            parseFatComp(varFatVend[3], utilizador);
+        }
+        else if(varFatVend.length > 2){
+            if(varFatVend[1].equals("FaturasComprador"))
+                parseFatComp(varFatVend[2], utilizador);
+            else parseFatVend(varFatVend[1], utilizador);
+        }
+        return utilizador;
+    }
+
+    public static void parseFatVend(String varFatVend, Utilizador utilizador){
+        Fatura fatura = null;
+        String[] varfatV = varFatVend.split("=");
         for(String fat : varfatV) {
             fatura = parseFatura(fat);
             utilizador.addFaturaVendedor(fatura);
         }
+    }
 
-        String[] varfatC = varFatVend[3].split("=");
+    public static void parseFatComp(String varFatVend, Utilizador utilizador){
+        Fatura fatura = null;
+        String[] varfatC = varFatVend.split("=");
         for(String fatC : varfatC){
             fatura = parseFatura(fatC);
             utilizador.addFaturaComprador(fatura);
         }
-
-        return utilizador;
     }
 
     public static Fatura parseFatura(String linha){
         Encomenda encomenda = null;
-        String[] var = linha.split(":");
+        String[] var = linha.split("§");
+
         String[] varenc = var[1].split("%");
 
         encomenda = parseEncomendas_PendenteValor(varenc[0]);
@@ -93,11 +109,11 @@ public class Recuperar {
         double preco_base = Double.parseDouble(var[3]);
         boolean usado = Boolean.parseBoolean(var[4]);
         String transportadora = var[7];
-        int tamanho = Integer.parseInt(var[7]);
-        boolean atacadores = Boolean.parseBoolean(var[8]);
-        String cor = var[9];
-        LocalDate data = LocalDate.parse(var[10]);
-        boolean premium = Boolean.parseBoolean(var[11]);
+        int tamanho = Integer.parseInt(var[8]);
+        boolean atacadores = Boolean.parseBoolean(var[9]);
+        String cor = var[10];
+        LocalDate data = LocalDate.parse(var[11]);
+        boolean premium = Boolean.parseBoolean(var[12]);
         if(usado){
             int av_estado = Integer.parseInt(var[5]);
             int nr_donos = Integer.parseInt(var[6]);
@@ -165,6 +181,7 @@ public class Recuperar {
 
     public static Encomenda parseEncomendas_PendenteValor(String linha){
         List<Artigo> lstArt = new ArrayList<>();
+        Artigo art = null;
         String[] enc = linha.split(";");
         String[] var_enc = enc[0].split(",");
 
@@ -172,10 +189,10 @@ public class Recuperar {
         LocalDate data = LocalDate.parse(var_enc[2]);
         Encomenda.Estado estado = Encomenda.Estado.valueOf(var_enc[3]);
 
-        String[] artigos = var_enc[1].split("/");
+        String[] artigos = enc[1].split("/");
+
         for(String artigo : artigos){
-            String[] nomeartigo = artigo.split(":");
-            Artigo art = null;
+            String[] nomeartigo = artigo.split("£");
 
             switch(nomeartigo[0]){
                 case "Sapatilhas":

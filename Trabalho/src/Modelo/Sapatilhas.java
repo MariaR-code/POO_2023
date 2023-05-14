@@ -147,7 +147,7 @@ public class Sapatilhas extends Artigo {
     public String umalinhaString(){
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Sapatilhas:");
+        sb.append("Sapatilhas£");
         sb.append(super.umalinhaString()).append(",");
         sb.append(this.tamanho).append(",");
         sb.append(this.atacadores).append(",");
