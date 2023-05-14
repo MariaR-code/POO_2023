@@ -629,21 +629,27 @@ public class Controlo {
      */
     public void remove_artigo_enc(int cod){
         // Mostrar artigos na encomenda
-        this.model.getUltimaEncPend(cod).listarArtigosEnc();
+        if(!this.model.getEncomendas_pend().containsKey(cod) || this.model.getEncomendas_pend().isEmpty()){
+            Menu.mostraMensagem("Ainda não existem encomendas.");
+        }
+        List<Encomenda> encs = this.model.getEncomendas_pend().get(cod);
+        if (encs != null) {
+            for (Encomenda enc : encs) {
+               if (enc.getEstado()== Encomenda.Estado.PENDENTE) {Menu.mostraMensagem(enc.toString());}
+            }
+        } else { Menu.mostraMensagem("Ainda não existem encomendas.");}
 
         // Selecionar o código alfa numérico do artigo que deseja remover
         String codalfa = Insercao.get_valor("o código alfa numérico do artigo que deseja remover", supplier_String);
 
         // remover da encomenda
         Map<Integer, List<Encomenda>> enc_map = model.getEncomendas_pend();
-
         if (enc_map.isEmpty()) {
             Menu.mostraMensagem("Não existem encomendas pendentes");
             comprador(cod);
         }
 
         List<Encomenda> encomendas = enc_map.get(cod);
-
         if (encomendas == null) {
             Menu.mostraMensagem("Não existem encomendas pendentes");
             comprador(cod);
