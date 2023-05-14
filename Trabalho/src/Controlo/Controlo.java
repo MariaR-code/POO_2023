@@ -476,7 +476,7 @@ public class Controlo {
                 break;
 
             case 5:
-                this.run(); //???? Talvez algum que mostre os artigos que se encontram à venda
+                this.run();
                 break;
         }
     }
@@ -643,7 +643,7 @@ public class Controlo {
             enc_pend.setDimensao(Encomenda.Dimensao.GRANDE);
         }
 
-        double preco_final = enc_pend.getPreco_final();
+        double preco_final = enc_pend.getPreco_final() +  preco_transporte(enc_pend);
         Menu.mostraMensagem("O preço final da encomenda são: " + preco_final + "€.");
 
         // Depois de mostrar o preço, deseja continuar?
@@ -715,7 +715,7 @@ public class Controlo {
                     // para encontrar todos os artigos vendidos pelo mesmo vendedor e calcular o preço total
                     for (Artigo art : enc_pend.getArtigos()) {
                         if (art.getCod_alfanr().equals(codalfa)) {
-                            preco_artigos += art.getPreco_base(); //todo: mudar quando Preco estiver operacional
+                            preco_artigos += art.preco();
                         }
                     }
 
@@ -729,6 +729,49 @@ public class Controlo {
         comprador(cod);
     }
 
+    public double preco_transporte(Encomenda encomenda){
+        List<Artigo> artigos = encomenda.getArtigos();
+        List<Transportadora> transportadoras = model.getTransportadoras();
+        int nrArtigos=0;
+        double preco_trans=0;
+        for (Transportadora transportadora : transportadoras) {
+            for (Artigo artigo : artigos) {
+               if (transportadora.getNome().equals(artigo.getTransportadora())){
+                   nrArtigos+=1;
+                }
+            }
+            // TODO
+            if (nrArtigos<2){
+                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":1");
+                preco_trans += 1;
+            } else if (nrArtigos<5) {
+                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":2");
+                preco_trans += 2;
+             } else {
+                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":3.5");
+                preco_trans += 3.5;
+             }
+
+            /* // o que era suposto dar
+            if (nrArtigos<2){
+                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() +":" +
+                 transportadora.preco_transporte(transportadora.isPremium(),1,1) );
+                preco_trans += transportadora.preco_transporte(transportadora.isPremium(),1,1);
+            } else if (nrArtigos<5) {
+                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":"+
+                transportadora.preco_transporte(transportadora.isPremium(), 2,1));
+                preco_trans += transportadora.preco_transporte(transportadora.isPremium(), 2,1);
+            } else {
+                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":"+
+                transportadora.preco_transporte(transportadora.isPremium(), 3.5,1));
+                preco_trans += transportadora.preco_transporte(transportadora.isPremium(), 3.5,1);
+            }
+             */
+
+            nrArtigos=0;
+            }
+        return preco_trans;
+    }
 
 
     public void devolucao(int cod) {
