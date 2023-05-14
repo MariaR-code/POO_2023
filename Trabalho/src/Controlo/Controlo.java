@@ -57,21 +57,6 @@ public class Controlo {
         return Tshirt.Padrao.valueOf(padrao);
     };
 
-    //VER SE ESTAS DUAS SÃO PRECISAS PROVAVELMENTE NÃO!!!!!!
-    private Supplier<Encomenda.Dimensao> supplier_Dimensao = () -> {
-        Scanner input = new Scanner(System.in);
-        String dimensao = input.nextLine();
-
-        return Encomenda.Dimensao.valueOf(dimensao);
-    };
-
-    private Supplier<Encomenda.Estado> supplier_Estado = () -> {
-        Scanner input = new Scanner(System.in);
-        String estado = input.nextLine();
-
-        return Encomenda.Estado.valueOf(estado);
-    };
-
     private Function<String, Boolean> function_Boolean = s -> {
         boolean b = false;
         boolean valid = false;
