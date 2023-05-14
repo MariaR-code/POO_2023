@@ -113,7 +113,7 @@ public class Fatura {
     public String umalinhaString(){
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Fatura:");
+        sb.append("Fatura§");
         sb.append(this.enc.umalinhaString()).append("%");
         sb.append(this.custo).append(",");
         sb.append(this.nif);

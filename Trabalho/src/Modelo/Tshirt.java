@@ -115,7 +115,7 @@ public class Tshirt extends Artigo {
     public String umalinhaString(){
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Tshirt:");
+        sb.append("Tshirt£");
         sb.append(super.umalinhaString()).append(",");
         sb.append(this.tamanho).append(",");
         sb.append(this.padrao);

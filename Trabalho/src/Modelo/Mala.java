@@ -158,7 +158,7 @@ public class Mala extends Artigo {
     public String umalinhaString(){
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Mala:");
+        sb.append("Mala£");
         sb.append(super.umalinhaString()).append(",");
         sb.append(this.altura).append(",");
         sb.append(this.comprimento).append(",");

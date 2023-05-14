@@ -124,6 +124,8 @@ public class Mercado {
     }
 
     public void setArtigos_venda(Map<Integer, List<String>> artigos_venda) {
+        if(artigos_venda.isEmpty())
+            this.artigos_venda = artigos_venda;
         for (Map.Entry<Integer, List<String>> entrada : artigos_venda.entrySet()) {
             int chave = entrada.getKey();
             List<String> nova_lista = new ArrayList<>(entrada.getValue());

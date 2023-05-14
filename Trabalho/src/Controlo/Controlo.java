@@ -500,7 +500,7 @@ public class Controlo {
 
     private void add_artigo_enc(int cod) {
         // Mostrar artigos à venda
-        this.artigos_a_venda();
+        this.artigos_a_venda(cod);
 
         // Selecionar o código alfa numérico do artigo que deseja
         String codalfa = Insercao.get_valor("o código alfa numérico do artigo que deseja", supplier_String);
@@ -538,17 +538,15 @@ public class Controlo {
                     encomendasPendentes.add(encomenda);
                 }
             }
-            encomenda.addArtigo(model.getArtigoByCodigo(codalfa)); // adicionar o artigo selecionado à encomenda
+            encomenda.addArtigo(this.model.getArtigoByCodigo(codalfa)); // adicionar o artigo selecionado à encomenda
             Map<Integer, List<Encomenda>> novoMap = new HashMap<>();
             novoMap.put(cod, encomendasPendentes);
             model.setEncomendas_pend(novoMap);
 
 
-            // Adicionar ao map artigos_vendidos // todo não sei se funciona
-            Map<Integer,List<String>> mapVendido = new HashMap<>();
-            mapVendido = model.getArtigos_vendidos();
-            List<String> artigosVendidos = new ArrayList<>();
-            artigosVendidos = model.getArtigos_vendidos().get(sellerID);
+            // Adicionar ao map artigos_vendidos
+            Map<Integer,List<String>> mapVendido = this.model.getArtigos_vendidos();
+            List<String> artigosVendidos = this.model.getArtigos_vendidos().get(sellerID);
             if (artigosVendidos != null) {
                 artigosVendidos.add(codalfa);
             } else {
@@ -558,11 +556,10 @@ public class Controlo {
             mapVendido.put(sellerID, artigosVendidos);
             model.setArtigos_vendidos(mapVendido);
 
-            // Remover o artigo selecionado do map artigos_venda  // todo help, não funciona
-            Map<Integer, List<String>> mapParaVenda = new HashMap<>();
-            mapParaVenda = model.getArtigos_venda();
-            List<String> artigosParaVenda = new ArrayList<>();
-            artigosParaVenda = model.getArtigos_venda().get(sellerID);
+
+            // Remover o artigo selecionado do map artigos_venda
+            Map<Integer, List<String>> mapParaVenda = this.model.getArtigos_venda();
+            List<String> artigosParaVenda = this.model.getArtigos_venda().get(sellerID);
             artigosParaVenda.remove(codalfa);
             if (artigosParaVenda.isEmpty()) {
                 mapParaVenda.remove(sellerID);
@@ -574,7 +571,7 @@ public class Controlo {
             this.criarEncomenda(cod);
     }
 
-    public void artigos_a_venda() {
+    public void artigos_a_venda(int cod, boolean enc) {
         Menu.mostraMensagem("Artigos à venda:");
         List<String> artigosVenda = new ArrayList<>();
         for (List<String> strings : model.getArtigos_venda().values()) {
@@ -589,6 +586,9 @@ public class Controlo {
             }
         } else {
             Menu.mostraMensagem("Não tem artigos à venda.");
+            if(enc)
+                this.criarEncomenda(cod);
+            else this.comprador(cod);
         }
     }
 
