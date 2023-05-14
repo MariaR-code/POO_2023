@@ -16,6 +16,10 @@ public abstract class Artigo {
     /**
     * Contrutores dos objetos da classe Artigo
     * */
+
+    /**
+     * Construtor por omissão da classe Artigo
+     */
     public Artigo(){
         this.descricao = "";
         this.marca = "";
@@ -27,6 +31,15 @@ public abstract class Artigo {
         this.transportadora = "";
     }
 
+    /**
+     * Construtor parametrizado da classe Artigo
+     * @param descricao String -> uma breve descrição do artigo.
+     * @param marca String -> marca do artigo.
+     * @param cod_alfanr String -> código alfanumérico do artigo.
+     * @param preco_base double -> preço base do artigo.
+     * @param transportadora String -> nome da empresa de transporte
+     *                                  que está associada ao artigo
+     */
     public Artigo(String descricao, String marca, String cod_alfanr, double preco_base,
                   String transportadora){
         this.descricao = descricao;
@@ -39,6 +52,18 @@ public abstract class Artigo {
         this.transportadora = transportadora;
     }
 
+    /**
+     * Construtor parametrizado da classe Artigo
+     * @param descricao String -> uma breve descrição do artigo.
+     * @param marca String -> marca do artigo.
+     * @param cod_alfanr String -> código alfanumérico do artigo.
+     * @param preco_base double -> preço base do artigo.
+     * @param av_estado Int -> avaliação do estado do artigo
+     *                         (1 ou 2 ou 3. BOM ou RAZOAVEL ou MAU respetivamente)
+     * @param nr_donos Int -> número de donos que o artigo pertenceu.
+     * @param transportadora String -> nome da empresa de transporte
+     *                                   que está associada ao artigo
+     */
     public Artigo(String descricao, String marca, String cod_alfanr, double preco_base,
                   int av_estado, int nr_donos, String transportadora){
         this.descricao = descricao;
@@ -51,6 +76,10 @@ public abstract class Artigo {
         this.transportadora = transportadora;
     }
 
+    /**
+     * Contrutor de cópia da classe Artigo
+     * @param art Artigo ->
+     */
     public Artigo(Artigo art){
         this.descricao = art.getDescricao();
         this.marca = art.getMarca();
@@ -62,6 +91,13 @@ public abstract class Artigo {
         this.transportadora = art.getTransportadora();
     }
 
+    /**
+     * Construtor parametrizado da classe Artigo.
+     * @param cod_alfanr String -> código alfanumérico do artigo.
+     * @param preco_base double -> preço base do artigo.
+     * @param transportadora String -> nome da empresa de transporte
+     *                                   que está associada ao artigo
+     */
     public Artigo(String cod_alfanr, double preco_base, String transportadora){
         this.descricao = " ";
         this.marca = " ";
@@ -73,6 +109,16 @@ public abstract class Artigo {
         this.transportadora = transportadora;
     }
 
+    /**
+     * Contrutor parametrizado da classe Artigo.
+     * @param cod_alfanr String -> código alfanumérico do artigo.
+     * @param preco_base double -> preço base do artigo.
+     * @param av_estado int -> avaliação do estado do artigo
+     *                          (1 ou 2 ou 3. BOM ou RAZOAVEL ou MAU respetivamente).
+     * @param nr_donos Int -> número de donos que o artigo pertenceu.
+     * @param transportadora String -> nome da empresa de transporte
+     *                                   que está associada ao artigo
+     */
     public Artigo(String cod_alfanr, double preco_base, int av_estado, int nr_donos, String transportadora){
         this.descricao = " ";
         this.marca = " ";
@@ -87,7 +133,7 @@ public abstract class Artigo {
     /**
      * Retorna a descrição do artigo.
      *
-     * @return A descrição do artigo.
+     * @return String -> A descrição do artigo.
      */
     public String getDescricao() {
         return descricao;
@@ -96,7 +142,7 @@ public abstract class Artigo {
     /**
      * Retorna a marca do artigo.
      *
-     * @return A marca do artigo.
+     * @return String -> A marca do artigo.
      */
     public String getMarca() {
         return marca;
@@ -105,7 +151,7 @@ public abstract class Artigo {
     /**
      * Retorna o código alfanumérico do artigo.
      *
-     * @return O código alfanumérico do artigo.
+     * @return String -> O código alfanumérico do artigo.
      */
     public String getCod_alfanr() {
         return cod_alfanr;
@@ -114,7 +160,7 @@ public abstract class Artigo {
     /**
      * Retorna o preço base do artigo.
      *
-     * @return O preço base do artigo.
+     * @return double -> O preço base do artigo.
      */
     public double getPreco_base() {
         return preco_base;
@@ -123,7 +169,7 @@ public abstract class Artigo {
     /**
      * Verifica se o artigo é usado.
      *
-     * @return True se o artigo é usado, false caso contrário.
+     * @return Boolean -> True se o artigo é usado, false caso contrário.
      */
     public boolean isUsado() {
         return usado;
@@ -132,7 +178,7 @@ public abstract class Artigo {
     /**
      * Retorna a avaliação da condição do artigo.
      *
-     * @return A avaliação da condição do artigo.
+     * @return Int -> A avaliação da condição do artigo.
      */
     public int getAv_estado() {
         return av_estado;
@@ -141,7 +187,7 @@ public abstract class Artigo {
     /**
      * Retorna o número de proprietários anteriores do artigo.
      *
-     * @return O número de proprietários anteriores do artigo.
+     * @return Int -> O número de proprietários anteriores do artigo.
      */
     public int getNr_donos() {
         return nr_donos;
@@ -150,7 +196,7 @@ public abstract class Artigo {
     /**
      * Retorna o nome da empresa de transporte do artigo.
      *
-     * @return O nome da empresa de transporte do artigo.
+     * @return String -> O nome da empresa de transporte do artigo.
      */
     public String getTransportadora() {
         return transportadora;
@@ -159,7 +205,7 @@ public abstract class Artigo {
     /**
      * Define a descrição do artigo.
      *
-     * @param descricao A nova descrição do artigo.
+     * @param descricao String -> A nova descrição do artigo.
      */
     public void setDescricao(String descricao) {
         this.descricao = descricao;
@@ -168,7 +214,7 @@ public abstract class Artigo {
     /**
      * Define a marca do artigo.
      *
-     * @param marca A nova marca do artigo.
+     * @param marca String -> A nova marca do artigo.
      */
     public void setMarca(String marca) {
         this.marca = marca;
@@ -177,7 +223,7 @@ public abstract class Artigo {
     /**
      * Define o código alfanumérico do artigo.
      *
-     * @param cod_alfanr O novo código alfanumérico do artigo.
+     * @param cod_alfanr String -> O novo código alfanumérico do artigo.
      */
     public void setCod_alfanr(String cod_alfanr) {
         this.cod_alfanr = cod_alfanr;
@@ -186,7 +232,7 @@ public abstract class Artigo {
     /**
      * Define o preço base do artigo.
      *
-     * @param preco_base O novo preço base do artigo.
+     * @param preco_base double -> O novo preço base do artigo.
      */
     public void setPreco_base(double preco_base) {
         this.preco_base = preco_base;
@@ -195,7 +241,7 @@ public abstract class Artigo {
     /**
      * Define se o artigo é usado.
      *
-     * @param usado True se o artigo é usado, false caso contrário.
+     * @param usado boolean -> True se o artigo é usado, false caso contrário.
      */
     public void setUsado(boolean usado) {
         this.usado = usado;
@@ -204,7 +250,7 @@ public abstract class Artigo {
     /**
      * Define a avaliação da condição do artigo.
      *
-     * @param av_estado A nova avaliação da condição do artigo.
+     * @param av_estado int -> A nova avaliação da condição do artigo.
      */
     public void setAv_estado(int av_estado) {
         this.av_estado = av_estado;
@@ -213,7 +259,7 @@ public abstract class Artigo {
     /**
      * Define o número de proprietários anteriores do artigo.
      *
-     * @param nr_donos O novo número de proprietários anteriores do artigo.
+     * @param nr_donos int -> O novo número de proprietários anteriores do artigo.
      */
     public void setNr_donos(int nr_donos) {
         this.nr_donos = nr_donos;
@@ -222,7 +268,7 @@ public abstract class Artigo {
     /**
      * Define o nome da empresa de transporte do artigo.
      *
-     * @param transportadora O novo nome da empresa de transporte do artigo.
+     * @param transportadora String -> O novo nome da empresa de transporte do artigo.
      */
     public void setTransportadora(String transportadora) {
         this.transportadora = transportadora;
@@ -247,8 +293,10 @@ public abstract class Artigo {
     }
 
     /**
-    * Método de verificação de igualdade de dois objetos, sendo um deles da classe Artigo
-    * */
+     * Método de verificação de igualdade de dois objetos, sendo um deles da classe Artigo
+     * @param o Object
+     * @return boolean
+     */
     public boolean equals(Object o){
         if(o==this)
             return true;
@@ -264,8 +312,9 @@ public abstract class Artigo {
     }
 
     /**
-    * Método que apresenta uma representação da forma String do objeto da classe Artigo
-    * */
+     * Método que apresenta uma representação da forma String do objeto da classe Artigo
+     * @return String
+     */
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Artigo:\n");

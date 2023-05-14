@@ -18,6 +18,10 @@ public class Mercado {
     /**
      * Construtores dos objetos da classe Mercado
      */
+
+    /**
+     * Contrutor por omissão da classe Mercado.
+     */
     public Mercado() {
         this.encomendas_pend = new HashMap<>();
         this.transportadoras = new ArrayList<>();
@@ -27,6 +31,18 @@ public class Mercado {
         this.artigos_vendidos = new HashMap<>();
     }
 
+    /**
+     * Construtor parametrizado da classe Mercado.
+     * @param encomendas_pend Map<Integer, List<Encomenda>> -> Map de encomendas pendentes
+     *                       relacionadas com o seu respetivo utilizador(código de utilizador).
+     * @param transportadoras List<Transportadora> -> lista de transportadora registadas.
+     * @param utilizadores List<Utilizador> -> lista de utilizadores.
+     * @param artigos List<Artigo> -> lista de artigos.
+     * @param artigos_venda Map<Integer, List<String>> -> Map que relaciona o código do utilizador
+     *                                              à lista dos códigos alfanuméricos dos artigos que tem à venda
+     * @param artigos_vendidos Map<Integer, List<String>> -> Map que relaciona o código de utilizador
+     *                         à lista dos código alfanunméricos dos artigos vendidos pelos mesmos.
+     */
     public Mercado(Map<Integer, List<Encomenda>> encomendas_pend, List<Transportadora> transportadoras, List<Utilizador> utilizadores,
                    List<Artigo> artigos, Map<Integer, List<String>> artigos_venda, Map<Integer, List<String>> artigos_vendidos) {
         this.setEncomendas_pend(encomendas_pend);
@@ -37,6 +53,10 @@ public class Mercado {
         this.setArtigos_vendidos(artigos_vendidos);
     }
 
+    /**
+     * Construtor de cópia da classe Mercado.
+     * @param marketPlace Mercado
+     */
     public Mercado(Mercado marketPlace) {
         this.encomendas_pend = marketPlace.getEncomendas_pend();
         this.transportadoras = marketPlace.getTransportadoras();

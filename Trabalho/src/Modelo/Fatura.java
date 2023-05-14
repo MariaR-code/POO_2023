@@ -21,7 +21,10 @@ public class Fatura {
     }
 
     /**
-     * Construtor parametrizado de Fatura.
+     * Construtor parametrizado da classe Fatura.
+     * @param enc_ Encomenda
+     * @param custo_ double
+     * @param nif_ String -> número fiscal do utilizador.
      */
     public Fatura(Encomenda enc_, double custo_, String nif_){
         this.enc = enc_.clone();
@@ -31,6 +34,7 @@ public class Fatura {
 
     /**
      * Construtor de cópia de Fatura.
+     * @param f Fatura
      */
     public Fatura(Fatura f){
         this.enc = f.getEnc();
@@ -39,20 +43,29 @@ public class Fatura {
     }
 
     /**
-     * Métodos de instância da classe Fatura.
+     * Getters dos objetos da classe Fatura.
      */
 
     /**
-     * Getters dos objetos da classe Fatura.
+     * Retorna a encomenda.
+     * @return Encomenda
      */
     public Encomenda getEnc() {
         return this.enc.clone();
     }
 
+    /**
+     * Retorna o custo.
+     * @return double
+     */
     public double getCusto() {
         return this.custo;
     }
 
+    /**
+     * Retorna o número fiscal do utilizador.
+     * @return String
+     */
     public String getNif() {
         return this.nif;
     }
@@ -60,14 +73,27 @@ public class Fatura {
     /**
      * Setters dos objetos da classe Fatura.
      */
+
+    /**
+     * Define a encomenda.
+     * @param enc Encomenda
+     */
     public void setEnc(Encomenda enc) {
         this.enc = enc;
     }
 
+    /**
+     * Define o custo.
+     * @param custo double
+     */
     public void setCusto(double custo) {
         this.custo = custo;
     }
 
+    /**
+     * Define o número fiscal do utilizador.
+     * @param nif String
+     */
     public void setNif(String nif) {
         this.nif = nif;
     }
@@ -75,6 +101,7 @@ public class Fatura {
     /**
      * Método clone que faz uma cópia do objeto,
      * utilizando o contrutor de cópia.
+     * @return Fatura
      */
     public Fatura clone(){
         return new Fatura(this);
@@ -83,6 +110,8 @@ public class Fatura {
     /**
      * Método equals que compara e verifica
      * se os objetos em questão são iguais.
+     * @param o Object
+     * @return boolean -> true se forem iguais ou false se forem diferentes.
      */
     public boolean equals(Object o){
         if (o == this) return true;
@@ -94,6 +123,7 @@ public class Fatura {
 
     /**
      * Método toString que devolve a representação em String da Fatura.
+     * @return String
      */
     public String toString(){
         StringBuilder sb = new StringBuilder();
@@ -123,6 +153,7 @@ public class Fatura {
 
     /**
      * Método que calcula o custo.
+     * @return double
      */
     public double calcCusto(){
         return this.custo = 0.0;

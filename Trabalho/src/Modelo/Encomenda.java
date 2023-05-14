@@ -49,6 +49,12 @@ public class Encomenda {
 
     /**
      * Construtor parametrizado de Encomenda.
+     * @param artigos_ List<Artigo> -> lista de artigos que pertencem à encomenda.
+     * @param preco_final_ double -> preço final da encomenda.
+     * @param data_ LocalDate -> data em que foi/está a ser efetuada a encomenda.
+     * @param estado_ Estado -> PENDENTE quando a encomenda é iniciada
+     *                          FINALIZADA quando a compra é concluída
+     *                          EXPEDIDA quando a transportadora a tiver enviado.
      */
     public Encomenda(List<Artigo> artigos_, double preco_final_, LocalDate data_,
                      Estado estado_){
@@ -65,6 +71,7 @@ public class Encomenda {
 
     /**
      * Construtor de cópia de Encomenda.
+     * @param enc Encomenda
      */
     public Encomenda(Encomenda enc)
     {
@@ -76,33 +83,53 @@ public class Encomenda {
     }
 
     /**
-     * Métodos de instância da classe Encomenda.
+     * Getters dos objetos da classe Encomenda.
      */
 
     /**
-     * Getters dos objetos da classe Encomenda.
+     * Retorna a lista de artigos que pertencem à encomenda.
+     * @return List<Artigo>
      */
     public List<Artigo> getArtigos()
     {
         return this.artigos.stream().map(Artigo::clone).collect(Collectors.toList());
     }
 
-
+    /**
+     * Retorna a dimensão da encomenda.
+     * @return Dimensao -> PEQUENO quando a encomenda possui apenas 1 artigo.
+     *                      MEDIO  quando a encomenda possui entre 2 a 5 artigos.
+     *                      GRANDE quando a encomenda possui mais que 5 artigos.
+     */
     public Dimensao getDimensao()
     {
         return this.dimensao;
     }
 
+    /**
+     * Retorna o preço final da encomenda.
+     * @return double
+     */
     public double getPreco_final()
     {
         return this.calculaPreco();
     }
 
+    /**
+     * Retorna a data em que encomenda foi/ está a ser efetuada.
+     * @return LocalDate
+     */
     public LocalDate getData()
     {
         return this.data;
     }
 
+    /**
+     * Retorna o estado da encomenda.
+     * @return Estado -> PENDENTE quando a encomenda é iniciada
+     *                  FINALIZADA quando a compra é concluída
+     *                  EXPEDIDA quando a transportadora a tiver enviado.
+     */
     public Estado getEstado()
     {
         return this.estado;
@@ -111,26 +138,51 @@ public class Encomenda {
     /**
      * Setters dos objetos da classe Encomenda.
      */
+
+    /**
+     * Define a lista de artigos que pertencem à encomenda.
+     * @param artigos_ List<Artigo>
+     */
     public void setArtigos(List<Artigo> artigos_)
     {
         this.artigos = artigos_.stream().map(Artigo::clone).collect(Collectors.toList());
     }
 
+    /**
+     * Define a dimensão da encomenda.
+     * @param dimensao_ Dimensao -> PEQUENO quando a encomenda possui apenas 1 artigo.
+     *                               MEDIO  quando a encomenda possui entre 2 a 5 artigos.
+     *                                GRANDE quando a encomenda possui mais que 5 artigos.
+     */
     public void setDimensao(Dimensao dimensao_)
     {
         this.dimensao = dimensao_;
     }
 
+    /**
+     * Define o preço final da encomenda.
+     * @param preco_final_ double
+     */
     public void setPreco_final(double preco_final_)
     {
         this.preco_final = preco_final_;
     }
 
+    /**
+     * Define a data em que foi/está a ser efetuada a encomenda.
+     * @param data_ LocalDate
+     */
     public void setData(LocalDate data_)
     {
         this.data = data_;
     }
 
+    /**
+     * Define o estado da encomenda.
+     * @param estado_ Estado -> PENDENTE quando a encomenda é iniciada
+     *                          FINALIZADA quando a compra é concluída
+     *                          EXPEDIDA quando a transportadora a tiver enviado.
+     */
     public void setEstado(Estado estado_)
     {
         this.estado = estado_;
@@ -138,6 +190,8 @@ public class Encomenda {
 
     /**
      * Método addArtigo que adiciona um artigo de uma encomenda.
+     * @param artigo Artigo
+     * @return List<Artigo>
      */
     public List<Artigo> addArtigo(Artigo artigo)
     {
@@ -147,6 +201,8 @@ public class Encomenda {
 
     /**
      * Método removeArtigo que remove um artigo de uma encomenda.
+     * @param artigo Artigo
+     * @return boolean -> true se foi removido consucesso ou false se não foi.
      */
     public boolean removeArtigo(Artigo artigo)
     {
@@ -156,10 +212,9 @@ public class Encomenda {
     /**
      * Método calculaPreco que calcula o preço final
      * a pagar pela encomenda.
+     * @return double -> preço final a pagar pela encomenda.
      */
-    //TODO !!!!!!!!!!!!!!!!!!!!!!!
-        public double calculaPreco()
-    {
+        public double calculaPreco(){
         this.preco_final = artigos.stream().mapToDouble(Artigo::preco).sum();
         // taxa de satisfação
         for (Artigo artigo : artigos) {
@@ -173,8 +228,9 @@ public class Encomenda {
     }
 
     /**
-     * Método clone que faz uma cópia do objeto,
+     *  Método clone que faz uma cópia do objeto,
      * utilizando o contrutor de cópia.
+     * @return Encomenda
      */
     public Encomenda clone()
     {
@@ -182,20 +238,25 @@ public class Encomenda {
     }
 
     /**
-     * Método equals que compara e verifica
+     *  Método equals que compara e verifica
      * se os objetos em questão são iguais.
+     * @param o Object
+     * @return boolean -> true se forem iguais ou false se forem diferentes.
      */
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         if(o == this) return true;
         if(o == null || o.getClass() != this.getClass()) return false;
         Encomenda e = (Encomenda) o;
         return (this.equalsArtigos(e.getArtigos()) && this.dimensao.equals(e.getDimensao()) &&
                 this.preco_final == (e.getPreco_final()) && this.data.equals(e.getData()) &&
                 this.estado.equals(e.getEstado()));
-
     }
 
+    /**
+     * Método que compara e verifica se duas listas de artigos são iguais.
+     * @param artigos List<Artigo>
+     * @return boolean
+     */
     public boolean equalsArtigos(List<Artigo> artigos){
         List<Artigo> thisArtigos = this.getArtigos();
         if (thisArtigos.size() != artigos.size()) {
@@ -213,6 +274,7 @@ public class Encomenda {
 
     /**
      * Método toString que devolve a representação em String da Encomenda.
+     * @return String
      */
     public String toString()
     {
