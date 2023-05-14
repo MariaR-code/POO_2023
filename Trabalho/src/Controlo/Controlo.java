@@ -544,7 +544,7 @@ public class Controlo {
             model.setEncomendas_pend(novoMap);
 
 
-            // Adicionar ao map artigos_vendidos // todo help
+            // Adicionar ao map artigos_vendidos // todo não sei se funciona
             Map<Integer,List<String>> mapVendido = new HashMap<>();
             mapVendido = model.getArtigos_vendidos();
             List<String> artigosVendidos = new ArrayList<>();
@@ -558,7 +558,7 @@ public class Controlo {
             mapVendido.put(sellerID, artigosVendidos);
             model.setArtigos_vendidos(mapVendido);
 
-            // Remover o artigo selecionado do map artigos_venda  // todo help
+            // Remover o artigo selecionado do map artigos_venda  // todo help, não funciona
             Map<Integer, List<String>> mapParaVenda = new HashMap<>();
             mapParaVenda = model.getArtigos_venda();
             List<String> artigosParaVenda = new ArrayList<>();
@@ -770,7 +770,7 @@ public class Controlo {
             }
         }
 
-        // remover a encomenda do histórico encomendas_pend
+        // todo remover a encomenda do encomendas_pend
         Encomenda encomenda_devolvida = enc_elegiveis.get((escolha - 1));
         Map<Integer, List<Encomenda>> map_enc_pend = model.getEncomendas_pend();
         List<Encomenda> nova_lista_enc = map_enc_pend.get(cod);
@@ -782,8 +782,7 @@ public class Controlo {
         }
         model.setEncomendas_pend(map_enc_pend);
 
-       /*
-// remove faturas vendedores
+        // todo remover fatura de venda, para cada vendedor de 1 artigo na encomenda
         List<Artigo> artigos_devolucao = new ArrayList<>();
         artigos_devolucao = encomenda_devolvida.getArtigos();
         for (Artigo artigo : artigos_devolucao) {
@@ -797,36 +796,28 @@ public class Controlo {
                 // então o ID do vendedor é atribuído à variável sellerID e o loop é interrompido.
                 if (vendArtigos.contains(codalfa)) {
                     sellerID = vendID;
+                    break; // adicionado para interromper o loop quando encontrar o vendedor
                 }
             }
-            Utilizador vendedor = new Utilizador();
-            vendedor = model.getUtilizadores().get(sellerID);
-            List<Fatura> fatura_vendas = new ArrayList<>();
-            fatura_vendas = vendedor.getFaturaVendedor();
-            List<Fatura> faturasNovasV = new ArrayList<>();
-            faturasNovasV = vendedor.getFaturaVendedor();
-            for (Fatura faturaV : fatura_vendas) {
-                if (faturaV.getEnc().equals(encomenda_devolvida)) {
-                    faturasNovasV.remove(faturaV);
+            if (sellerID != -1) {
+                Utilizador vendedor = model.getUtilizadores().get(sellerID-1);
+                List<Fatura> fatura_vendas = vendedor.getFaturaVendedor();
+                for (Fatura faturaV : fatura_vendas) {
+                    if (faturaV.getEnc().equals(encomenda_devolvida)) {
+                        vendedor.removeFaturaVendedor(faturaV);
+                    }
                 }
             }
-            vendedor.setFaturaVendedor(faturasNovasV);
         }
 
-
-        // remove fatura comprador
-        Utilizador comprador = new Utilizador();
-        comprador = model.getUtilizadores().get(cod);
-        List<Fatura> fatura_compras = new ArrayList<>();
-        fatura_compras = comprador.getFaturaComprador();
-        List<Fatura> faturasNovasC = new ArrayList<>();
-        faturasNovasC = comprador.getFaturaComprador();
-        for (Fatura faturaV : fatura_compras) {
-            if (faturaV.getEnc().equals(encomenda_devolvida)) {
-                faturasNovasC.remove(faturaV);
+        // todo remover fatura de compra
+        Utilizador comprador = model.getUtilizadores().get(cod-1);
+        List<Fatura> fatura_compras = new ArrayList<>(comprador.getFaturaComprador());;
+        for (Fatura faturaC : fatura_compras) {
+            if (faturaC.getEnc().equals(encomenda_devolvida)) {
+                comprador.removeFaturaComprador(faturaC);
             }
         }
-        comprador.setFaturaComprador(faturasNovasC);*/ // não cheguei a lado nenhum
 
         Menu.mostraMensagem("A encomenda foi devolvida com sucesso!");
         comprador(cod);
@@ -961,6 +952,7 @@ public class Controlo {
         // Selecionar o código alfa numérico do artigo que deseja remover
         String codalfa = Insercao.get_valor("o código alfa numérico do artigo que deseja remover", supplier_String);
         // Iterar sobre o Map encomendas_pend e encontrar o ID do vendedor associado ao codalfa
+        /*
         int sellerID = -1;
         for (Map.Entry<Integer, List<Encomenda>> entry : model.getUltimaEncPend().getArtigos().entrySet()) {
             List<String> alfanr = entry.getValue();
@@ -998,6 +990,8 @@ public class Controlo {
         }
         mapVenda.put(sellerID, artigosVenda);
         model.setArtigos_venda(mapVenda);
+
+         */
         Menu.mostraMensagem("Artigo removido da encomenda com sucesso.");
         this.criarEncomenda(cod);
     }

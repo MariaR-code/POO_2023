@@ -8,12 +8,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Mercado {
-    private Map<Integer,List<Encomenda>> encomendas_pend;
+    private Map<Integer, List<Encomenda>> encomendas_pend;
     private List<Transportadora> transportadoras;
     private List<Utilizador> utilizadores;
     private List<Artigo> artigos;
     private Map<Integer, List<String>> artigos_venda; //Relaciona o código do utilizador à lista dos códigos alfanuméricos dos artigos que tem à venda
     private Map<Integer, List<String>> artigos_vendidos;
+
     /**
      * Construtores dos objetos da classe Mercado
      */
@@ -52,7 +53,7 @@ public class Mercado {
     public Map<Integer, List<Encomenda>> getEncomendas_pend() {
         Map<Integer, List<Encomenda>> copia = new HashMap<>();
 
-        for(Map.Entry<Integer,List<Encomenda>> entrada : this.encomendas_pend.entrySet()){
+        for (Map.Entry<Integer, List<Encomenda>> entrada : this.encomendas_pend.entrySet()) {
             int chave = entrada.getKey();
             List<Encomenda> nova_lista = new ArrayList<>();
             nova_lista = entrada.getValue().stream().map(Encomenda::clone).collect(Collectors.toList());
@@ -77,7 +78,7 @@ public class Mercado {
     public Map<Integer, List<String>> getArtigos_venda() {
         Map<Integer, List<String>> copia = new HashMap<>();
 
-        for(Map.Entry<Integer,List<String>> entrada : this.artigos_venda.entrySet()){
+        for (Map.Entry<Integer, List<String>> entrada : this.artigos_venda.entrySet()) {
             int chave = entrada.getKey();
             List<String> nova_lista = new ArrayList<>(entrada.getValue());
 
@@ -89,7 +90,7 @@ public class Mercado {
     public Map<Integer, List<String>> getArtigos_vendidos() {
         Map<Integer, List<String>> copia = new HashMap<>();
 
-        for(Map.Entry<Integer,List<String>> entrada : this.artigos_vendidos.entrySet()){
+        for (Map.Entry<Integer, List<String>> entrada : this.artigos_vendidos.entrySet()) {
             int chave = entrada.getKey();
             List<String> nova_lista = new ArrayList<>(entrada.getValue());
 
@@ -108,7 +109,7 @@ public class Mercado {
 
 
     public void setEncomendas_pend(Map<Integer, List<Encomenda>> encomendas_pend) {
-        for(Map.Entry<Integer, List<Encomenda>> entrada : encomendas_pend.entrySet()){
+        for (Map.Entry<Integer, List<Encomenda>> entrada : encomendas_pend.entrySet()) {
             int chave = entrada.getKey();
             this.encomendas_pend.put(chave, entrada.getValue().stream().map(Encomenda::clone).collect(Collectors.toList()));
         }
@@ -123,7 +124,7 @@ public class Mercado {
     }
 
     public void setArtigos_venda(Map<Integer, List<String>> artigos_venda) {
-        for(Map.Entry<Integer, List<String>> entrada : artigos_venda.entrySet()){
+        for (Map.Entry<Integer, List<String>> entrada : artigos_venda.entrySet()) {
             int chave = entrada.getKey();
             List<String> nova_lista = new ArrayList<>(entrada.getValue());
 
@@ -132,7 +133,7 @@ public class Mercado {
     }
 
     public void setArtigos_vendidos(Map<Integer, List<String>> artigos_vendidos) {
-        for(Map.Entry<Integer, List<String>> entrada : artigos_vendidos.entrySet()){
+        for (Map.Entry<Integer, List<String>> entrada : artigos_vendidos.entrySet()) {
             int chave = entrada.getKey();
             List<String> nova_lista = new ArrayList<>(entrada.getValue());
 
@@ -142,6 +143,7 @@ public class Mercado {
 
     /**
      * Método que adiciona um Utilizador à lista Utilizadores
+     *
      * @param utilizador
      */
     public void addUtilizador(Utilizador utilizador) {
@@ -150,6 +152,7 @@ public class Mercado {
 
     /**
      * Método que adiciona uma Transportador à lista transportadoras
+     *
      * @param t
      */
     public void addTransportadora(Transportadora t) {
@@ -211,22 +214,25 @@ public class Mercado {
         }
         return false;
     }
+
     /**
      * Método que adiciona um artigo na lista de artigos
+     *
      * @param artigo É o artigo que se pretende adicionar
-     * */
-    public void adicionaArtigo(Artigo artigo){
+     */
+    public void adicionaArtigo(Artigo artigo) {
         this.artigos.add(artigo.clone());
     }
 
     /**
      * Método que devolve o código do utilizador com o email passado em parâmetro
+     *
      * @param email Email do utilizador
      * @return int que é o código do utilizador
-     * */
-    public int codigoUtilizador(String email){
-        for(Utilizador u : utilizadores){
-            if(u.getEmail().equals(email))
+     */
+    public int codigoUtilizador(String email) {
+        for (Utilizador u : utilizadores) {
+            if (u.getEmail().equals(email))
                 return u.getId();
         }
         return -1;
@@ -234,40 +240,40 @@ public class Mercado {
 
     /**
      *
-     * */
-    public void adicionaArtigoVenda(int cod, String cod_alfanr){
-        if(this.artigos_venda.containsKey(cod))
+     */
+    public void adicionaArtigoVenda(int cod, String cod_alfanr) {
+        if (this.artigos_venda.containsKey(cod))
             this.artigos_venda.get(cod).add(cod_alfanr);
-        else{
+        else {
             List<String> l = new ArrayList<>();
             l.add(cod_alfanr);
             this.artigos_venda.put(cod, l);
         }
     }
 
-    public void adicionaArtigoVendido(int cod, String cod_alfanr){
-        if(this.artigos_vendidos.containsKey(cod))
+    public void adicionaArtigoVendido(int cod, String cod_alfanr) {
+        if (this.artigos_vendidos.containsKey(cod))
             this.artigos_vendidos.get(cod).add(cod_alfanr);
-        else{
+        else {
             List<String> l = new ArrayList<>();
             l.add(cod_alfanr);
             this.artigos_vendidos.put(cod, l);
         }
     }
 
-    public void adicionaEncomendaPend(int cod, Encomenda encomenda){
-        if(this.encomendas_pend.containsKey(cod))
+    public void adicionaEncomendaPend(int cod, Encomenda encomenda) {
+        if (this.encomendas_pend.containsKey(cod))
             this.encomendas_pend.get(cod).add(encomenda);
-        else{
+        else {
             List<Encomenda> encomendaList = new ArrayList<>();
             encomendaList.add(encomenda);
             this.encomendas_pend.put(cod, encomendaList);
         }
     }
 
-    public boolean existeTransportadora(String nome){
-        for(Transportadora t : this.transportadoras){
-            if(t.getNome().equals(nome))
+    public boolean existeTransportadora(String nome) {
+        for (Transportadora t : this.transportadoras) {
+            if (t.getNome().equals(nome))
                 return true;
         }
         return false;
@@ -284,14 +290,21 @@ public class Mercado {
 
     /**
      * Método getUltimaEncPend que obtém a última encomenda pendente do utilizador.
+     *
      * @param cod , sendo este o código de utilizador associado à encomenda.
      * @return a última encomenda pendente do utilizador.
      */
-    public Encomenda getUltimaEncPend(int cod){
+    public Encomenda getUltimaEncPend(int cod) {
         List<Encomenda> encomendas = encomendas_pend.get(cod);
-        if(encomendas != null && !encomendas.isEmpty()) {
-            int ultIndice = encomendas.size() - 1;
-            return encomendas.get(ultIndice);
+        Encomenda enc_pend = new Encomenda();
+        if (encomendas != null && !encomendas.isEmpty()) {
+            for (Encomenda enc: encomendas) {
+                if (enc.getEstado()== Encomenda.Estado.PENDENTE){
+                    enc_pend = enc;
+                }
+
+            }
+            return enc_pend;
         }
         return null;
     }
