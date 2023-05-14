@@ -500,7 +500,7 @@ public class Controlo {
 
     private void add_artigo_enc(int cod) {
         // Mostrar artigos à venda
-        this.artigos_a_venda(cod);
+        this.artigos_a_venda(cod, true);
 
         // Selecionar o código alfa numérico do artigo que deseja
         String codalfa = Insercao.get_valor("o código alfa numérico do artigo que deseja", supplier_String);
