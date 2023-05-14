@@ -230,4 +230,10 @@ public class Encomenda {
         return sb.toString();
     }
 
+    /**
+     * Método que lista os artigos da encomenda
+     */
+    public void listarArtigosEnc(){
+        this.artigos.stream().map(Artigo::toString);
+    }
 }
