@@ -24,6 +24,7 @@ public class Menu {
     };
     public static final String[] menu_Comprador = {
             "Gerir encomenda",
+            "Ver artigos à venda",
             "Histórico de encomendas",
             "Devoluções"
     };
