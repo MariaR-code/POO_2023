@@ -276,8 +276,8 @@ public abstract class Artigo {
         sb.append("\nA transportadora utilizada por este artigo é: ").append(this.transportadora);
         if(this.usado){
             sb.append("\nArtigo usado\n");
-            sb.append("Avaliação do Estado do artigo (valores entre 1(mau estado) e 3(bom estado) ): ").append(this.av_estado);
-            sb.append("\nNúmerod de donos: ").append(this.nr_donos);
+            sb.append("Avaliação do Estado do artigo (valores entre 1-[bom estado] e 3-[mau estado] ): ").append(this.av_estado);
+            sb.append("\nNúmero de donos: ").append(this.nr_donos);
         }else{
             sb.append("\nArtigo novo.");
         }

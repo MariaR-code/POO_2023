@@ -78,13 +78,18 @@ public class Controlo {
         return b;
     };
 
-
+    /**
+     * Construtor dos objetos da classe Controlo
+     * */
     public Controlo() {
         this.gui = new Menu();
         this.model = new Mercado();
 
     }
 
+    /**
+     * Apresenta o menu principal ao utilizador
+     * */
     public void run() {
         int op = this.gui.menu(" Bem-vind@ à Vintage ", Menu.menu_Principal_Vintage);
 
@@ -122,6 +127,10 @@ public class Controlo {
         }
     }
 
+    /**
+     * Apresenta o menu de Log In na aplicação
+     * @param tipo É o tipo de utilizador, ou seja, comprador, vendedor ou ambos
+     * */
     public void logIn(int tipo) {
         int op = this.gui.menu(" Log In ", Menu.menu_Log_In);
 
@@ -138,6 +147,9 @@ public class Controlo {
         }
     }
 
+    /**
+     * Apresenta o menu após a primeira opção selecionada ter sido "Transportadoras"
+     * */
     public void transportadoras() {
         int op = this.gui.menu(" Transportadoras ", Menu.menu_Transportadoras);
 
@@ -158,6 +170,11 @@ public class Controlo {
         }
     }
 
+    /**
+     * Método que deixa o utilizador entrar na sua conta da Vintage
+     * @param tipo É o tipo de utilizador, ou seja, comprador, vendedor ou ambos
+     * @return int Retorna -1 em caso de erro
+     * */
     public int loginVendedor(int tipo) {
         try {
             String email = Insercao.get_valor("email", this.supplier_String);
@@ -172,7 +189,10 @@ public class Controlo {
         }
         return -1;
     }
-
+    /**
+     * Método que apresenta o menu depois de a primeira opção selecionada ter sido "Vendedor"
+     * @param cod É o código, ou seja, o identificador do utilizador
+     * */
     public void vendedor(int cod) {
         int op = this.gui.menu(" Vendedor ", Menu.menu_Vendedor);
 
@@ -196,6 +216,10 @@ public class Controlo {
         }
     }
 
+    /**
+     * Método que apresenta o menu de adição de um artigo, de modo a escolher qual o artigo que pretende adicionar
+     * @param cod É o código, ou seja, o identificador do utilizador
+     * */
     public void adicionar_artigo(int cod) {
         int op = this.gui.menu(" Adicionar Artigo ", Menu.menu_Adicionar_Artigo);
 
@@ -221,6 +245,9 @@ public class Controlo {
         }
     }
 
+    /**
+     * Método que pede os dados ao utilizador de forma a criar uma conta
+     * */
     public void criar_conta() {
         try {
             int tipo_user = Insercao.get_valor(("o seu tipo de conta: \n0 - Comprador \n1 - Vendedor \n2 - Ambos \nEscolha a opção que pretende"), supplier_Int);
@@ -251,6 +278,10 @@ public class Controlo {
         }
     }
 
+    /**
+     * Método que apresenta o histórico de vendas de um vendedor
+     * @param cod É o código, ou seja, o identificador do utilizador
+     * */
     public void historico_vendas(int cod) {
         Utilizador utilizador = model.getUtilizadores().get(cod-1);
         List<Fatura> faturas = utilizador.getFaturaVendedor();
@@ -265,6 +296,10 @@ public class Controlo {
         this.vendedor(cod);
     }
 
+    /**
+     * Método que mostra os artigos que um determinado vendedor ainda tem para venda
+     * @param cod É o código, ou seja, o identificador do utilizador
+     * */
     public void artigos_para_venda(int cod) {
             Utilizador utilizador = model.getUtilizadores().get(cod - 1);
             List<String> artigosVenda = model.getArtigos_venda().get(cod);
@@ -281,8 +316,9 @@ public class Controlo {
         this.vendedor(cod);
     }
 
-
-
+    /**
+     * Método que adiciona uma transportadora à aplicação
+     * */
     public void adicionar_transportadora() {
         Transportadora transportadora = null;
         String nome= "";
@@ -308,7 +344,11 @@ public class Controlo {
         model.addTransportadora(transportadora);
         Menu.mostraMensagem("Transportadora adicionada com sucesso!");
     }
-    public void ver_transportadoras() { // só da o nome
+
+    /**
+     * Método que informa o utilizador quais as transportadoras associadas à Vintage
+     * */
+    public void ver_transportadoras() {
         List<Transportadora> transportadoras = model.getTransportadoras();
 
         if (transportadoras.isEmpty()) {
@@ -322,6 +362,10 @@ public class Controlo {
         }
     }
 
+    /**
+     * Método que coloca uma Tshirt à venda
+     * @param cod É o código, ou seja, o identificador do utilizador
+     * */
     public void adicionaVestuario(int cod){
         Tshirt tshirt = null;
 
@@ -368,6 +412,10 @@ public class Controlo {
         Menu.mostraMensagem("Artigo adicionado com sucesso.");
     }
 
+    /**
+     * Método que coloca Sapatilhas à venda
+     * @param cod É o código, ou seja, o identificador do utilizador
+     * */
     public void adicionaCalcado(int cod){
         Sapatilhas sapatilhas = null;
 
@@ -426,6 +474,10 @@ public class Controlo {
         Menu.mostraMensagem("Artigo adicionado com sucesso.");
     }
 
+    /**
+     * Método que coloca uma Mala à venda
+     * @param cod É o código, ou seja, o identificador do utilizador
+     * */
     public void adicionaAcessorios(int cod){
         Mala mala = null;
 
@@ -484,7 +536,10 @@ public class Controlo {
 
         Menu.mostraMensagem("Artigo adicionado com sucesso.");
     }
-
+    /**
+     * Método que mostra ao comprador o menu após ter selecionado a opção comprador e ter entrado na sua conta
+     * @param cod É o código, ou seja, o identificador do utilizador
+     * */
     public void comprador(int cod){
         int op = this.gui.menu(" Comprador ", Menu.menu_Comprador);
 
@@ -513,6 +568,10 @@ public class Controlo {
         }
     }
 
+    /**
+     * Método que apresenta ao utilizador o menu após selecionar a opção "gerir encomenda"
+     * @param cod É o código, ou seja, o identificador do utilizador
+     * */
     public void criarEncomenda(int cod){
         int op = this.gui.menu(" Criar Encomenda ", Menu.menu_Criar_Encomenda);
 
@@ -535,7 +594,10 @@ public class Controlo {
         }
     }
 
-
+    /**
+     * Método que adiciona um artigo a uma encomenda
+     * @param cod É o código, ou seja, o identificador do utilizador
+     * */
     private void add_artigo_enc(int cod) {
         // Mostrar artigos à venda
         this.artigos_a_venda(cod, true);
@@ -713,6 +775,12 @@ public class Controlo {
         Menu.mostraMensagem("Artigo removido da encomenda com sucesso.");
         this.criarEncomenda(cod);
     }
+
+    /**
+     * Método que mostra ao utilizador os artigos que se encontram à venda
+     * @param cod É o código, ou seja, o identificador do utilizador
+     * @param enc É um booleano que identica se é necessária a criação de uma encomenda
+     * */
     public void artigos_a_venda(int cod, boolean enc) {
         Menu.mostraMensagem("Artigos à venda:");
         List<String> artigosVenda = new ArrayList<>();
@@ -754,6 +822,10 @@ public class Controlo {
         this.comprador(cod);
     }
 
+    /**
+     * Método que vai dar uma encomenda como finalizada, não sendo possível adicionar mais nenhum artigo
+     * @param cod É o código, ou seja, o identificador do utilizador
+     * */
     public void finaliza_enc(int cod) {
         Map<Integer, List<Encomenda>> map_enc = model.getEncomendas_pend();
         List<Encomenda> encomendas = map_enc.get(cod);
@@ -875,6 +947,11 @@ public class Controlo {
         comprador(cod);
     }
 
+    /**
+     * Método que nos indica o o preço de expedição de uma determinada encomenda
+     * @param encomenda É a encomenda cujo preço de expedição de transporte queremos saber
+     * @return double É o preço de expedição de transporte da encomenda
+     * */
     public double preco_transporte(Encomenda encomenda){
         List<Artigo> artigos = encomenda.getArtigos();
         List<Transportadora> transportadoras = model.getTransportadoras();
@@ -886,9 +963,9 @@ public class Controlo {
                    nrArtigos+=1;
                 }
             }
-
              // o que era suposto dar
-            if (nrArtigos<2){
+            if (nrArtigos==0) {nrArtigos=0;}
+            else { if (nrArtigos<2){
                 Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() +":" +
                  transportadora.precoTransporte(transportadora.isPremium(),1,1) );
                 preco_trans += transportadora.precoTransporte(transportadora.isPremium(),1,1);
@@ -903,10 +980,14 @@ public class Controlo {
             }
             nrArtigos=0;
             }
+        }
         return preco_trans;
     }
 
-
+    /**
+     * Método que vai proceder à devolução de uma encomenda
+     * @param cod É o código, ou seja, o identificador do utilizador
+     * */
     public void devolucao(int cod) {
         // Ir ao historico de encomendas deste user
         List<Encomenda> historico = model.getEncomendas_pend().get(cod);
@@ -996,6 +1077,9 @@ public class Controlo {
         Menu.mostraMensagem("A encomenda foi devolvida com sucesso!");
     }
 
+    /**
+     * Método que guarda o estado da aplicação num ficheiro texto (txt)
+     * */
     public void salvaguardaEstado(){
         String caminhoFicheiro = Insercao.get_valor("o caminho (completo) pretendido para o ficheiro", supplier_String);
 
@@ -1049,7 +1133,9 @@ public class Controlo {
         }
     }
 
-    //Talvez tenha de adaptar para ler um caminho e não o nome do ficheiro
+    /**
+     * Método que lê um ficheiro de texto e carrega para objetos essa informação
+     * */
     public void recuperarEstado(){
         String nomeFicheiro = Insercao.get_valor("o caminho (completo) do ficheiro onde pretende recuperar o estado", supplier_String);
         List<String> linhas = Recuperar.lerFicheiro(nomeFicheiro);

@@ -18,7 +18,7 @@ public class Transportadora {
     private String preco_expedicao_premium;
 
     /**
-     * Construtores dos objetos da classe Transportadora
+     * Construtor vazio dos objetos da classe Transportadora
      * */
     public Transportadora(){
         this.nome = "";
