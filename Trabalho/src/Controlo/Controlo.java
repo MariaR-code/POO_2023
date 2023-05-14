@@ -414,7 +414,17 @@ public class Controlo {
         int tamanho = Insercao.get_valor("o tamanho do calçado", supplier_Int);
         String cor = Insercao.get_valor("a cor", supplier_String);
         boolean atacadores = Insercao.get_tipo("Tem atacadores", function_Boolean);
-        boolean premium = Insercao.get_tipo("É premium", function_Boolean);
+        List<Transportadora> transportes = model.getTransportadoras();
+        boolean expedicao_p = false;
+        for (Transportadora transporte : transportes) {
+            if (transporte.getNome().equals(transportadora)){
+                expedicao_p = transporte.isPremium();
+            }
+        }
+        boolean premium = false;
+        if (expedicao_p) {
+            premium = Insercao.get_tipo("É premium", function_Boolean);
+        }
         LocalDate data_lancamento = Insercao.get_valor("a data de lançamento (no formato aaaa-mm-dd)", supplier_LocalDate);
 
         boolean usado = Insercao.get_tipo("É usado", function_Boolean);
@@ -464,8 +474,17 @@ public class Controlo {
         double profundidade = Insercao.get_valor("a profundidade", supplier_Double);
         String material = Insercao.get_valor("o material", supplier_String);
         int ano_colecao = Insercao.get_valor("o ano da coleção", supplier_Int);
-        boolean premium = Insercao.get_tipo("É premium", function_Boolean);
-
+        List<Transportadora> transportes = model.getTransportadoras();
+        boolean expedicao_p = false;
+        for (Transportadora transporte : transportes) {
+            if (transporte.getNome().equals(transportadora)){
+            expedicao_p = transporte.isPremium();
+            }
+        }
+        boolean premium = false;
+        if (expedicao_p) {
+             premium = Insercao.get_tipo("É premium", function_Boolean);
+        }
         boolean usado = Insercao.get_tipo("É usado", function_Boolean);
 
         if(usado){
