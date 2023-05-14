@@ -955,7 +955,7 @@ public class Controlo {
 
     //Talvez tenha de adaptar para ler um caminho e não o nome do ficheiro
     public void recuperarEstado(){
-        String nomeFicheiro = Insercao.get_valor("o nome do ficheiro de onde pretende recuperar o estado", supplier_String);
+        String nomeFicheiro = Insercao.get_valor("o caminho (completo) do ficheiro onde pretende recuperar o estado", supplier_String);
         List<String> linhas = Recuperar.lerFicheiro(nomeFicheiro);
         String[] linhaPartida;
         Utilizador utilizador = null;
