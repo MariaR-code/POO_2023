@@ -734,6 +734,12 @@ public class Controlo {
         }
     }
 
+    /**
+     * Mostra o histórico de encomendas de um determinado comprador, identificado pelo seu código.
+     * Se não existirem encomendas para o comprador, mostra uma mensagem de aviso.
+     *
+     * @param cod O código do comprador.
+     */
     public void historico_encomendas(int cod) {
         if(!this.model.getEncomendas_pend().containsKey(cod) || this.model.getEncomendas_pend().isEmpty()){
             Menu.mostraMensagem("Ainda não existem encomendas.");
