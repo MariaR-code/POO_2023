@@ -886,9 +886,9 @@ public class Controlo {
                    nrArtigos+=1;
                 }
             }
-
              // o que era suposto dar
-            if (nrArtigos<2){
+            if (nrArtigos==0) {nrArtigos=0;}
+            else { if (nrArtigos<2){
                 Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() +":" +
                  transportadora.precoTransporte(transportadora.isPremium(),1,1) );
                 preco_trans += transportadora.precoTransporte(transportadora.isPremium(),1,1);
@@ -903,6 +903,7 @@ public class Controlo {
             }
             nrArtigos=0;
             }
+        }
         return preco_trans;
     }
 
