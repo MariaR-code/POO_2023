@@ -741,6 +741,7 @@ public class Controlo {
                 }
             }
             // TODO
+            /*
             if (nrArtigos<2){
                 Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":1");
                 preco_trans += 1;
@@ -752,22 +753,22 @@ public class Controlo {
                 preco_trans += 3.5;
              }
 
-            /* // o que era suposto dar
-            if (nrArtigos<2){
-                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() +":" +
-                 transportadora.preco_transporte(transportadora.isPremium(),1,1) );
-                preco_trans += transportadora.preco_transporte(transportadora.isPremium(),1,1);
-            } else if (nrArtigos<5) {
-                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":"+
-                transportadora.preco_transporte(transportadora.isPremium(), 2,1));
-                preco_trans += transportadora.preco_transporte(transportadora.isPremium(), 2,1);
-            } else {
-                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":"+
-                transportadora.preco_transporte(transportadora.isPremium(), 3.5,1));
-                preco_trans += transportadora.preco_transporte(transportadora.isPremium(), 3.5,1);
-            }
              */
 
+             // o que era suposto dar
+            if (nrArtigos<2){
+                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() +":" +
+                 transportadora.precoTransporte(transportadora.isPremium(),1,1) );
+                preco_trans += transportadora.precoTransporte(transportadora.isPremium(),1,1);
+            } else if (nrArtigos<5) {
+                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":"+
+                transportadora.precoTransporte(transportadora.isPremium(), 2,1));
+                preco_trans += transportadora.precoTransporte(transportadora.isPremium(), 2,1);
+            } else {
+                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":"+
+                transportadora.precoTransporte(transportadora.isPremium(), 3.5,1));
+                preco_trans += transportadora.precoTransporte(transportadora.isPremium(), 3.5,1);
+            }
             nrArtigos=0;
             }
         return preco_trans;

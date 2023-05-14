@@ -1,5 +1,7 @@
 package Trabalho.src.Modelo;
 
+import Trabalho.src.Vista.Menu;
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -155,19 +157,18 @@ public class Transportadora {
     * @param premium
     * @return double
     * */
-    public double preco_transporte(boolean premium, double valor_base, double margem_lucro){
-        ScriptEngineManager formula = new ScriptEngineManager();
-        ScriptEngine engine = formula.getEngineByName("nashorn");
+    public double precoTransporte(boolean premium, double valorBase, double margemLucro) {
+        String precoExpedicao = premium ? this.preco_expedicao_premium : this.preco_expedicao;
+        String formula = precoExpedicao.toLowerCase(Locale.ROOT);
+        formula = formula.replaceAll("valorbase", String.valueOf(valorBase));
+        formula = formula.replaceAll("margemlucro", String.valueOf(margemLucro));
+        formula = formula.replaceAll("imposto", String.valueOf(imposto));
+        Menu.mostraMensagem(formula);
         try {
-            engine.eval("ValorBase = " + String.valueOf(valor_base));
-            engine.eval("margemlucro = " + String.valueOf(margem_lucro));
-            engine.eval("Imposto = " + String.valueOf(imposto));
-
-            if(premium)
-                return (double) engine.eval(this.preco_expedicao_premium.toLowerCase(Locale.ROOT));
-            else
-                return (double) engine.eval(this.preco_expedicao.toLowerCase(Locale.ROOT));
-        }catch (ScriptException e){
+            ScriptEngineManager mgr = new ScriptEngineManager();
+            ScriptEngine engine = mgr.getEngineByName("JavaScript");
+            return (double) engine.eval(formula);
+        } catch (ScriptException e) {
             return -1;
         }
     }
