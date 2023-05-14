@@ -744,20 +744,6 @@ public class Controlo {
                    nrArtigos+=1;
                 }
             }
-            // TODO
-            /*
-            if (nrArtigos<2){
-                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":1");
-                preco_trans += 1;
-            } else if (nrArtigos<5) {
-                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":2");
-                preco_trans += 2;
-             } else {
-                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":3.5");
-                preco_trans += 3.5;
-             }
-
-             */
 
              // o que era suposto dar
             if (nrArtigos<2){

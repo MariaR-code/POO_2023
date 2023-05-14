@@ -163,6 +163,7 @@ public class Transportadora {
         formula = formula.replaceAll("valorbase", String.valueOf(valorBase));
         formula = formula.replaceAll("margemlucro", String.valueOf(margemLucro));
         formula = formula.replaceAll("imposto", String.valueOf(imposto));
+
         try {
             ScriptEngineManager mgr = new ScriptEngineManager();
             ScriptEngine engine = mgr.getEngineByName("JavaScript");
