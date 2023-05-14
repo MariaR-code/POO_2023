@@ -1,0 +1,29 @@
+Tshirt:mf,mf,mv,23.0,false,0,0,S,L,Riscas
+Mala:ff,vf,jfkf,21.0,true,2,1,S,12.0,3.0,21.0,vfdf,2012,false
+Utilizador:1,a@b.c,M,M,123456789,1,0.0,[],[]
+Utilizador:2,b@c.d,L,J,156236845,2,0.0,[],[]
+Utilizador:3,d@a.f,K,n,152364945,0,0.0,[],[]
+Transportadora:ad,false,
+3=Encomenda:PEQUENO,0.0,2023-05-11,PENDENTE,[Artigo:
+
+Descrição do artigo: fpo
+Marca: vf
+Código Alfanumérico: jfkf
+Preço Base: 21.0
+A transportadora utilizada por este artigo é: S
+Artigo usado
+Avaliação do Estado do artigo (valores entre 1(mau estado) e 3(bom estado) ): 2
+Númerod de donos: 1
+Dimensão da mala: 12.0x3.0x21.0
+Material: vfdf
+Ano da Coleção: 2012]
+2=mv
+2=jfkf
+Tshirt:lkm,lkmm,lkvnf,12.0,false,0,0,S,S,Palmeiras
+Tshirt:df,vf,3,32.0,false,0,0,S,M,Riscas
+Utilizador:1,a@b.c,M,Rua,123456789,2,0.
+Transportadora:S,ak,false
+Encomendas_Pendentes:1=PEQUENO,45.0,2023-05-12,PENDENTE,Tshirt:lkm,lkmm,lkvnf,12.0,false,0,0,S,S,Palmeiras,Tshirt:df,vf,3,32.0,false,0,0,S,M,Riscas
+Artigos_venda:1=3
+Artigos_vendidos:1=lkvnf
+Artigos_vendidos:1=3
