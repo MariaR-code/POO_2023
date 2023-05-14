@@ -1,0 +1,13 @@
+Tshirt£desc,ardidas,alfa,30.0,false,0,0,CTT,M,Liso
+Tshirt£é uma tshirt,tshirts,beta,100.0,false,0,0,FedEx,L,Liso
+Tshirt£preta,nike,1,50.0,false,0,0,CTT,S,Liso
+Tshirt£d,nsei,2,20.0,false,0,0,CTT,S,Liso
+Utilizador:1,a@a.a,Rui,Ali,123123123,2,0.0#FaturasVendedor&FaturasComprador
+Utilizador:2,b@b.b,Ana,aqui,123123999,2,0.0#FaturasVendedor&FaturasComprador
+Transportadora:CTT,(ValorBase+margemlucro)*1.23+5,false
+Transportadora:FedEx,ValorBase+margemlucro,false
+Encomendas_Pendentes:2=PEQUENO,202.0,2023-05-14,PENDENTE;Tshirt£desc,ardidas,alfa,30.0,false,0,0,CTT,M,Liso/Tshirt£é uma tshirt,tshirts,beta,100.0,false,0,0,FedEx,L,Liso/Tshirt£preta,nike,1,50.0,false,0,0,CTT,S,Liso/Tshirt£d,nsei,2,20.0,false,0,0,CTT,S,Liso
+Artigos_vendidos:1=alfa
+Artigos_vendidos:1=beta
+Artigos_vendidos:1=1
+Artigos_vendidos:1=2

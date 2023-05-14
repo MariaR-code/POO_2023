@@ -120,14 +120,14 @@ public class Mala extends Artigo {
     /**
      * Método de verificação de igualdade de dois objetos, sendo um deles da classe Mala
      * */
-    public boolean Equals(Object o){
+    public boolean equals(Object o){
         if(o==this)
             return true;
 
         if(o==null || o.getClass() != this.getClass())
             return false;
 
-        if(!super.Equals(o))
+        if(!super.equals(o))
             return false;
 
         Mala mala = (Mala) o;
@@ -158,7 +158,7 @@ public class Mala extends Artigo {
     public String umalinhaString(){
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Mala:");
+        sb.append("Mala£");
         sb.append(super.umalinhaString()).append(",");
         sb.append(this.altura).append(",");
         sb.append(this.comprimento).append(",");

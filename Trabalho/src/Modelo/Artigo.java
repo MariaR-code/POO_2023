@@ -174,7 +174,7 @@ public abstract class Artigo {
     /**
     * Método de verificação de igualdade de dois objetos, sendo um deles da classe Artigo
     * */
-    public boolean Equals(Object o){
+    public boolean equals(Object o){
         if(o==this)
             return true;
 

@@ -463,15 +463,21 @@ public class Controlo {
                 break;
 
             case 2:
-                this.historico_encomendas(cod);
+                this.artigos_a_venda(cod,true);
+                this.comprador(cod);
                 break;
 
             case 3:
-                this.devolucao(cod);
+                this.historico_encomendas(cod);
                 break;
 
             case 4:
-                this.run(); //???? Talvez algum que mostre os artigos que se encontram à venda
+                this.devolucao(cod);
+                this.comprador(cod);
+                break;
+
+            case 5:
+                this.run();
                 break;
         }
     }
@@ -500,7 +506,7 @@ public class Controlo {
 
     private void add_artigo_enc(int cod) {
         // Mostrar artigos à venda
-        this.artigos_a_venda();
+        this.artigos_a_venda(cod, true);
 
         // Selecionar o código alfa numérico do artigo que deseja
         String codalfa = Insercao.get_valor("o código alfa numérico do artigo que deseja", supplier_String);
@@ -538,17 +544,15 @@ public class Controlo {
                     encomendasPendentes.add(encomenda);
                 }
             }
-            encomenda.addArtigo(model.getArtigoByCodigo(codalfa)); // adicionar o artigo selecionado à encomenda
+            encomenda.addArtigo(this.model.getArtigoByCodigo(codalfa)); // adicionar o artigo selecionado à encomenda
             Map<Integer, List<Encomenda>> novoMap = new HashMap<>();
             novoMap.put(cod, encomendasPendentes);
             model.setEncomendas_pend(novoMap);
 
 
-            // Adicionar ao map artigos_vendidos // todo help
-            Map<Integer,List<String>> mapVendido = new HashMap<>();
-            mapVendido = model.getArtigos_vendidos();
-            List<String> artigosVendidos = new ArrayList<>();
-            artigosVendidos = model.getArtigos_vendidos().get(sellerID);
+            // Adicionar ao map artigos_vendidos
+            Map<Integer,List<String>> mapVendido = this.model.getArtigos_vendidos();
+            List<String> artigosVendidos = this.model.getArtigos_vendidos().get(sellerID);
             if (artigosVendidos != null) {
                 artigosVendidos.add(codalfa);
             } else {
@@ -558,11 +562,10 @@ public class Controlo {
             mapVendido.put(sellerID, artigosVendidos);
             model.setArtigos_vendidos(mapVendido);
 
-            // Remover o artigo selecionado do map artigos_venda  // todo help
-            Map<Integer, List<String>> mapParaVenda = new HashMap<>();
-            mapParaVenda = model.getArtigos_venda();
-            List<String> artigosParaVenda = new ArrayList<>();
-            artigosParaVenda = model.getArtigos_venda().get(sellerID);
+
+            // Remover o artigo selecionado do map artigos_venda
+            Map<Integer, List<String>> mapParaVenda = this.model.getArtigos_venda();
+            List<String> artigosParaVenda = this.model.getArtigos_venda().get(sellerID);
             artigosParaVenda.remove(codalfa);
             if (artigosParaVenda.isEmpty()) {
                 mapParaVenda.remove(sellerID);
@@ -574,7 +577,7 @@ public class Controlo {
             this.criarEncomenda(cod);
     }
 
-    public void artigos_a_venda() {
+    public void artigos_a_venda(int cod, boolean enc) {
         Menu.mostraMensagem("Artigos à venda:");
         List<String> artigosVenda = new ArrayList<>();
         for (List<String> strings : model.getArtigos_venda().values()) {
@@ -589,18 +592,24 @@ public class Controlo {
             }
         } else {
             Menu.mostraMensagem("Não tem artigos à venda.");
+            if(enc)
+                this.criarEncomenda(cod);
+            else this.comprador(cod);
         }
     }
 
     public void historico_encomendas(int cod) {
-        List<Encomenda> encomendas = model.getEncomendas_pend().get(cod);
+        if(!this.model.getEncomendas_pend().containsKey(cod) || this.model.getEncomendas_pend().isEmpty()){
+            Menu.mostraMensagem("Ainda não existem encomendas.");
+        }
+        List<Encomenda> encomendas = this.model.getEncomendas_pend().get(cod);
         if (encomendas != null) {
             for (Encomenda enc : encomendas) {
                 Menu.mostraMensagem(enc.toString());
             }
         } else { Menu.mostraMensagem("Ainda não existem encomendas.");
         }
-        comprador(cod);
+        this.comprador(cod);
     }
 
     public void finaliza_enc(int cod) {
@@ -638,7 +647,7 @@ public class Controlo {
             enc_pend.setDimensao(Encomenda.Dimensao.GRANDE);
         }
 
-        double preco_final = enc_pend.getPreco_final();
+        double preco_final = enc_pend.getPreco_final() +  preco_transporte(enc_pend);
         Menu.mostraMensagem("O preço final da encomenda são: " + preco_final + "€.");
 
         // Depois de mostrar o preço, deseja continuar?
@@ -710,7 +719,7 @@ public class Controlo {
                     // para encontrar todos os artigos vendidos pelo mesmo vendedor e calcular o preço total
                     for (Artigo art : enc_pend.getArtigos()) {
                         if (art.getCod_alfanr().equals(codalfa)) {
-                            preco_artigos += art.getPreco_base(); //todo: mudar quando Preco estiver operacional
+                            preco_artigos += art.preco();
                         }
                     }
 
@@ -724,6 +733,50 @@ public class Controlo {
         comprador(cod);
     }
 
+    public double preco_transporte(Encomenda encomenda){
+        List<Artigo> artigos = encomenda.getArtigos();
+        List<Transportadora> transportadoras = model.getTransportadoras();
+        int nrArtigos=0;
+        double preco_trans=0;
+        for (Transportadora transportadora : transportadoras) {
+            for (Artigo artigo : artigos) {
+               if (transportadora.getNome().equals(artigo.getTransportadora())){
+                   nrArtigos+=1;
+                }
+            }
+            // TODO
+            /*
+            if (nrArtigos<2){
+                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":1");
+                preco_trans += 1;
+            } else if (nrArtigos<5) {
+                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":2");
+                preco_trans += 2;
+             } else {
+                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":3.5");
+                preco_trans += 3.5;
+             }
+
+             */
+
+             // o que era suposto dar
+            if (nrArtigos<2){
+                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() +":" +
+                 transportadora.precoTransporte(transportadora.isPremium(),1,1) );
+                preco_trans += transportadora.precoTransporte(transportadora.isPremium(),1,1);
+            } else if (nrArtigos<5) {
+                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":"+
+                transportadora.precoTransporte(transportadora.isPremium(), 2,1));
+                preco_trans += transportadora.precoTransporte(transportadora.isPremium(), 2,1);
+            } else {
+                Menu.mostraMensagem("Custo do transporte dos artigos pela " + transportadora.getNome() + ":"+
+                transportadora.precoTransporte(transportadora.isPremium(), 3.5,1));
+                preco_trans += transportadora.precoTransporte(transportadora.isPremium(), 3.5,1);
+            }
+            nrArtigos=0;
+            }
+        return preco_trans;
+    }
 
 
     public void devolucao(int cod) {
@@ -731,7 +784,7 @@ public class Controlo {
         List<Encomenda> historico = model.getEncomendas_pend().get(cod);
         if (historico == null) {
             Menu.mostraMensagem("Não existem encomendas capazes de devolução.");
-            comprador(cod);
+            this.comprador(cod);
             return;
         }
 
@@ -759,7 +812,7 @@ public class Controlo {
         while (true) {
             escolha = Insercao.get_valor("um número válido correspondente à encomenda que deseja devolver", supplier_Int);
             if (escolha == 0) {
-                comprador(cod);
+                this.comprador(cod);
                 return;
             }
             else if (escolha > 0 && escolha <= enc_elegiveis.size()) {
@@ -770,26 +823,18 @@ public class Controlo {
             }
         }
 
-        // remover a encomenda do histórico encomendas_pend
-        Encomenda encomenda_devolvida = enc_elegiveis.get((escolha - 1));
-        Map<Integer, List<Encomenda>> map_enc_pend = model.getEncomendas_pend();
-        List<Encomenda> nova_lista_enc = map_enc_pend.get(cod);
-        nova_lista_enc.remove(encomenda_devolvida);
-        if (nova_lista_enc.isEmpty()) {
-            map_enc_pend.remove(cod);
-        } else {
-            map_enc_pend.put(cod, nova_lista_enc);
-        }
-        model.setEncomendas_pend(map_enc_pend);
 
-       /*
-// remove faturas vendedores
-        List<Artigo> artigos_devolucao = new ArrayList<>();
-        artigos_devolucao = encomenda_devolvida.getArtigos();
+        Encomenda encomenda_devolvida = enc_elegiveis.get((escolha - 1));
+
+        int indice = this.model.getIndice(encomenda_devolvida, cod);
+
+        this.model.getEncomendas_pend_semC().get(cod).remove(indice);
+
+        List<Artigo> artigos_devolucao = encomenda_devolvida.getArtigos();
         for (Artigo artigo : artigos_devolucao) {
             String codalfa = artigo.getCod_alfanr();
             int sellerID = -1;
-            for (Map.Entry<Integer, List<String>> entry : model.getArtigos_vendidos().entrySet()) {
+            for (Map.Entry<Integer, List<String>> entry : this.model.getArtigos_vendidos().entrySet()) {
                 int vendID = entry.getKey();
                 List<String> vendArtigos = entry.getValue();
 
@@ -797,39 +842,30 @@ public class Controlo {
                 // então o ID do vendedor é atribuído à variável sellerID e o loop é interrompido.
                 if (vendArtigos.contains(codalfa)) {
                     sellerID = vendID;
+                    break; // adicionado para interromper o loop quando encontrar o vendedor
                 }
             }
-            Utilizador vendedor = new Utilizador();
-            vendedor = model.getUtilizadores().get(sellerID);
-            List<Fatura> fatura_vendas = new ArrayList<>();
-            fatura_vendas = vendedor.getFaturaVendedor();
-            List<Fatura> faturasNovasV = new ArrayList<>();
-            faturasNovasV = vendedor.getFaturaVendedor();
-            for (Fatura faturaV : fatura_vendas) {
-                if (faturaV.getEnc().equals(encomenda_devolvida)) {
-                    faturasNovasV.remove(faturaV);
+            if (sellerID != -1) {
+                Utilizador vendedor = this.model.getUtilizadores().get(sellerID-1);
+                Iterator<Fatura> iterator = vendedor.getFaturaVendedor().iterator();
+
+                while(iterator.hasNext()){
+                    Fatura faturaV = iterator.next();
+                    if(faturaV.getEnc().equals(encomenda_devolvida))
+                        iterator.remove();
                 }
             }
-            vendedor.setFaturaVendedor(faturasNovasV);
         }
 
-
-        // remove fatura comprador
-        Utilizador comprador = new Utilizador();
-        comprador = model.getUtilizadores().get(cod);
-        List<Fatura> fatura_compras = new ArrayList<>();
-        fatura_compras = comprador.getFaturaComprador();
-        List<Fatura> faturasNovasC = new ArrayList<>();
-        faturasNovasC = comprador.getFaturaComprador();
-        for (Fatura faturaV : fatura_compras) {
-            if (faturaV.getEnc().equals(encomenda_devolvida)) {
-                faturasNovasC.remove(faturaV);
-            }
+        Utilizador comprador = this.model.getUtilizadores().get(cod-1);
+        Iterator<Fatura> iterator = comprador.getFaturaComprador().iterator();
+        while(iterator.hasNext()){
+            Fatura faturaC = iterator.next();
+            if(faturaC.getEnc().equals(encomenda_devolvida))
+                iterator.remove();
         }
-        comprador.setFaturaComprador(faturasNovasC);*/ // não cheguei a lado nenhum
 
         Menu.mostraMensagem("A encomenda foi devolvida com sucesso!");
-        comprador(cod);
     }
 
     public void salvaguardaEstado(){
@@ -961,6 +997,7 @@ public class Controlo {
         // Selecionar o código alfa numérico do artigo que deseja remover
         String codalfa = Insercao.get_valor("o código alfa numérico do artigo que deseja remover", supplier_String);
         // Iterar sobre o Map encomendas_pend e encontrar o ID do vendedor associado ao codalfa
+        /*
         int sellerID = -1;
         for (Map.Entry<Integer, List<Encomenda>> entry : model.getUltimaEncPend().getArtigos().entrySet()) {
             List<String> alfanr = entry.getValue();
@@ -998,6 +1035,8 @@ public class Controlo {
         }
         mapVenda.put(sellerID, artigosVenda);
         model.setArtigos_venda(mapVenda);
+
+         */
         Menu.mostraMensagem("Artigo removido da encomenda com sucesso.");
         this.criarEncomenda(cod);
     }

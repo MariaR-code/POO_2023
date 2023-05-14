@@ -108,13 +108,13 @@ public class Sapatilhas extends Artigo {
     /**
     * Método de verificação de igualdade de dois objetos, sendo um deles da classe Sapatilhas
     * */
-    public boolean Equals(Object o){
+    public boolean equals(Object o){
         if(o==this)
             return true;
         if(o==null || o.getClass() != this.getClass())
             return false;
 
-        if(!super.Equals(o))
+        if(!super.equals(o))
             return false;
 
         Sapatilhas s = (Sapatilhas) o;
@@ -147,7 +147,7 @@ public class Sapatilhas extends Artigo {
     public String umalinhaString(){
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Sapatilhas:");
+        sb.append("Sapatilhas£");
         sb.append(super.umalinhaString()).append(",");
         sb.append(this.tamanho).append(",");
         sb.append(this.atacadores).append(",");

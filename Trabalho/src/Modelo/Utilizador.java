@@ -266,7 +266,8 @@ public class Utilizador {
         sb.append("FaturasVendedor").append("&");
         for(Fatura fatura : this.faturaVendedor)
             sb.append(fatura.umalinhaString()).append("=");
-        //sb.deleteCharAt(sb.length() - 1);
+        sb.deleteCharAt(sb.length() - 1);
+        sb.append("&");
 
         sb.append("FaturasComprador").append("&");
         for(Fatura fatura : this.faturaComprador)

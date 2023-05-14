@@ -84,16 +84,19 @@ public class Tshirt extends Artigo {
     /**
     * Método de verificação de igualdade de dois objetos, sendo um deles da classe Tshirt
     * */
-    public boolean Equals(Object o){
+    public boolean equals(Object o){
         if(o == this)
             return true;
-        if(o==null || o.getClass() != this.getClass())
+        if(o==null || o.getClass() != this.getClass()){
             return false;
+        }
 
-        if(!super.equals(o))
+        if(!super.equals(o)) {
             return false;
+        }
 
         Tshirt tshirt = (Tshirt) o;
+
         return this.tamanho == tshirt.getTamanho() && this.padrao == tshirt.getPadrao();
     }
 
@@ -115,7 +118,7 @@ public class Tshirt extends Artigo {
     public String umalinhaString(){
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Tshirt:");
+        sb.append("Tshirt£");
         sb.append(super.umalinhaString()).append(",");
         sb.append(this.tamanho).append(",");
         sb.append(this.padrao);
