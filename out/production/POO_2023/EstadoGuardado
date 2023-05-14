@@ -1,0 +1,24 @@
+Tshirt£T-shirt preta,Adidas,cod1g0alf4,20.0,true,1,1,CTT,M,Riscas
+Sapatilhas£Sapatilhas brancas,Nike,alfa321,39.0,true,2,1,DHL,43,true,Brancas,2020-06-06,false
+Tshirt£Camisa,Zara,c0dig0,35.0,true,1,1,CTT,L,Palmeiras
+Tshirt£T-shirt Branca,H&M,cod123,20.0,false,0,0,CTT,L,Liso
+Sapatilhas£Salto alto,Gucci,C0D1G0,700.0,false,0,0,DHL Express,38,false,Verde e Vermelho,2016-09-09,true
+Mala£Mala de couro,Louis Vuitton,qwerty12346,1399.99,true,1,1,DHL Express,33.0,40.0,15.0,Couro,2020,true
+Tshirt£Vestido roxo,Zara,13579,45.0,true,2,2,CTT,S,Liso
+Sapatilhas£Sapatilhas,Adidas,alfaNr,59.99,true,3,3,UPS Portugal,38,true,Preto,2020-01-12,false
+Utilizador:1,ana@gmail.com,Ana Azevedo,Gualtar, Braga,123123123,2,0.0#FaturasVendedor&FaturasComprador
+Utilizador:2,vitor@gmail.com,Vitor Vieira,Albufeira, Faro,444555666,1,0.0#FaturasVendedor&FaturasComprador
+Utilizador:3,criscosta@outlook.com,Cristiano Costa,Cascais, Lisboa,997755331,0,0.0#FaturasVendedor&FaturasComprador
+Transportadora:CTT,(valorbase*0.9 + margemlucro)*(1+imposto),false
+Transportadora:DHL,(valorbase*3+margemlucro)*(1+imposto)-3,false
+Transportadora:DHL Express,(valorbase*6+margemlucro*2)*(1+imposto),true,(valorbase*10+margemlucro*6)*(1+imposto*2.5)
+Transportadora:UPS Portugal,valorbase+margemlucro+imposto,false
+Encomendas_Pendentes:3=PEQUENO,53.574444444444445,2023-05-14,PENDENTE;Sapatilhas£Sapatilhas,Adidas,alfaNr,59.99,true,3,3,UPS Portugal,38,true,Preto,2020-01-12,false
+Artigos_venda:1=C0D1G0
+Artigos_venda:1=qwerty12346
+Artigos_venda:1=13579
+Artigos_venda:2=cod1g0alf4
+Artigos_venda:2=alfa321
+Artigos_venda:2=c0dig0
+Artigos_venda:2=cod123
+Artigos_vendidos:1=alfaNr

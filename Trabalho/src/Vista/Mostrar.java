@@ -14,6 +14,8 @@ public class Mostrar {
      * Construtor da classe Mostrar
      * Tem como objetivo guardar tanto o nome como as diversas opções
      * dadas de um determinado menu
+     * @param nome É o nome que vai ser dado ao menu
+     * @param opcoes São as opções do menu
      * */
     public Mostrar(String nome, String[] opcoes){
         this.nome = nome;
@@ -44,7 +46,7 @@ public class Mostrar {
 
     /**
      * Método que lê o valor da opção escolhida pelo utilizador
-     * @return int
+     * @return int É a opção escolhida pelo utilizador
      */
     public int ler_opcao(){
         int op;
@@ -68,7 +70,7 @@ public class Mostrar {
 
     /**
      * Método que nos informar qual foi a última opção lida de um determinado utilizador
-     * @return int
+     * @return int É a opção escolhida pelo utilizador
      * */
     public int getOpcao(){
         return this.opcao;

@@ -12,6 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Recuperar {
+
+    /**
+     * Método que vai ler o ficheiro de texto
+     * @param nomeFicheiro É o caminho completo onde se encontra o ficheiro
+     * @return List<String> É a lista que contém todas as linhas do ficheiro
+     * */
     public static List<String> lerFicheiro(String nomeFicheiro){
         List<String> linhas = new ArrayList<>();
 
@@ -23,6 +29,11 @@ public class Recuperar {
         return linhas;
     }
 
+    /**
+     * Método que divide a linha nas suas variáveis e cria o Utilizador
+     * @param linha Linha onde estão as informações correspondentes ao Utilizador
+     * @return Utilizador Utilizador criada através das informações obtidas
+     * */
     public static Utilizador parseUtilizador(String linha){
         Fatura fatura = null;
 
@@ -52,6 +63,11 @@ public class Recuperar {
         return utilizador;
     }
 
+    /**
+     * Método que recebe uma String onde estão as variáveis da Fatura e adiciona essa fatura de vendedor ao utilizador
+     * @param varFatVend String onde estão as variáveis da Fatura
+     * @param utilizador Utilizador a quem corresponde a fatura
+     * */
     public static void parseFatVend(String varFatVend, Utilizador utilizador){
         Fatura fatura = null;
         String[] varfatV = varFatVend.split("=");
@@ -61,6 +77,11 @@ public class Recuperar {
         }
     }
 
+    /**
+     * Método que recebe uma String onde estão as variáveis da Fatura e adiciona essa fatura de comprador ao utilizador
+     * @param varFatVend String onde estão as variáveis da Fatura
+     * @param utilizador Utilizador a quem corresponde a fatura
+     * */
     public static void parseFatComp(String varFatVend, Utilizador utilizador){
         Fatura fatura = null;
         String[] varfatC = varFatVend.split("=");
@@ -70,6 +91,11 @@ public class Recuperar {
         }
     }
 
+    /**
+     * Método que divide a linha nas suas variáveis e cria a Fatura
+     * @param linha Linha onde estão as informações correspondentes à Fatura
+     * @return Fatura Fatura criada através das informações obtidas
+     * */
     public static Fatura parseFatura(String linha){
         Encomenda encomenda = null;
         String[] var = linha.split("§");
@@ -85,6 +111,11 @@ public class Recuperar {
         return new Fatura(encomenda, custo, nif);
     }
 
+    /**
+     * Método que divide a linha nas suas variáveis e cria a Transportadora
+     * @param linha Linha onde estão as informações correspondentes à Transportadora
+     * @return Transportadora Transportadora criada através das informações obtidas
+     * */
     public static Transportadora parseTransportadora(String linha){
         String[] var = linha.split(",");
         String nome = var[0];
@@ -99,6 +130,11 @@ public class Recuperar {
             return new Transportadora(nome, preco_expedicao);
     }
 
+    /**
+     * Método que divide a linha nas suas variáveis e cria as Sapatilhas
+     * @param linha Linha onde estão as informações correspondentes às Sapatilhas
+     * @return Sapatilhas Sapatilhas criada através das informações obtidas
+     * */
     public static Sapatilhas parseSapatilhas(String linha){
         String[] var = linha.split(",");
         Sapatilhas sapatilhas = null;
@@ -125,6 +161,11 @@ public class Recuperar {
         return sapatilhas;
     }
 
+    /**
+     * Método que divide a linha nas suas variáveis e cria a Mala
+     * @param linha Linha onde estão as informações correspondentes à Mala
+     * @return Mala Mala criada através das informações obtidas
+     * */
     public static Mala parseMala(String linha){
         String[] var = linha.split(",");
         Mala mala = null;
@@ -152,6 +193,11 @@ public class Recuperar {
         return mala;
     }
 
+    /**
+     * Método que divide a linha nas suas variáveis e cria a Tshirt
+     * @param linha Linha onde estão as informações correspondentes à Tshirt
+     * @return Tshirt Tshirt criada através das informações obtidas
+     * */
     public static Tshirt parseTshirt(String linha){
         String[] var = linha.split(",");
         Tshirt tshirt = null;
@@ -174,11 +220,21 @@ public class Recuperar {
         return tshirt;
     }
 
+    /**
+     * Método que divide a linha na chave do Map
+     * @param linha Linha onde estão as informações correspondentes à chave
+     * @return int Que é a chave
+     * */
     public static int parseChaves(String linha){
         int chave = Integer.parseInt(linha);
         return chave;
     }
 
+    /**
+     * Método que divide a linha nas suas variáveis e cria a Encomenda
+     * @param linha Linha onde estão as informações correspondentes à Encomenda
+     * @return Encomenda Encomenda criada através das informações obtidas
+     * */
     public static Encomenda parseEncomendas_PendenteValor(String linha){
         List<Artigo> lstArt = new ArrayList<>();
         Artigo art = null;
