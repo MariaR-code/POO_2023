@@ -908,21 +908,6 @@ public class Controlo {
                     this.model.addTransportadora(transportadora);
                     break;
 
-                case "Sapatilhas":
-                    artigo = Recuperar.parseSapatilhas(linhaPartida[1]);
-                    this.model.adicionaArtigo(artigo);
-                    break;
-
-                case "Mala":
-                    artigo = Recuperar.parseMala(linhaPartida[1]);
-                    this.model.adicionaArtigo(artigo);
-                    break;
-
-                case "Tshirt":
-                    artigo = Recuperar.parseTshirt(linhaPartida[1]);
-                    this.model.adicionaArtigo(artigo);
-                    break;
-
                 case "Encomendas_Pendentes":
                     String[] chave_valor = linhaPartida[1].split("=");
                     int chaveEP = Recuperar.parseChaves(chave_valor[0]);
@@ -941,10 +926,28 @@ public class Controlo {
                     int chaveAv = Recuperar.parseChaves(chave_valorAv[0]);
                     this.model.adicionaArtigoVendido(chaveAv, chave_valorAv[1]);
                     break;
+
+                default:
+                    String[] art = linhaPartida[0].split("£");
+
+                    switch (art[0]) {
+                        case "Sapatilhas":
+                            artigo = Recuperar.parseSapatilhas(art[1]);
+                            this.model.adicionaArtigo(artigo);
+                            break;
+
+                        case "Mala":
+                            artigo = Recuperar.parseMala(art[1]);
+                            this.model.adicionaArtigo(artigo);
+                            break;
+
+                        case "Tshirt":
+                            artigo = Recuperar.parseTshirt(art[1]);
+                            this.model.adicionaArtigo(artigo);
+                            break;
+                    }
             }
         }
-
-
         Menu.mostraMensagem("Estado recuperado com sucesso!");
     }
 
