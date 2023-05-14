@@ -340,7 +340,16 @@ public class Controlo {
     public void adicionaVestuario(int cod){
         Tshirt tshirt = null;
 
-        String cod_alfnr = Insercao.get_valor("o código alfanumérico", supplier_String);
+        String cod_alfnr = "";
+        while (cod_alfnr == "") {
+            cod_alfnr = Insercao.get_valor("um código alfanumérico válido", supplier_String);
+            for (Artigo artigo : model.getArtigos()) {
+                if (artigo.getCod_alfanr().equals(cod_alfnr)) {
+                    Menu.mostraMensagem("Já existe um artigo à venda com este código.");
+                    cod_alfnr = "";
+                }
+            }
+        }
         String marca = Insercao.get_valor("a marca", supplier_String);
         String descricao = Insercao.get_valor("a descrição", supplier_String);
         double preco_base = Insercao.get_valor("o preço base", supplier_Double);
@@ -377,7 +386,16 @@ public class Controlo {
     public void adicionaCalcado(int cod){
         Sapatilhas sapatilhas = null;
 
-        String cod_alfnr = Insercao.get_valor("o código alfanumérico", supplier_String);
+        String cod_alfnr = "";
+        while (cod_alfnr == "") {
+            cod_alfnr = Insercao.get_valor("um código alfanumérico válido", supplier_String);
+            for (Artigo artigo : model.getArtigos()) {
+                if (artigo.getCod_alfanr().equals(cod_alfnr)) {
+                    Menu.mostraMensagem("Já existe um artigo à venda com este código.");
+                    cod_alfnr = "";
+                }
+            }
+        }
         String marca = Insercao.get_valor("a marca", supplier_String);
         String descricao = Insercao.get_valor("a descrição", supplier_String);
         double preco_base = Insercao.get_valor("o preço base", supplier_Double);
@@ -416,7 +434,16 @@ public class Controlo {
     public void adicionaAcessorios(int cod){
         Mala mala = null;
 
-        String cod_alfnr = Insercao.get_valor("o código alfanumérico", supplier_String);
+        String cod_alfnr = "";
+        while (cod_alfnr == "") {
+            cod_alfnr = Insercao.get_valor("um código alfanumérico válido", supplier_String);
+            for (Artigo artigo : model.getArtigos()) {
+                if (artigo.getCod_alfanr().equals(cod_alfnr)) {
+                    Menu.mostraMensagem("Já existe um artigo à venda com este código.");
+                    cod_alfnr = "";
+                }
+            }
+        }
         String marca = Insercao.get_valor("a marca", supplier_String);
         String descricao = Insercao.get_valor("a descrição", supplier_String);
         double preco_base = Insercao.get_valor("o preço base", supplier_Double);
