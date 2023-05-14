@@ -6,14 +6,16 @@ Sapatilhas£Salto alto,Gucci,C0D1G0,700.0,false,0,0,DHL Express,38,false,Verde e
 Mala£Mala de couro,Louis Vuitton,qwerty12346,1399.99,true,1,1,DHL Express,33.0,40.0,15.0,Couro,2020,true
 Tshirt£Vestido roxo,Zara,13579,45.0,true,2,2,CTT,S,Liso
 Sapatilhas£Sapatilhas,Adidas,alfaNr,59.99,true,3,3,UPS Portugal,38,true,Preto,2020-01-12,false
-Utilizador:1,ana@gmail.com,Ana Azevedo,Gualtar, Braga,123123123,2,0.0#FaturasVendedor&FaturasComprador
-Utilizador:2,vitor@gmail.com,Vitor Vieira,Albufeira, Faro,444555666,1,0.0#FaturasVendedor&FaturasComprador
-Utilizador:3,criscosta@outlook.com,Cristiano Costa,Cascais, Lisboa,997755331,0,0.0#FaturasVendedor&FaturasComprador
+Tshirt£Camisola castanha,Primark,alf4Nr,8.5,true,3,3,DHL,M,Liso
+Utilizador:1,ana@gmail.com,Ana Azevedo,Gualtar,123123123,2,0.0#FaturasVendedor&Fatura§PEQUENO,53.574444444444445,2023-05-14,EXPEDIDA;Sapatilhas£Sapatilhas,Adidas,alfaNr,59.99,true,3,3,UPS Portugal,38,true,Preto,2020-01-12,false%0.0,123123123&FaturasComprador
+Utilizador:2,vitor@gmail.com,Vitor Vieira,Albufeira,444555666,1,0.0#FaturasVendedor&FaturasComprador
+Utilizador:3,criscosta@outlook.com,Cristiano Costa,Cascais,997755331,0,0.0#FaturasVendedor&FaturasComprador&Fatura§PEQUENO,53.574444444444445,2023-05-14,EXPEDIDA;Sapatilhas£Sapatilhas,Adidas,alfaNr,59.99,true,3,3,UPS Portugal,38,true,Preto,2020-01-12,false%0.0,997755331
 Transportadora:CTT,(valorbase*0.9 + margemlucro)*(1+imposto),false
 Transportadora:DHL,(valorbase*3+margemlucro)*(1+imposto)-3,false
 Transportadora:DHL Express,(valorbase*6+margemlucro*2)*(1+imposto),true,(valorbase*10+margemlucro*6)*(1+imposto*2.5)
 Transportadora:UPS Portugal,valorbase+margemlucro+imposto,false
-Encomendas_Pendentes:3=PEQUENO,53.574444444444445,2023-05-14,PENDENTE;Sapatilhas£Sapatilhas,Adidas,alfaNr,59.99,true,3,3,UPS Portugal,38,true,Preto,2020-01-12,false
+Encomendas_Pendentes:1=PEQUENO,8.75,2023-05-14,PENDENTE;Tshirt£Camisola castanha,Primark,alf4Nr,8.5,true,3,3,DHL,M,Liso
+Encomendas_Pendentes:3=PEQUENO,53.574444444444445,2023-05-14,EXPEDIDA;Sapatilhas£Sapatilhas,Adidas,alfaNr,59.99,true,3,3,UPS Portugal,38,true,Preto,2020-01-12,false
 Artigos_venda:1=C0D1G0
 Artigos_venda:1=qwerty12346
 Artigos_venda:1=13579
@@ -22,3 +24,4 @@ Artigos_venda:2=alfa321
 Artigos_venda:2=c0dig0
 Artigos_venda:2=cod123
 Artigos_vendidos:1=alfaNr
+Artigos_vendidos:2=alf4Nr
