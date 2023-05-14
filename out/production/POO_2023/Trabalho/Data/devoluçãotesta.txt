@@ -1,0 +1,12 @@
+Tshirt£kj,kjcd,lal,12.0,false,0,0,S,S,Liso
+Sapatilhas£jn,kjb,lj,21.0,false,0,0,S,38,true,Amarelo,2021-05-12,true
+Utilizador:1,a@b.c,Maria,Rua,123456789,2,0.0#FaturasVendedor&FaturasComprador
+Transportadora:S,lalal,false
+Artigos_vendidos:1=lj
+Artigos_vendidos:1=lal
+Tshirt£kj,kjcd,lal,12.0,false,0,0,S,S,Liso
+Sapatilhas£jn,kjb,lj,21.0,false,0,0,S,38,true,Amarelo,2021-05-12,true
+Utilizador:1,a@b.c,Maria,Rua,123456789,2,0.0#FaturasVendedor&FaturasComprador
+Transportadora:S,lalal,false
+Artigos_vendidos:1=lj
+Artigos_vendidos:1=lal
