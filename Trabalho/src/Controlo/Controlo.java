@@ -1115,7 +1115,6 @@ public class Controlo {
                     }
             }
         }
-        Menu.mostraMensagem("Estado recuperado com sucesso!");
     }
 
 
