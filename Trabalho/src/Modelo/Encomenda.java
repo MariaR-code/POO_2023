@@ -190,11 +190,26 @@ public class Encomenda {
         if(o == this) return true;
         if(o == null || o.getClass() != this.getClass()) return false;
         Encomenda e = (Encomenda) o;
-        return (this.artigos.equals(e.getArtigos()) && this.dimensao.equals(e.getDimensao()) &&
+        return (this.equalsArtigos(e.getArtigos()) && this.dimensao.equals(e.getDimensao()) &&
                 this.preco_final == (e.getPreco_final()) && this.data.equals(e.getData()) &&
                 this.estado.equals(e.getEstado()));
 
     }
+
+    public boolean equalsArtigos(List<Artigo> artigos){
+        List<Artigo> thisArtigos = this.getArtigos();
+        if (thisArtigos.size() != artigos.size()) {
+            return false;
+        }
+
+        for(int i = 0; i < thisArtigos.size(); i++){
+            if(!thisArtigos.get(i).equals(artigos.get(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     /**
      * Método toString que devolve a representação em String da Encomenda.

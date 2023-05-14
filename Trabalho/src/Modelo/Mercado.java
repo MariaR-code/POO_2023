@@ -63,6 +63,10 @@ public class Mercado {
         return copia;
     }
 
+    public Map<Integer, List<Encomenda>> getEncomendas_pend_semC(){
+        return this.encomendas_pend;
+    }
+
     public List<Transportadora> getTransportadoras() {
         return transportadoras.stream().map(Transportadora::clone).collect(Collectors.toList());
     }
@@ -109,6 +113,8 @@ public class Mercado {
 
 
     public void setEncomendas_pend(Map<Integer, List<Encomenda>> encomendas_pend) {
+        if(encomendas_pend.isEmpty())
+            this.encomendas_pend = new HashMap<>();
         for (Map.Entry<Integer, List<Encomenda>> entrada : encomendas_pend.entrySet()) {
             int chave = entrada.getKey();
             this.encomendas_pend.put(chave, entrada.getValue().stream().map(Encomenda::clone).collect(Collectors.toList()));
@@ -125,7 +131,7 @@ public class Mercado {
 
     public void setArtigos_venda(Map<Integer, List<String>> artigos_venda) {
         if(artigos_venda.isEmpty())
-            this.artigos_venda = artigos_venda;
+            this.artigos_venda = new HashMap<>();
         for (Map.Entry<Integer, List<String>> entrada : artigos_venda.entrySet()) {
             int chave = entrada.getKey();
             List<String> nova_lista = new ArrayList<>(entrada.getValue());
@@ -309,5 +315,15 @@ public class Mercado {
             return enc_pend;
         }
         return null;
+    }
+
+    public int getIndice(Encomenda encomenda, int cod){
+        for(Encomenda enc : this.encomendas_pend.get(cod)){
+            if(enc.equals(encomenda)) {
+                return this.encomendas_pend.get(cod).indexOf(enc);
+            }
+        }
+
+        return -1;
     }
 }

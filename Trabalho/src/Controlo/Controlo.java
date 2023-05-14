@@ -473,6 +473,7 @@ public class Controlo {
 
             case 4:
                 this.devolucao(cod);
+                this.comprador(cod);
                 break;
 
             case 5:
@@ -598,14 +599,17 @@ public class Controlo {
     }
 
     public void historico_encomendas(int cod) {
-        List<Encomenda> encomendas = model.getEncomendas_pend().get(cod);
+        if(!this.model.getEncomendas_pend().containsKey(cod) || this.model.getEncomendas_pend().isEmpty()){
+            Menu.mostraMensagem("Ainda não existem encomendas.");
+        }
+        List<Encomenda> encomendas = this.model.getEncomendas_pend().get(cod);
         if (encomendas != null) {
             for (Encomenda enc : encomendas) {
                 Menu.mostraMensagem(enc.toString());
             }
         } else { Menu.mostraMensagem("Ainda não existem encomendas.");
         }
-        comprador(cod);
+        this.comprador(cod);
     }
 
     public void finaliza_enc(int cod) {
@@ -779,7 +783,7 @@ public class Controlo {
         List<Encomenda> historico = model.getEncomendas_pend().get(cod);
         if (historico == null) {
             Menu.mostraMensagem("Não existem encomendas capazes de devolução.");
-            comprador(cod);
+            this.comprador(cod);
             return;
         }
 
@@ -807,7 +811,7 @@ public class Controlo {
         while (true) {
             escolha = Insercao.get_valor("um número válido correspondente à encomenda que deseja devolver", supplier_Int);
             if (escolha == 0) {
-                comprador(cod);
+                this.comprador(cod);
                 return;
             }
             else if (escolha > 0 && escolha <= enc_elegiveis.size()) {
@@ -818,25 +822,18 @@ public class Controlo {
             }
         }
 
-        // todo remover a encomenda do encomendas_pend
-        Encomenda encomenda_devolvida = enc_elegiveis.get((escolha - 1));
-        Map<Integer, List<Encomenda>> map_enc_pend = model.getEncomendas_pend();
-        List<Encomenda> nova_lista_enc = map_enc_pend.get(cod);
-        nova_lista_enc.remove(encomenda_devolvida);
-        if (nova_lista_enc.isEmpty()) {
-            map_enc_pend.remove(cod);
-        } else {
-            map_enc_pend.put(cod, nova_lista_enc);
-        }
-        model.setEncomendas_pend(map_enc_pend);
 
-        // todo remover fatura de venda, para cada vendedor de 1 artigo na encomenda
-        List<Artigo> artigos_devolucao = new ArrayList<>();
-        artigos_devolucao = encomenda_devolvida.getArtigos();
+        Encomenda encomenda_devolvida = enc_elegiveis.get((escolha - 1));
+
+        int indice = this.model.getIndice(encomenda_devolvida, cod);
+
+        this.model.getEncomendas_pend_semC().get(cod).remove(indice);
+
+        List<Artigo> artigos_devolucao = encomenda_devolvida.getArtigos();
         for (Artigo artigo : artigos_devolucao) {
             String codalfa = artigo.getCod_alfanr();
             int sellerID = -1;
-            for (Map.Entry<Integer, List<String>> entry : model.getArtigos_vendidos().entrySet()) {
+            for (Map.Entry<Integer, List<String>> entry : this.model.getArtigos_vendidos().entrySet()) {
                 int vendID = entry.getKey();
                 List<String> vendArtigos = entry.getValue();
 
@@ -848,27 +845,26 @@ public class Controlo {
                 }
             }
             if (sellerID != -1) {
-                Utilizador vendedor = model.getUtilizadores().get(sellerID-1);
-                List<Fatura> fatura_vendas = vendedor.getFaturaVendedor();
-                for (Fatura faturaV : fatura_vendas) {
-                    if (faturaV.getEnc().equals(encomenda_devolvida)) {
-                        vendedor.removeFaturaVendedor(faturaV);
-                    }
+                Utilizador vendedor = this.model.getUtilizadores().get(sellerID-1);
+                Iterator<Fatura> iterator = vendedor.getFaturaVendedor().iterator();
+
+                while(iterator.hasNext()){
+                    Fatura faturaV = iterator.next();
+                    if(faturaV.getEnc().equals(encomenda_devolvida))
+                        iterator.remove();
                 }
             }
         }
 
-        // todo remover fatura de compra
-        Utilizador comprador = model.getUtilizadores().get(cod-1);
-        List<Fatura> fatura_compras = new ArrayList<>(comprador.getFaturaComprador());;
-        for (Fatura faturaC : fatura_compras) {
-            if (faturaC.getEnc().equals(encomenda_devolvida)) {
-                comprador.removeFaturaComprador(faturaC);
-            }
+        Utilizador comprador = this.model.getUtilizadores().get(cod-1);
+        Iterator<Fatura> iterator = comprador.getFaturaComprador().iterator();
+        while(iterator.hasNext()){
+            Fatura faturaC = iterator.next();
+            if(faturaC.getEnc().equals(encomenda_devolvida))
+                iterator.remove();
         }
 
         Menu.mostraMensagem("A encomenda foi devolvida com sucesso!");
-        comprador(cod);
     }
 
     public void salvaguardaEstado(){

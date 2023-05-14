@@ -1,9 +1,0 @@
-Tshirt£blabla,HandM,lalala,12.0,true,2,1,S,S,Palmeiras
-Sapatilhas£oixs,ms,seila,21.0,false,0,0,S,38,true,Rosa,2021-05-14,true
-Mala£k ,lk,lala,11.0,false,0,0,S,1.0,2.0,3.0,ma,2015,false
-Utilizador:1,a@b.c,Maria,Rua,123456789,2,0.0#FaturasVendedor&Fatura§MEDIO,17.75,2023-05-14,EXPEDIDA;Mala£k ,lk,lala,11.0,false,0,0,S,1.0,2.0,3.0,ma,2015,false/Tshirt£blabla,HandM,lalala,12.0,true,2,1,S,S,Palmeiras%0.0,123456789=Fatura§MEDIO,17.75,2023-05-14,EXPEDIDA;Mala£k ,lk,lala,11.0,false,0,0,S,1.0,2.0,3.0,ma,2015,false/Tshirt£blabla,HandM,lalala,12.0,true,2,1,S,S,Palmeiras%0.0,123456789&FaturasComprador&Fatura§MEDIO,17.75,2023-05-14,EXPEDIDA;Mala£k ,lk,lala,11.0,false,0,0,S,1.0,2.0,3.0,ma,2015,false/Tshirt£blabla,HandM,lalala,12.0,true,2,1,S,S,Palmeiras%0.0,123456789
-Transportadora:S,hjvshb,false
-Encomendas_Pendentes:1=MEDIO,17.75,2023-05-14,EXPEDIDA;Mala£k ,lk,lala,11.0,false,0,0,S,1.0,2.0,3.0,ma,2015,false/Tshirt£blabla,HandM,lalala,12.0,true,2,1,S,S,Palmeiras
-Artigos_venda:1=seila
-Artigos_vendidos:1=lala
-Artigos_vendidos:1=lalala

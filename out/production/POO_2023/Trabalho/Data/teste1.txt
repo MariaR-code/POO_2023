@@ -1,7 +1,0 @@
-Tshirt£sks,lns,lal,12.0,false,0,0,S,S,Liso
-Utilizador:1,a@b.c,Maria,Rua,123456789,2,0.0#FaturasVendedor&Fatura§MEDIO,25.0,2023-05-14,EXPEDIDA;Tshirt£sks,lns,lal,12.0,false,0,0,S,S,Liso/Tshirt£sks,lns,lal,12.0,false,0,0,S,S,Liso%0.0,123456789=Fatura§MEDIO,25.0,2023-05-14,EXPEDIDA;Tshirt£sks,lns,lal,12.0,false,0,0,S,S,Liso/Tshirt£sks,lns,lal,12.0,false,0,0,S,S,Liso%0.0,123456789&FaturasComprador&Fatura§MEDIO,25.0,2023-05-14,EXPEDIDA;Tshirt£sks,lns,lal,12.0,false,0,0,S,S,Liso/Tshirt£sks,lns,lal,12.0,false,0,0,S,S,Liso%0.0,123456789
-Transportadora:S,nssx,false
-Encomendas_Pendentes:1=MEDIO,25.0,2023-05-14,EXPEDIDA;Tshirt£sks,lns,lal,12.0,false,0,0,S,S,Liso/Tshirt£sks,lns,lal,12.0,false,0,0,S,S,Liso
-Artigos_venda:1=lal
-Artigos_vendidos:1=lal
-Artigos_vendidos:1=lal

@@ -1,0 +1,5 @@
+Tshirt£lkvnd,lknvfd,jvnd,12.0,false,0,0,S,S,Riscas
+Utilizador:1,a@b.c,Maria,Rua,123456789,2,0.0#FaturasVendedor&Fatura§PEQUENO,12.5,2023-05-14,EXPEDIDA;Tshirt£lkvnd,lknvfd,jvnd,12.0,false,0,0,S,S,Riscas%0.0,123456789&FaturasComprador&Fatura§PEQUENO,12.5,2023-05-14,EXPEDIDA;Tshirt£lkvnd,lknvfd,jvnd,12.0,false,0,0,S,S,Riscas%0.0,123456789
+Transportadora:S,jhvfd,false
+Encomendas_Pendentes:1=PEQUENO,12.5,2023-05-14,EXPEDIDA;Tshirt£lkvnd,lknvfd,jvnd,12.0,false,0,0,S,S,Riscas
+Artigos_vendidos:1=jvnd
