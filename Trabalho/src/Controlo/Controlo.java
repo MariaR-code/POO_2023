@@ -463,14 +463,19 @@ public class Controlo {
                 break;
 
             case 2:
-                this.historico_encomendas(cod);
+                this.artigos_a_venda(cod,true);
+                this.comprador(cod);
                 break;
 
             case 3:
-                this.devolucao(cod);
+                this.historico_encomendas(cod);
                 break;
 
             case 4:
+                this.devolucao(cod);
+                break;
+
+            case 5:
                 this.run(); //???? Talvez algum que mostre os artigos que se encontram à venda
                 break;
         }
