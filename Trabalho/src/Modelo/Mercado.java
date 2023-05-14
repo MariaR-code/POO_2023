@@ -282,4 +282,17 @@ public class Mercado {
         return null; // not found
     }
 
+    /**
+     * Método getUltimaEncPend que obtém a última encomenda pendente do utilizador.
+     * @param cod , sendo este o código de utilizador associado à encomenda.
+     * @return a última encomenda pendente do utilizador.
+     */
+    public Encomenda getUltimaEncPend(int cod){
+        List<Encomenda> encomendas = encomendas_pend.get(cod);
+        if(encomendas != null && !encomendas.isEmpty()) {
+            int ultIndice = encomendas.size() - 1;
+            return encomendas.get(ultIndice);
+        }
+        return null;
+    }
 }

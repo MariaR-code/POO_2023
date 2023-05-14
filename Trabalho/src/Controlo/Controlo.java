@@ -832,15 +832,6 @@ public class Controlo {
         comprador(cod);
     }
 
-
-
-
-
-
-        public void criarArtigo(){
-
-    }
-
     public void salvaguardaEstado(){
         String caminhoFicheiro = Insercao.get_valor("o caminho (completo) pretendido para o ficheiro", supplier_String);
 
@@ -955,5 +946,16 @@ public class Controlo {
 
 
         Menu.mostraMensagem("Estado recuperado com sucesso!");
+    }
+
+    /**
+     * Método remove_artigo_enc que remove um artigo da encomenda.
+     * @param cod , sendo este o código de utilizador associado à encomenda.
+     */
+    public void remove_artigo_enc(int cod){
+        // Mostrar artigos na encomenda
+        this.model.getUltimaEncPend(cod).listarArtigosEnc();
+        // Selecionar o código alfa numérico do artigo que deseja
+
     }
 }
